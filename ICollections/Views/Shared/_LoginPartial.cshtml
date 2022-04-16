@@ -1,15 +1,36 @@
 @using Microsoft.AspNetCore.Identity
+@using ICollections.Data
 @inject SignInManager<User> SignInManager
 @inject UserManager<User> UserManager
+
+@{
+    var data = ViewBag.db as ApplicationDbContext;
+}
+
+
+@functions {
+
+    string GetUserFullName(ApplicationDbContext? db)
+    {
+        var user = db.Users.FirstOrDefault(u => u.Email == User.Identity!.Name);
+        return user.FirstName + " " + user.LastName;
+    }
+
+}
 
 <ul class="navbar-nav">
     @if (SignInManager.IsSignedIn(User))
     {
+        <ul class="navbar-nav flex-grow-2">
+            <li class="nav-item">
+                <a class="nav-link text-white">@GetUserFullName(data)</a>
+            </li>
+        </ul>
         <li class="nav-item">
             <form class="form-inline" asp-controller="Account" asp-action="Logout">
                 <button type="submit" class="nav-link btn btn-link text-white">Logout</button>
             </form>
-        </li>
+        </li>    
     }
     else
     {

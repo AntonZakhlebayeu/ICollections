@@ -1,3 +1,5 @@
+@inject ICollections.Data.ApplicationDbContext _context;
 @{
     Layout = "_Layout";
+    ViewBag.db = _context;
 }

@@ -19,4 +19,22 @@
         <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.3" />
     </ItemGroup>
 
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="wwwroot\js\Shared\bootstrap.bundle.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\js\Shared\bootstrap.bundle.js.map" />
+      <_ContentIncludedByDefault Remove="wwwroot\js\Shared\bootstrap.bundle.min.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\js\Shared\bootstrap.bundle.min.js.map" />
+      <_ContentIncludedByDefault Remove="wwwroot\js\Shared\bootstrap.esm.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\js\Shared\bootstrap.esm.js.map" />
+      <_ContentIncludedByDefault Remove="wwwroot\js\Shared\bootstrap.esm.min.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\js\Shared\bootstrap.esm.min.js.map" />
+      <_ContentIncludedByDefault Remove="wwwroot\js\Shared\bootstrap.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\js\Shared\bootstrap.js.map" />
+      <_ContentIncludedByDefault Remove="wwwroot\js\Shared\bootstrap.min.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\js\Shared\bootstrap.min.js.map" />
+      <_ContentIncludedByDefault Remove="wwwroot\js\Shared\change.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\js\Shared\ChangeTheme.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\js\Shared\script.js" />
+    </ItemGroup>
+
 </Project>
