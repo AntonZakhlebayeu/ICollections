@@ -11,5 +11,5 @@ public sealed class User : IdentityUser
     public int Age { get; set; }
     public DateTime RegisterDate { get; set; }
     public DateTime LastLoginDate { get; set; }
-    public string? Role { get; set; }
+    public IdentityRole? Role { get; set; }
 }

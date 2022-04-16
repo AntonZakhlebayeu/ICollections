@@ -3,6 +3,7 @@ using ICollections.Models;
 using ICollections.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace ICollections.Controllers;
 
@@ -30,7 +31,7 @@ public class AccountController : Controller
         {
             if (!ModelState.IsValid) return View(model);
 
-            var user = new User { Email = model.Email, Password = model.Password, FirstName = model.FirstName, LastName = model.LastName, NickName = model.NickName, Age = model.Age, UserName = model.Email, RegisterDate = DateTime.Now, LastLoginDate = DateTime.Now, Role = "User"};
+            var user = new User { Email = model.Email, Password = model.Password, FirstName = model.FirstName, LastName = model.LastName, NickName = model.NickName, Age = model.Age, UserName = model.Email, RegisterDate = DateTime.Now, LastLoginDate = DateTime.Now, Role = new IdentityRole("user")};
 
             var result = await _userManager.CreateAsync(user, model.Password);
             if (result.Succeeded)
