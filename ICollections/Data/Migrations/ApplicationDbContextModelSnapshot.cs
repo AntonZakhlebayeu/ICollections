@@ -15,7 +15,7 @@ namespace ICollections.Data.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "6.0.3");
+            modelBuilder.HasAnnotation("ProductVersion", "6.0.4");
 
             modelBuilder.Entity("ICollections.Models.User", b =>
                 {
@@ -78,6 +78,9 @@ namespace ICollections.Data.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("RegisterDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Role")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("SecurityStamp")

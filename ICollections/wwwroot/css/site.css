@@ -27,4 +27,9 @@ body {
 footer {
   font-family: "Comic Sans MS";
   background-color: #191c1f;
+  position:fixed;
+  left:0px;
+  bottom:0px;
+  height:45px;
+  width:100%;
 }

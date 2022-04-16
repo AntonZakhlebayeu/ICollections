@@ -30,7 +30,7 @@ public class AccountController : Controller
         {
             if (!ModelState.IsValid) return View(model);
 
-            var user = new User { Email = model.Email, Password = model.Password, FirstName = model.FirstName, LastName = model.LastName, NickName = model.NickName, Age = model.Age, UserName = model.Email, RegisterDate = DateTime.Now, LastLoginDate = DateTime.Now};
+            var user = new User { Email = model.Email, Password = model.Password, FirstName = model.FirstName, LastName = model.LastName, NickName = model.NickName, Age = model.Age, UserName = model.Email, RegisterDate = DateTime.Now, LastLoginDate = DateTime.Now, Role = "User"};
 
             var result = await _userManager.CreateAsync(user, model.Password);
             if (result.Succeeded)

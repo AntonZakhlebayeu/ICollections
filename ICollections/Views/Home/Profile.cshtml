@@ -1,19 +1,19 @@
-@page
-@model ICollections.Views.Home.Profile
+@model ICollections.Models.User
 
 @{
-    Layout = null;
+    ViewData["Title"] = "Profile Page";
 }
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <title></title>
-</head>
-<body>
-<div>
-    
+<div class="d-flex align-items-center">
+    <div class="row">
+        <div class="">     
+            <h3 class = "display-2 text-black">Your profile:</h3>      
+            <br/>
+            <h3 class="display-2 text-black">@Model.FirstName @Model.LastName</h3>
+            <h4>Nickname: @Model.NickName</h4>
+            <h4>Age: @Model.Age</h4>
+            <h5>Registration date: @Model.RegisterDate</h5>   
+            <h5>Your role: <b>@Model.Role</b></h5>
+        </div>
+    </div>
 </div>
-</body>
-</html>
