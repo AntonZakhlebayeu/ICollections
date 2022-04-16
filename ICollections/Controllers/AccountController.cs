@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using ICollections.Data;
+﻿using ICollections.Data;
 using ICollections.Models;
 using ICollections.ViewModels;
 using Microsoft.AspNetCore.Identity;
@@ -32,7 +31,7 @@ public class AccountController : Controller
             if (!ModelState.IsValid) return View(model);
 
             var user = new User { Email = model.Email, Password = model.Password, FirstName = model.FirstName, LastName = model.LastName, NickName = model.NickName, Age = model.Age, UserName = model.Email, RegisterDate = DateTime.Now, LastLoginDate = DateTime.Now};
-                
+
             var result = await _userManager.CreateAsync(user, model.Password);
             if (result.Succeeded)
             {
@@ -81,6 +80,7 @@ public class AccountController : Controller
         }
 
         [HttpPost]
+        [Route("/Account/Logout")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {
@@ -89,6 +89,6 @@ public class AccountController : Controller
             await _db.SaveChangesAsync();
             
             await _signInManager.SignOutAsync();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login", "Account");
         }
     }

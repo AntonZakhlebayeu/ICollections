@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using ICollections.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace ICollections.Controllers;
 
@@ -21,13 +22,22 @@ public class HomeController : Controller
     }
 
     [Authorize]
-    public IActionResult Index()
+    public async Task<ActionResult> Index()
     {
-        var user = _db.Users.FirstOrDefault(user => user.UserName == User.Identity!.Name);
-        
-        return View(user);
+        var user = _db.Users.FirstOrDefaultAsync(user => user.UserName == User.Identity!.Name);
+
+        return await Task.Run(() => View(user.Result));
+    }
+
+    public async Task<ActionResult> Profile()
+    {
+        var user = _db.Users.FirstOrDefaultAsync(user => user.UserName == User.Identity!.Name);
+
+        return await Task.Run(() => View(user.Result));
     }
     
+    
+
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {

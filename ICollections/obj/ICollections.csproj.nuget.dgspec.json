@@ -1,23 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\hanny\\RiderProjects\\ICollections\\ICollections\\ICollections.csproj": {}
+    "/Users/ihar/ITransition internship/ICollections/ICollections/ICollections.csproj": {}
   },
   "projects": {
-    "C:\\Users\\hanny\\RiderProjects\\ICollections\\ICollections\\ICollections.csproj": {
+    "/Users/ihar/ITransition internship/ICollections/ICollections/ICollections.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\hanny\\RiderProjects\\ICollections\\ICollections\\ICollections.csproj",
+        "projectUniqueName": "/Users/ihar/ITransition internship/ICollections/ICollections/ICollections.csproj",
         "projectName": "ICollections",
-        "projectPath": "C:\\Users\\hanny\\RiderProjects\\ICollections\\ICollections\\ICollections.csproj",
-        "packagesPath": "C:\\Users\\hanny\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\hanny\\RiderProjects\\ICollections\\ICollections\\obj\\",
+        "projectPath": "/Users/ihar/ITransition internship/ICollections/ICollections/ICollections.csproj",
+        "packagesPath": "/Users/ihar/.nuget/packages/",
+        "outputPath": "/Users/ihar/ITransition internship/ICollections/ICollections/obj/",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\hanny\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "/Users/ihar/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
@@ -53,6 +50,10 @@
               "target": "Package",
               "version": "[6.0.3, )"
             },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[6.0.4, )"
+            },
             "Microsoft.EntityFrameworkCore.Sqlite": {
               "target": "Package",
               "version": "[6.0.3, )"
@@ -60,6 +61,10 @@
             "Microsoft.EntityFrameworkCore.Tools": {
               "target": "Package",
               "version": "[6.0.3, )"
+            },
+            "System.Native": {
+              "target": "Package",
+              "version": "[1.0.0-rc4-004707, )"
             }
           },
           "imports": [
@@ -80,7 +85,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/6.0.202/RuntimeIdentifierGraph.json"
         }
       }
     }
