@@ -1,0 +1,2 @@
+# ICollections
+ITransition internship task.
