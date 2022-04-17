@@ -19,7 +19,8 @@ public class ApplicationDbContext : IdentityDbContext<User>
         var adminRole = new IdentityRole("admin");
         var userRole = new IdentityRole("user");
 
-        modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole[] { adminRole, userRole });
+        modelBuilder.Entity<IdentityRole>()
+            .HasData(new IdentityRole[] {adminRole, userRole});
 
         base.OnModelCreating(modelBuilder);
     }

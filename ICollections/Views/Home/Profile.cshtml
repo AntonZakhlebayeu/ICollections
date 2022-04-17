@@ -1,3 +1,5 @@
+@using ICollections.Data
+@using Microsoft.EntityFrameworkCore
 @model ICollections.Models.User
 
 @{
@@ -13,7 +15,7 @@
             <h4>Nickname: @Model.NickName</h4>
             <h4>Age: @Model.Age</h4>
             <h5>Registration date: @Model.RegisterDate</h5>   
-            <h5>Your role: <b>@Model.Role.Name</b></h5>
+            <h5>Your role: <b>@Model.Role</b></h5>
         </div>
     </div>
 </div>

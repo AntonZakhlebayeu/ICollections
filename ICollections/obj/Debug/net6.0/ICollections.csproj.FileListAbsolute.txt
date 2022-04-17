@@ -128,7 +128,6 @@ C:/Users/hanny/RiderProjects/ICollections/ICollections/obj/Debug/net6.0/ref/ICol
 /Users/ihar/ITransition internship/ICollections/ICollections/obj/Debug/net6.0/ref/ICollections.dll
 /Users/antonzahlebaev/ITransitionInternship/ICollections/ICollections/bin/Debug/net6.0/appsettings.Development.json
 /Users/antonzahlebaev/ITransitionInternship/ICollections/ICollections/bin/Debug/net6.0/appsettings.json
-/Users/antonzahlebaev/ITransitionInternship/ICollections/ICollections/bin/Debug/net6.0/app.db
 /Users/antonzahlebaev/ITransitionInternship/ICollections/ICollections/bin/Debug/net6.0/ICollections.staticwebassets.runtime.json
 /Users/antonzahlebaev/ITransitionInternship/ICollections/ICollections/bin/Debug/net6.0/ICollections
 /Users/antonzahlebaev/ITransitionInternship/ICollections/ICollections/bin/Debug/net6.0/ICollections.deps.json
@@ -246,3 +245,4 @@ C:/Users/hanny/RiderProjects/ICollections/ICollections/obj/Debug/net6.0/ref/ICol
 /Users/ihar/ITransition internship/ICollections/ICollections/bin/Debug/net6.0/runtimes/win/lib/netstandard2.0/System.Runtime.Caching.dll
 /Users/ihar/ITransition internship/ICollections/ICollections/bin/Debug/net6.0/runtimes/win/lib/netstandard2.0/System.Security.Cryptography.ProtectedData.dll
 /Users/ihar/ITransition internship/ICollections/ICollections/bin/Debug/net6.0/runtimes/win/lib/netcoreapp3.0/System.Windows.Extensions.dll
+/Users/antonzahlebaev/ITransitionInternship/ICollections/ICollections/bin/Debug/net6.0/app.db

@@ -1,20 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "/Users/ihar/ITransition internship/ICollections/ICollections/ICollections.csproj": {}
+    "/Users/antonzahlebaev/ITransitionInternship/ICollections/ICollections/ICollections.csproj": {}
   },
   "projects": {
-    "/Users/ihar/ITransition internship/ICollections/ICollections/ICollections.csproj": {
+    "/Users/antonzahlebaev/ITransitionInternship/ICollections/ICollections/ICollections.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/ihar/ITransition internship/ICollections/ICollections/ICollections.csproj",
+        "projectUniqueName": "/Users/antonzahlebaev/ITransitionInternship/ICollections/ICollections/ICollections.csproj",
         "projectName": "ICollections",
-        "projectPath": "/Users/ihar/ITransition internship/ICollections/ICollections/ICollections.csproj",
-        "packagesPath": "/Users/ihar/.nuget/packages/",
-        "outputPath": "/Users/ihar/ITransition internship/ICollections/ICollections/obj/",
+        "projectPath": "/Users/antonzahlebaev/ITransitionInternship/ICollections/ICollections/ICollections.csproj",
+        "packagesPath": "/Users/antonzahlebaev/.nuget/packages/",
+        "outputPath": "/Users/antonzahlebaev/ITransitionInternship/ICollections/ICollections/obj/",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "/Users/ihar/.nuget/NuGet/NuGet.Config"
+          "/Users/antonzahlebaev/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
@@ -49,6 +52,10 @@
             "Microsoft.AspNetCore.Identity.UI": {
               "target": "Package",
               "version": "[6.0.3, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[6.0.4, )"
             },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
@@ -85,7 +92,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/6.0.202/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/6.0.201/RuntimeIdentifierGraph.json"
         }
       }
     }

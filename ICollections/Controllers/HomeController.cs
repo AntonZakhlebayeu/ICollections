@@ -33,8 +33,6 @@ public class HomeController : Controller
     {
         var user = _db.Users.FirstOrDefaultAsync(user => user.UserName == User.Identity!.Name);
 
-        User.IsInRole("user");
-
         return await Task.Run(() => View(user.Result));
     }
     

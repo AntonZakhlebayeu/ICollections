@@ -12,12 +12,14 @@ public class AccountController : Controller
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly ApplicationDbContext _db;
+        private readonly RoleManager<IdentityRole> _roleManager;
  
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, ApplicationDbContext dbContext)
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, ApplicationDbContext dbContext, RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _db = dbContext;
+            _roleManager = roleManager;
         }
         
         [HttpGet]
@@ -31,7 +33,7 @@ public class AccountController : Controller
         {
             if (!ModelState.IsValid) return View(model);
 
-            var user = new User { Email = model.Email, Password = model.Password, FirstName = model.FirstName, LastName = model.LastName, NickName = model.NickName, Age = model.Age, UserName = model.Email, RegisterDate = DateTime.Now, LastLoginDate = DateTime.Now, Role = new IdentityRole("user")};
+            var user = new User { Email = model.Email, Password = model.Password, FirstName = model.FirstName, LastName = model.LastName, NickName = model.NickName, Age = model.Age, UserName = model.Email, RegisterDate = DateTime.Now, LastLoginDate = DateTime.Now, Role = _db.Roles.FirstOrDefaultAsync(r => r.Name == "user").Result!.Name};
 
             var result = await _userManager.CreateAsync(user, model.Password);
             if (result.Succeeded)
