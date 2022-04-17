@@ -35,5 +35,7 @@ namespace ICollections.ViewModels
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
         public string? PasswordConfirm { get; init; }
+        
+        public string? Role { get; set; }
     }
 }

@@ -5,9 +5,6 @@ using Microsoft.EntityFrameworkCore;
 using ICollections.Data;
 using ICollections.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.Extensions.Options;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.AspNetCore.SignalR;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -68,8 +65,15 @@ app.UseCors();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}",
-    "{controller=Account}/{action=Index}/{id?}");
+    "{controller=Account}/{action=Login}/{id?}");
 app.MapRazorPages();
 
+    /*
+    using (var scope = app.Services.CreateScope())
+    {
+        var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+        db.Database.Migrate();
+    }
+    */
 
 app.Run();

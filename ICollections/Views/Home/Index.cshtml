@@ -1,13 +1,24 @@
 ﻿@model ICollections.Models.User
 
-@{
-    ViewData["Title"] = "Home Page";
+<div class="text-center">
+    <h1 class="display-4 lng-WelcomeText">Welcome to ICollections!</h1>
+</div>
+
+@if(!User.Identity!.IsAuthenticated)
+{
+    <div class="text-center">
+        <h3 class="lng-TextInUnregisteredIndex"><b>Register or Login to post your own collections or write comments.</b></h3>
+        <img src="https://i.ibb.co/h2sF85h/main-logo.png" alt="Chat Logo" style="width: 100%;height: 100%;object-fit: cover;">
+    </div>
 }
 
-<div class="d-flex align-items-center">
-    <div class="row">
-        <div class="">
-            
-        </div>
-    </div>
-</div>
+<script src="/js/ChangeLanguage.js"></script>
+
+<script>
+    if (getCurrentLanguage() === "en")
+         var pageTitle = "Home Page - ICollections"
+     else
+         var pageTitle = "Домашняя страница - ICollections"
+         
+      document.querySelector('title').innerHTML = pageTitle;
+</script>

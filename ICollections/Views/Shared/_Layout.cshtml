@@ -41,25 +41,29 @@
             <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                 <ul class="navbar-nav flex-grow-1">
                     <li class="nav-item">
-                        <a class="nav-link text-white" asp-controller="Home" asp-action="Index">Home</a>
+                        <a class="nav-link text-white lng-HomeLayout" asp-controller="Home" asp-action="Index">Home</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav">
+                    <select class="form-select nav-color" data-lng="en" id="lang-select">
+                        <option value  = "en" selected="">EN </option> 
+                        <option value = "ru">RU</option>
+                    </select>
                     @if (SignInManager.IsSignedIn(User))
                     {
                         <div class="dropdown show" style="position: relative">
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 @GetUserFullName(data)
-                              </button>
-                
+                            </button>
+
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                
+
                                 <form class="form-inline dropdown-item" asp-controller="Home" asp-action="Profile">
-                                    <button type="submit" class="nav-link btn btn-link text-dark">Profile</button>
+                                    <button type="submit" class="nav-link btn btn-link text-dark lng-ProfileDropDown">Profile</button>
                                 </form>
 
                                 <form class="form-inline dropdown-item" asp-controller="Account" asp-action="Logout">
-                                    <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+                                    <button type="submit" class="nav-link btn btn-link text-dark lng-LogoutDropDown">Logout</button>
                                 </form>
                             </div>
                         </div>
@@ -67,7 +71,10 @@
                     else
                     {
                         <li class="nav-item">
-                            <a class="nav-link text-white" asp-controller="Account" asp-action="Register">Register</a>
+                            <a class="nav-link text-white lng-RegisterLayout" asp-controller="Account" asp-action="Register">Register</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white lng-LoginLayout" asp-controller="Account" asp-action="Login">Login</a>
                         </li>
                     }
                 </ul>
@@ -93,6 +100,5 @@
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-
 
 

@@ -12,4 +12,5 @@ public sealed class User : IdentityUser
     public DateTime RegisterDate { get; set; }
     public DateTime LastLoginDate { get; set; }
     public string? Role { get; set; }
+    public string? Status { get; set; }
 }

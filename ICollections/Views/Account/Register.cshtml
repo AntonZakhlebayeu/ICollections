@@ -1,55 +1,71 @@
 ﻿@model ICollections.ViewModels.RegisterViewModel
 
-@{
-    ViewData["Title"] = "Register Page";
-}
-
-<h2>New User Registration</h2>
+<h2 class = "lng-NewUserRegistration">New User Registration</h2>
 <form method="post" asp-controller="Account" asp-action="Register">
     <div asp-validation-summary="ModelOnly"></div>
     <div>
-        <label asp-for="Email"></label><br />
+        <label asp-for="Email" class="lng-EnterEmailLogin"></label><br />
         <input asp-for="Email" class="form-control" placeholder="example@example.com"/>
         <span asp-validation-for="Email"></span>
     </div>
     <br/>
     <div>
-        <label asp-for="FirstName"></label><br />
-        <input asp-for="FirstName" class="form-control" placeholder="Enter First Name"/>
+        <label asp-for="FirstName" class="lng-FirstNameRegister"></label><br />
+        <input asp-for="FirstName" class="form-control"/>
         <span asp-validation-for="FirstName"></span>
     </div>
     <br/>
     <div>
-        <label asp-for="LastName"></label><br />
-        <input asp-for="LastName" class="form-control" placeholder="Enter Last Name"/>
+        <label asp-for="LastName" class="lng-LastNameRegister"></label><br />
+        <input asp-for="LastName" class="form-control"/>
         <span asp-validation-for="LastName"></span>
     </div>
     <br/>
     <div>
-            <label asp-for="NickName"></label><br />
-            <input asp-for="NickName" class="form-control" placeholder="Enter your NickName"/>
-            <span asp-validation-for="NickName"></span>
-        </div>
+        <label asp-for="NickName" class="lng-NickNameRegister"></label><br />
+        <input asp-for="NickName" class="form-control"/>
+        <span asp-validation-for="NickName"></span>
+    </div>
     <br/>
     <div>
-        <label asp-for="Age"></label><br />
+        <label asp-for="Age" class="lng-AgeRegister"></label><br />
         <input asp-for="Age" class="form-control" placeholder="33"/>
         <span asp-validation-for="Age"></span>
     </div>
     <br/>
     <div>
-        <label asp-for="Password"></label><br />
+        <label asp-for="Password" class="lng-EnterPasswordLogin"></label><br />
         <input asp-for="Password" class="form-control" placeholder="********"/>
         <span asp-validation-for="Password"></span>
     </div>
     <br/>
     <div>
-        <label asp-for="PasswordConfirm"></label><br />
+        <label asp-for="PasswordConfirm" class="lng-ConfirmPasswordRegister"></label><br />
         <input asp-for="PasswordConfirm" class="form-control" placeholder="********"/>
         <span asp-validation-for="PasswordConfirm"></span>
     </div>
     <br/>
+    
+    <div>
+        @Html.RadioButton("Role", "user", true)
+        <span>user</span> <br />
+        @Html.RadioButton("Role", "admin" )
+        <span>admin</span> <br />
+    </div>
+
+    <br/>
     <div class="form-group">
-        <input type="submit" value="Registration" class="btn btn-outline-dark" />
+        <button type="submit" class="btn btn-outline-dark lng-RegisterButton">Register!</button>
     </div>
 </form>
+
+<script src="/js/ChangeLanguage.js"></script>
+
+<script>
+    if (getCurrentLanguage() === "en")
+         var pageTitle = "Register Page - ICollections"
+     else
+         var pageTitle = "Регистрация - ICollections"
+         
+      document.querySelector('title').innerHTML = pageTitle;
+</script>

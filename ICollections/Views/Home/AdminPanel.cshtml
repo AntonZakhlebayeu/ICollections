@@ -1,0 +1,84 @@
+﻿@model IEnumerable<ICollections.Models.User>
+
+<script src="~/js/AdminOptions.js"></script>
+
+<div class="container block2">
+   
+    <div class="container">
+        <div style="display: flex;">
+            <form class="form-inline" asp-controller="Account" asp-action="Logout">
+                <button type="submit" class="btn btn-primary text-white lng-Logout">Logout</button>
+            </form>
+        </div>
+        <div style="display:flex;justify-content:center;align-items:center;">
+            <button type="button" onclick="deleteCheckedContacts()" class="btn btn-danger btn-lg btn-block lng-Delete">Delete</button>
+            <button type="button" onclick="blockCheckedContacts()" class="btn btn-dark btn-lg btn-block lng-Block">Block</button>
+            <button type="button" onclick="unblockCheckedContacts()" class="btn btn-dark btn-lg btn-block lng-Unblock">Unblock</button>
+        </div>
+        <table class="table table-hover table-responsive">
+            <thead>
+            <tr>
+            </tr>
+            <tr>
+                <th>Id</th>
+                <th class="col-md-3 col-xs-3 lng-FirstNameRegister">First Name</th>
+                <th class="col-md-3 col-xs-3 lng-LastNameRegister">Last Name</th>
+                <th class="col-md-3 col-xs-3 lng-EnterEmailLogin">E-mail</th>
+                <th class="col-md-3 col-xs-3 lng-NickNameRegister">Nickname</th>
+                <th class="col-md-3 col-xs-3 lng-ProfileRole">Role:</th>
+                <th class="col-md-3 col-xs-3 lng-ProfileRegistrationDate">Registration</th>
+                <th class="col-md-3 col-xs-3 lng-UserStatus">Status</th>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="" id="flexCheckIndeterminate">
+                  <label class="form-check-label" for="flexCheckIndeterminate">
+                      <b>Select all / Unselect all</b>
+                  </label>
+                </div>
+            </tr>
+            </thead>
+            <tbody>
+
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <th scope="row">@user.Id</th>
+                    <td>@user.FirstName</td>
+                    <td>@user.LastName</td>
+                    <td>@user.Email</td>
+                    <td>@user.NickName</td>
+                    <td>@user.Role</td>
+                    <td>@user.RegisterDate.ToString("d")</td>
+                    <td>@user.Status</td>
+                    <td><input class="user-checkbox" type="checkbox" name="@user.Id"></td>
+                </tr>
+            }
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+
+<script src="https://snipp.ru/cdn/jquery/2.1.1/jquery.min.js"></script>
+<script>$('#flexCheckIndeterminate').click(function(event) {   
+            if(this.checked) {
+                $(':checkbox').each(function() {
+                    this.checked = true;                        
+                });
+            } else {
+                $(':checkbox').each(function() {
+                    this.checked = false;                       
+                });
+            }
+        }); </script>
+        
+<script src="/js/ChangeLanguage.js"></script>
+
+<script>
+    if (getCurrentLanguage() === "en")
+         var pageTitle = "Admin Page - ICollections"
+     else
+         var pageTitle = "Панель администратора - ICollections"
+         
+      document.querySelector('title').innerHTML = pageTitle;
+</script>

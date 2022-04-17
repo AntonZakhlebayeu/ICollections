@@ -2814,23 +2814,23 @@
     ]
   },
   "packageFolders": {
-    "/Users/antonzahlebaev/.nuget/packages/": {},
-    "/usr/local/share/dotnet/sdk/NuGetFallbackFolder": {}
+    "C:\\Users\\hanny\\.nuget\\packages\\": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/antonzahlebaev/ITransitionInternship/ICollections/ICollections/ICollections.csproj",
+      "projectUniqueName": "C:\\Users\\hanny\\RiderProjects\\ICollections\\ICollections\\ICollections.csproj",
       "projectName": "ICollections",
-      "projectPath": "/Users/antonzahlebaev/ITransitionInternship/ICollections/ICollections/ICollections.csproj",
-      "packagesPath": "/Users/antonzahlebaev/.nuget/packages/",
-      "outputPath": "/Users/antonzahlebaev/ITransitionInternship/ICollections/ICollections/obj/",
+      "projectPath": "C:\\Users\\hanny\\RiderProjects\\ICollections\\ICollections\\ICollections.csproj",
+      "packagesPath": "C:\\Users\\hanny\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\hanny\\RiderProjects\\ICollections\\ICollections\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "/Users/antonzahlebaev/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\hanny\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
@@ -2905,7 +2905,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/6.0.201/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
       }
     }
   }

@@ -1,6 +1,8 @@
-﻿using ICollections.Data;
+﻿using System.Xml;
+using ICollections.Data;
 using ICollections.Models;
 using ICollections.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -30,8 +32,10 @@ public class AccountController : Controller
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
             if (!ModelState.IsValid) return View(model);
+            
+            Console.WriteLine(model.Role);
 
-            var user = new User { Email = model.Email, Password = model.Password, FirstName = model.FirstName, LastName = model.LastName, NickName = model.NickName, Age = model.Age, UserName = model.Email, RegisterDate = DateTime.Now, LastLoginDate = DateTime.Now, Role = _db.Roles.FirstOrDefaultAsync(r => r.Name == "user").Result!.Name};
+            var user = new User { Email = model.Email, Password = model.Password, FirstName = model.FirstName, LastName = model.LastName, NickName = model.NickName, Age = model.Age, UserName = model.Email, RegisterDate = DateTime.Now, LastLoginDate = DateTime.Now, Role = model.Role, Status = "Active user"};
 
             var result = await _userManager.CreateAsync(user, model.Password);
             if (result.Succeeded)
@@ -54,12 +58,12 @@ public class AccountController : Controller
         {
             return View();
         }
- 
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
-            if (!ModelState.IsValid) return View(model);
+            if (!ModelState.IsValid || _db.Users.FirstOrDefaultAsync(u => u.Email == model.Email).Result!.Status != "Active user") return View(model);
 
             var result = 
                 await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
@@ -90,6 +94,6 @@ public class AccountController : Controller
             await _db.SaveChangesAsync();
             
             await _signInManager.SignOutAsync();
-            return RedirectToAction("Login", "Account");
+            return RedirectToAction("Index", "Home");
         }
     }

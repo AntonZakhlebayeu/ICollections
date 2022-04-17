@@ -1,42 +1,38 @@
 ﻿@model ICollections.ViewModels.LoginViewModel
 
-@{
-    ViewData["Title"] = "Welcome Page";
-}
-
-<div class="text-center">
-    <h1 class="display-4">Welcome to ICollections!</h1>
-</div>
-
-<h2>Log in! <h4><i>You don't have an account?</i> <a class = "text-black-50" asp-action="Register">Register!</a></h4></h2>
+<h2 class="lng-LogIn">Log in! <h4 class ="lng-notacc"><i>You don't have an account?</i> <a class = "text-black-50 lng-RegisterLoginPage" asp-controller="Account" asp-action="Register">Register!</a></h4></h2>
 
 <form asp-action="Login" asp-controller="Account" asp-anti-forgery="true">
     <div class="validation" asp-validation-summary="ModelOnly"></div>
     <div>
         <div class="form-group">
-            <label asp-for="Email">Enter email:</label>
-            <input type="text" class="form-control" asp-for="Email" />
+            <label class="lng-EnterEmailLogin" asp-for="Email">Enter email:</label>
+            <input type="text" class="form-control" asp-for="Email" placeholder="example@example.com"/>
             <span asp-validation-for="Email"></span>
         </div>
         <div class="form-group">
-            <label asp-for="Password">Enter password:</label>
-            <input asp-for="Password" class="form-control" />
+            <label class="lng-EnterPasswordLogin" asp-for="Password">Enter password:</label>
+            <input asp-for="Password" class="form-control" placeholder="********"/>
             <span asp-validation-for="Password"></span>
         </div>
         <div>
-            <label asp-for="RememberMe"></label>
+            <label class="lng-RememberMe" asp-for="RememberMe"></label>
             <input asp-for="RememberMe" />
         </div>
         <div class="form-group">
-            <input type="submit" value="Login" class="btn btn-outline-dark" />
+            <button type="submit" class="btn btn-outline-dark lng-InputLogin">Login</button>
         </div>
     </div>
 </form>
 
+<script src="/js/ChangeLanguage.js"></script>
 
-
-<div class="text-center">
-    <h3><b>Register or Login to post your own collections or write comments.</b></h3>
-    <img src="https://i.ibb.co/h2sF85h/main-logo.png" alt="Chat Logo" style="width: 100%;height: 100%;object-fit: cover;">
-</div>
+<script>
+    if (getCurrentLanguage() === "en")
+         var pageTitle = "Welcome Page - ICollections"
+     else
+         var pageTitle = "Добро пожаловать - ICollections"
+         
+      document.querySelector('title').innerHTML = pageTitle;
+</script>
 

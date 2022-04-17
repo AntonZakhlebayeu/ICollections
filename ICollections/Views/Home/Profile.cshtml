@@ -2,20 +2,34 @@
 @using Microsoft.EntityFrameworkCore
 @model ICollections.Models.User
 
-@{
-    ViewData["Title"] = "Profile Page";
-}
-
 <div class="d-flex align-items-center">
     <div class="row">
         <div class="">     
-            <h3 class = "display-2 text-black">Your profile:</h3>      
+            <h3 class = "display-2 text-black lng-ProfileText">Your profile:</h3>      
             <br/>
             <h3 class="display-2 text-black">@Model.FirstName @Model.LastName</h3>
-            <h4>Nickname: @Model.NickName</h4>
-            <h4>Age: @Model.Age</h4>
-            <h5>Registration date: @Model.RegisterDate</h5>   
-            <h5>Your role: <b>@Model.Role</b></h5>
+            <h4 class="lng-NickNameRegister">Nickname:</h4><h4>@Model.NickName</h4><br/>
+            <h4 class="lng-AgeRegister">Age:</h4><h4>@Model.Age</h4><br/>
+            <h5 class="lng-ProfileRegistrationDate">Registration date:</h5><h5>@Model.RegisterDate</h5><br/>   
+            <h5 class="lng-ProfileRole">Role:</h5><h5><b>@Model.Role</b></h5>
+            @if (@Model.Role == "admin")
+            {
+                <br/><br/>
+                <form class="form-inline" asp-controller="Home" asp-action="AdminPanel">
+                    <button type="submit" class="btn btn-danger text-dark lng-AdminPanel">Admin panel</button>
+                </form>
+            }
         </div>
     </div>
 </div>
+
+<script src="/js/ChangeLanguage.js"></script>
+
+<script>
+    if (getCurrentLanguage() === "en")
+         var pageTitle = "Profile Page - ICollections"
+     else
+         var pageTitle = "Профиль - ICollections"
+         
+      document.querySelector('title').innerHTML = pageTitle;
+</script>
