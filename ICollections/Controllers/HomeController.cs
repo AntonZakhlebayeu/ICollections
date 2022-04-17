@@ -40,10 +40,16 @@ public class HomeController : Controller
     [Authorize]
     public async Task<ActionResult> AdminPanel()
     {
-        if (_db.Users.First(u => User.Identity != null && u.Email == User.Identity.Name).Status != "Blocked User")
-            return await Task.Run(() => View(_db.Users));
-        else
+        try
+        {
+            if (_db.Users.First(u => u.Email == User.Identity!.Name && u.Role == "admin").Status != "Blocked User")
+                return await Task.Run(() => View(_db.Users));
+        }
+        catch(InvalidOperationException)
+        {
             return RedirectToAction("Index", "Home");
+        }
+        return RedirectToAction("Index", "Home");
     }
     
     public IActionResult Delete(int[] Ids)
@@ -52,7 +58,7 @@ public class HomeController : Controller
         if (IsUserInvalid(User.Identity?.Name))
             return RedirectToAction("Login", "Account");
 
-        foreach (int id in Ids)
+        foreach (var id in Ids)
         {
             var objectToDelete = _db.Users.Find(id);
             _db.Users.Remove(objectToDelete);
@@ -77,7 +83,7 @@ public class HomeController : Controller
         if (IsUserInvalid(User.Identity?.Name))
             return RedirectToAction("Login", "Account");
 
-        foreach (int id in Ids)
+        foreach (var id in Ids)
         {
             var objectToDelete = _db.Users.Find(id);
             _db.Users.Find(id)!.Status = "Blocked User";
