@@ -12,14 +12,12 @@ public class AccountController : Controller
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly ApplicationDbContext _db;
-        private readonly RoleManager<IdentityRole> _roleManager;
- 
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, ApplicationDbContext dbContext, RoleManager<IdentityRole> roleManager)
+
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, ApplicationDbContext dbContext)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _db = dbContext;
-            _roleManager = roleManager;
         }
         
         [HttpGet]
