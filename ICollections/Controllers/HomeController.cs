@@ -41,70 +41,60 @@ public class HomeController : Controller
     {
         var user = _db.Users.FirstOrDefaultAsync(u => u.Email == User.Identity!.Name).Result;
 
+        if (user == null)
+        {
+            //TODO
+            //Set null authenticate
+
+            return await Task.Run(() => RedirectToAction("Register", "Account"));
+        }
+
         if (user!.Role == "admin" && user!.Status != "Blocked User")
             return await Task.Run(() => View(_db.Users));
 
         return await Task.Run(() => RedirectToAction("Index", "Home"));
     }
     
-    public IActionResult Delete(int[] Ids)
+    [Authorize]
+    public async Task<IActionResult> Delete(string[] Ids)
     {
-
-        if (IsUserInvalid(User.Identity?.Name))
-            return RedirectToAction("Login", "Account");
-
         foreach (var id in Ids)
         {
-            var objectToDelete = _db.Users.Find(id);
-            _db.Users.Remove(objectToDelete);
+            var objectToDelete = _db.Users.FindAsync(id).Result;
+            _db.Users.Remove(objectToDelete!);
         }
 
-        _db.SaveChanges();
+        await _db.SaveChangesAsync();
 
-        return Redirect("~/");
-
+        return await Task.Run(() => Redirect("/Home/AdminPanel"));
     }
 
-    public bool IsUserInvalid(string? Email)
+    [Authorize]
+    public async Task<IActionResult> Block(string[] Ids)
     {
-        var user = _db.Users.First(u => u.Email == Email);
-
-        return user.Status != "Active User";
-    }
-
-    public IActionResult Block(int[] Ids)
-    {
-
-        if (IsUserInvalid(User.Identity?.Name))
-            return RedirectToAction("Login", "Account");
-
         foreach (var id in Ids)
         {
-            var objectToDelete = _db.Users.Find(id);
-            _db.Users.Find(id)!.Status = "Blocked User";
+            var objectToDelete = _db.Users.FindAsync(id).Result;
+            _db.Users.FindAsync(id)!.Result.Status = "Blocked User";
         }
 
-        _db.SaveChanges();
+        _db.SaveChangesAsync();
 
-        return Redirect("~/");
-
+        return await Task.Run(() => Redirect("/Home/AdminPanel"));
     }
 
-    public IActionResult Unblock(int[] Ids)
+    [Authorize]
+    public async Task<IActionResult> Unblock(string[] Ids)
     {
-
-        if (IsUserInvalid(User.Identity?.Name))
-            return RedirectToAction("Login", "Account");
-
         foreach (var id in Ids)
         {
-            var objectToDelete = _db.Users.Find(id);
-            _db.Users.Find(id)!.Status = "Active User";
+            var objectToDelete = _db.Users.FindAsync(id).Result;
+            _db.Users.FindAsync(id)!.Result.Status = "Active User";
         }
 
-        _db.SaveChanges();
+        _db.SaveChangesAsync();
 
-        return Redirect("~/");
+        return await Task.Run(() => Redirect("/Home/AdminPanel"));
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
