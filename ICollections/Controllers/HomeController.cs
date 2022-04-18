@@ -21,15 +21,18 @@ public class HomeController : Controller
     
     public async Task<ActionResult> Index()
     {
-        var user = _db.Users.FirstOrDefaultAsync(user => user.UserName == User.Identity!.Name);
-        
-        return await Task.Run(() => View(user.Result));
+        var user = _db.Users.FirstOrDefaultAsync(user => user.UserName == User.Identity!.Name && user.Status != "Blocked User").Result;
+
+        if (User.Identity!.IsAuthenticated && user == null)
+            return await Task.Run(() => RedirectToAction("Logout", "Account"));
+
+        return await Task.Run(() => View(user));
     }
     
     [Authorize]
     public async Task<ActionResult> Profile()
     {
-        var user = _db.Users.FirstOrDefaultAsync(user => user.UserName == User.Identity!.Name).Result;
+        var user = _db.Users.FirstOrDefaultAsync(user => user.UserName == User.Identity!.Name && user.Status != "Blocked User").Result;
         
         if (user == null)
             return await Task.Run(() => RedirectToAction("Register", "Account"));
@@ -43,9 +46,7 @@ public class HomeController : Controller
         var user = _db.Users.FirstOrDefaultAsync(u => u.Email == User.Identity!.Name).Result;
 
         if (user == null)
-        {
             return await Task.Run(() => RedirectToAction("Register", "Account"));
-        }
 
         if (user!.Role == "admin")
             return await Task.Run(() => View(_db.Users));

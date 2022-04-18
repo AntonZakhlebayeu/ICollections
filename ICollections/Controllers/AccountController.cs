@@ -86,10 +86,14 @@ public class AccountController : Controller
         [Route("/Account/Logout")]
         public async Task<IActionResult> Logout()
         {
-            var user = _db.Users.FirstOrDefault(u => u.UserName == User.Identity!.Name);
-            user!.LastLoginDate = DateTime.Now;
-            await _db.SaveChangesAsync();
-            
+            var user = _db.Users.FirstOrDefaultAsync(u => u.UserName == User.Identity!.Name).Result;
+
+            if (user != null)
+            {
+                user!.LastLoginDate = DateTime.Now;
+                await _db.SaveChangesAsync();
+            }
+
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
