@@ -14,7 +14,6 @@ public class ApplicationDbContext : IdentityDbContext<User>
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-
         var adminRole = new IdentityRole("admin");
         var userRole = new IdentityRole("user");
 

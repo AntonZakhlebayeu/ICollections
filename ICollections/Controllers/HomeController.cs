@@ -5,7 +5,6 @@ using ICollections.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration.UserSecrets;
 
 namespace ICollections.Controllers;
 
@@ -40,16 +39,12 @@ public class HomeController : Controller
     [Authorize]
     public async Task<ActionResult> AdminPanel()
     {
-        try
-        {
-            if (_db.Users.First(u => u.Email == User.Identity!.Name && u.Role == "admin").Status != "Blocked User")
-                return await Task.Run(() => View(_db.Users));
-        }
-        catch(InvalidOperationException)
-        {
-            return RedirectToAction("Index", "Home");
-        }
-        return RedirectToAction("Index", "Home");
+        var user = _db.Users.FirstOrDefaultAsync(u => u.Email == User.Identity!.Name).Result;
+
+        if (user!.Role == "admin" && user!.Status != "Blocked User")
+            return await Task.Run(() => View(_db.Users));
+
+        return await Task.Run(() => RedirectToAction("Index", "Home"));
     }
     
     public IActionResult Delete(int[] Ids)
