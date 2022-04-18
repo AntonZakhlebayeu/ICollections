@@ -1,8 +1,6 @@
-﻿using System.Xml;
-using ICollections.Data;
+﻿using ICollections.Data;
 using ICollections.Models;
 using ICollections.ViewModels;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;

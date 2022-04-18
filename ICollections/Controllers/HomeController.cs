@@ -10,17 +10,13 @@ namespace ICollections.Controllers;
 
 public class HomeController : Controller
 {
-    private readonly ILogger<HomeController> _logger;
     private readonly UserManager<User> _userManager;
     private readonly ApplicationDbContext _db;
-    private readonly SignInManager<User> _signInManager;
 
-    public HomeController(ILogger<HomeController> logger, UserManager<User> userManager, ApplicationDbContext context, SignInManager<User> signInManager)
+    public HomeController(UserManager<User> userManager, ApplicationDbContext context)
     {
-        _logger = logger;
         _userManager = userManager;
         _db = context;
-        _signInManager = signInManager;
     }
     
     public async Task<ActionResult> Index()
@@ -77,7 +73,7 @@ public class HomeController : Controller
             
             await _db.SaveChangesAsync();
 
-            if(objectToBlock.Email == User.Identity!.Name)
+            if(objectToBlock!.Email == User.Identity!.Name)
                 return await Task.Run(() => RedirectToAction("Logout", "Account"));
         }
 
