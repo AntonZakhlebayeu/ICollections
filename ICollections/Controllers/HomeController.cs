@@ -19,7 +19,7 @@ public class HomeController : Controller
         _db = context;
     }
     
-    public async Task<ActionResult> Index()
+    public async Task<IActionResult> Index()
     {
         var user = _db.Users.FirstOrDefaultAsync(user => user.UserName == User.Identity!.Name && user.Status != "Blocked User").Result;
 
@@ -30,7 +30,7 @@ public class HomeController : Controller
     }
     
     [Authorize]
-    public async Task<ActionResult> Profile()
+    public async Task<IActionResult> Profile()
     {
         var user = _db.Users.FirstOrDefaultAsync(user => user.UserName == User.Identity!.Name && user.Status != "Blocked User").Result;
         
@@ -41,7 +41,7 @@ public class HomeController : Controller
     }
     
     [Authorize]
-    public async Task<ActionResult> AdminPanel()
+    public async Task<IActionResult> AdminPanel()
     {
         var user = _db.Users.FirstOrDefaultAsync(u => u.Email == User.Identity!.Name).Result;
 
