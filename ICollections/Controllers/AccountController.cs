@@ -35,7 +35,7 @@ public class AccountController : Controller
             
             Console.WriteLine(model.Role);
 
-            var user = new User { Email = model.Email, Password = model.Password, FirstName = model.FirstName, LastName = model.LastName, NickName = model.NickName, Age = model.Age, UserName = model.Email, RegisterDate = DateTime.Now, LastLoginDate = DateTime.Now, Role = model.Role, Status = "Active user"};
+            var user = new User { Email = model.Email, Password = model.Password, FirstName = model.FirstName, LastName = model.LastName, NickName = model.NickName, Age = model.Age, UserName = model.Email, RegisterDate = DateTime.Now, LastLoginDate = DateTime.Now, Role = model.Role, Status = "Active User"};
 
             var result = await _userManager.CreateAsync(user, model.Password);
             if (result.Succeeded)
@@ -63,7 +63,7 @@ public class AccountController : Controller
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
-            if (!ModelState.IsValid || _db.Users.FirstOrDefaultAsync(u => u.Email == model.Email).Result!.Status != "Active user") return View(model);
+            if (!ModelState.IsValid || _db.Users.FirstOrDefaultAsync(u => u.Email == model.Email).Result!.Status != "Active User") return View(model);
 
             var result = 
                 await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
@@ -83,10 +83,9 @@ public class AccountController : Controller
 
             return View(model);
         }
-
-        [HttpPost]
+        
+        
         [Route("/Account/Logout")]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {
             var user = _db.Users.FirstOrDefault(u => u.UserName == User.Identity!.Name);

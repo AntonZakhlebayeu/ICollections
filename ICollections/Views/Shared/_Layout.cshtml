@@ -49,7 +49,7 @@
                         <option value  = "en" selected="">EN </option> 
                         <option value = "ru">RU</option>
                     </select>
-                    @if (SignInManager.IsSignedIn(User))
+                    @if (User.Identity!.IsAuthenticated && Model != null)
                     {
                         <div class="dropdown show" style="position: relative">
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

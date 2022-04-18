@@ -13,18 +13,20 @@ public class HomeController : Controller
     private readonly ILogger<HomeController> _logger;
     private readonly UserManager<User> _userManager;
     private readonly ApplicationDbContext _db;
+    private readonly SignInManager<User> _signInManager;
 
-    public HomeController(ILogger<HomeController> logger, UserManager<User> userManager, ApplicationDbContext context)
+    public HomeController(ILogger<HomeController> logger, UserManager<User> userManager, ApplicationDbContext context, SignInManager<User> signInManager)
     {
         _logger = logger;
         _userManager = userManager;
         _db = context;
+        _signInManager = signInManager;
     }
     
     public async Task<ActionResult> Index()
     {
         var user = _db.Users.FirstOrDefaultAsync(user => user.UserName == User.Identity!.Name);
-
+        
         return await Task.Run(() => View(user.Result));
     }
     
@@ -43,13 +45,10 @@ public class HomeController : Controller
 
         if (user == null)
         {
-            //TODO
-            //Set null authenticate
-
             return await Task.Run(() => RedirectToAction("Register", "Account"));
         }
 
-        if (user!.Role == "admin" && user!.Status != "Blocked User")
+        if (user!.Role == "admin")
             return await Task.Run(() => View(_db.Users));
 
         return await Task.Run(() => RedirectToAction("Index", "Home"));
@@ -61,10 +60,9 @@ public class HomeController : Controller
         foreach (var id in Ids)
         {
             var objectToDelete = _db.Users.FindAsync(id).Result;
-            _db.Users.Remove(objectToDelete!);
-        }
 
-        await _db.SaveChangesAsync();
+            var result = await _userManager.DeleteAsync(objectToDelete!);
+        }
 
         return await Task.Run(() => Redirect("/Home/AdminPanel"));
     }
@@ -74,11 +72,14 @@ public class HomeController : Controller
     {
         foreach (var id in Ids)
         {
-            var objectToDelete = _db.Users.FindAsync(id).Result;
-            _db.Users.FindAsync(id)!.Result.Status = "Blocked User";
-        }
+            var objectToBlock = _db.Users.FindAsync(id).Result;
+            _db.Users.FindAsync(id)!.Result!.Status = "Blocked User";
+            
+            await _db.SaveChangesAsync();
 
-        _db.SaveChangesAsync();
+            if(objectToBlock.Email == User.Identity!.Name)
+                return await Task.Run(() => RedirectToAction("Logout", "Account"));
+        }
 
         return await Task.Run(() => Redirect("/Home/AdminPanel"));
     }
@@ -88,11 +89,11 @@ public class HomeController : Controller
     {
         foreach (var id in Ids)
         {
-            var objectToDelete = _db.Users.FindAsync(id).Result;
-            _db.Users.FindAsync(id)!.Result.Status = "Active User";
+            var objectToUnBlock = _db.Users.FindAsync(id).Result;
+            _db.Users.FindAsync(id)!.Result!.Status = "Active User";
         }
 
-        _db.SaveChangesAsync();
+        await _db.SaveChangesAsync();
 
         return await Task.Run(() => Redirect("/Home/AdminPanel"));
     }
