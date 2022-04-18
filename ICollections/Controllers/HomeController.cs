@@ -29,9 +29,12 @@ public class HomeController : Controller
     [Authorize]
     public async Task<ActionResult> Profile()
     {
-        var user = _db.Users.FirstOrDefaultAsync(user => user.UserName == User.Identity!.Name);
+        var user = _db.Users.FirstOrDefaultAsync(user => user.UserName == User.Identity!.Name).Result;
+        
+        if (user == null)
+            return await Task.Run(() => RedirectToAction("Register", "Account"));
 
-        return await Task.Run(() => View(user.Result));
+        return await Task.Run(() => View(user));
     }
     
     [Authorize]
@@ -60,7 +63,7 @@ public class HomeController : Controller
             var result = await _userManager.DeleteAsync(objectToDelete!);
         }
 
-        return await Task.Run(() => Redirect("/Home/AdminPanel"));
+        return await Task.Run(() => RedirectToAction("AdminPanel"));
     }
 
     [Authorize]
@@ -77,7 +80,7 @@ public class HomeController : Controller
                 return await Task.Run(() => RedirectToAction("Logout", "Account"));
         }
 
-        return await Task.Run(() => Redirect("/Home/AdminPanel"));
+        return await Task.Run(() => RedirectToAction("AdminPanel"));
     }
 
     [Authorize]
@@ -91,7 +94,7 @@ public class HomeController : Controller
 
         await _db.SaveChangesAsync();
 
-        return await Task.Run(() => Redirect("/Home/AdminPanel"));
+        return await Task.Run(() => RedirectToAction("AdminPanel"));
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
