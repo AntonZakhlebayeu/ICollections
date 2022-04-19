@@ -1,0 +1,39 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+#footer-text {
+  color: black;
+  opacity: 0.5;
+}
+
+#text {
+  color: black;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+header {
+  font-family: "Comic Sans MS";
+  background-color: #adb5bd;
+}
+
+body {
+  margin-bottom: 60px;
+  background-image: url("https://i.ibb.co/8X4vP77/ezgif-4-54363841c6.jpg");
+  background-size: cover;
+}
+
+footer {
+  font-family: "Comic Sans MS";
+  background-color: #adb5bd;
+}

@@ -27,26 +27,27 @@
             <button type="button" onclick="unblockCheckedContacts()" class="btn btn-dark btn-lg btn-block lng-Unblock">Unblock</button>
             @if (@currentUser!.Role == "super admin")
             {
-                <button type="button" onclick="promoteCheckedContacts()" class="btn btn-danger btn-lg btn-block lng-Unblock">Promote to admin</button>
-                <button type="button" onclick="demoteCheckedContacts()" class="btn btn-danger btn-lg btn-block lng-Unblock">Demote to user</button>
+                <button type="button" onclick="promoteCheckedContacts()" class="btn btn-danger btn-lg btn-block lng-Promote">Promote to admin</button>
+                <button type="button" onclick="demoteCheckedContacts()" class="btn btn-danger btn-lg btn-block lng-Demote">Demote to user</button>
             }
         </div>
+        <br/>
         <table class="table table-hover table-responsive">
             <thead>
             <tr>
             </tr>
             <tr>
-                <th>Id</th>
-                <th class="col-md-3 col-xs-3 lng-FirstNameRegister">First Name</th>
-                <th class="col-md-3 col-xs-3 lng-LastNameRegister">Last Name</th>
-                <th class="col-md-3 col-xs-3 lng-EnterEmailLogin">E-mail</th>
-                <th class="col-md-3 col-xs-3 lng-NickNameRegister">Nickname</th>
-                <th class="col-md-3 col-xs-3 lng-ProfileRole">Role:</th>
-                <th class="col-md-3 col-xs-3 lng-ProfileRegistrationDate">Registration</th>
-                <th class="col-md-3 col-xs-3 lng-UserStatus">Status</th>
+                <th id="text">Id</th>
+                <th class="col-md-3 col-xs-3 lng-FirstNameRegister" id="text">First Name</th>
+                <th class="col-md-3 col-xs-3 lng-LastNameRegister" id="text">Last Name</th>
+                <th class="col-md-3 col-xs-3 lng-EnterEmailLogin" id="text">E-mail</th>
+                <th class="col-md-3 col-xs-3 lng-NickNameRegister" id="text">Nickname</th>
+                <th class="col-md-3 col-xs-3 lng-ProfileRole" id="text">Role:</th>
+                <th class="col-md-3 col-xs-3 lng-ProfileRegistrationDate" id="text">Registration</th>
+                <th class="col-md-3 col-xs-3 lng-UserStatus" id="text">Status</th>
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" value="" id="flexCheckIndeterminate">
-                    <label class="form-check-label" for="flexCheckIndeterminate">
+                    <label class="form-check-label" for="flexCheckIndeterminate" id="text">
                         <b>Select all / Unselect all</b>
                     </label>
                 </div>
@@ -57,14 +58,14 @@
             @foreach (var user in Model)
             {
                 <tr>
-                    <th scope="row">@user.Id</th>
-                    <td>@user.FirstName</td>
-                    <td>@user.LastName</td>
-                    <td>@user.Email</td>
-                    <td>@user.NickName</td>
-                    <td>@user.Role</td>
-                    <td>@user.RegisterDate.ToString("d")</td>
-                    <td>@user.Status</td>
+                    <th scope="row" id="text">@user.Id</th>
+                    <td id="text">@user.FirstName</td>
+                    <td id="text">@user.LastName</td>
+                    <td id="text">@user.Email</td>
+                    <td id="text">@user.NickName</td>
+                    <td id="text">@user.Role</td>
+                    <td id="text">@user.RegisterDate.ToString("d")</td>
+                    <td id="text">@user.Status</td>
                     @if(@user.Role == "user" || @currentUser!.Role == "super admin")
                     {
                         <td><input class="user-checkbox" type="checkbox" name="@user.Id"></td>   
@@ -92,6 +93,7 @@
         }); </script>
         
 <script src="/js/ChangeLanguage.js"></script>
+<script src="/js/site.js"></script>
 
 <script>
     if (getCurrentLanguage() === "en")

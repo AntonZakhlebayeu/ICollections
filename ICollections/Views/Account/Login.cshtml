@@ -1,22 +1,23 @@
 ﻿@model ICollections.ViewModels.LoginViewModel
 
-<h2 class="lng-LogIn">Log in! <h4 class ="lng-notacc"><i>You don't have an account?</i> <a class = "text-black-50 lng-RegisterLoginPage" asp-controller="Account" asp-action="Register">Register!</a></h4></h2>
-
+<h2 class="lng-LogIn" id="text">Log in!</h2>
+<h4 id="text"><i>You don't have an account?</i></h4>
+<a class = "text-black-50 lng-RegisterLoginPage" id="text" asp-controller="Account" asp-action="Register">Register!</a>
 <form asp-action="Login" asp-controller="Account" asp-anti-forgery="true">
     <div class="validation" asp-validation-summary="ModelOnly"></div>
     <div>
         <div class="form-group">
-            <label class="lng-EnterEmailLogin" asp-for="Email">Enter email:</label>
+            <label class="lng-EnterEmailLogin" asp-for="Email" id="text">Enter email:</label>
             <input type="text" class="form-control" asp-for="Email" placeholder="example@example.com"/>
             <span asp-validation-for="Email"></span>
         </div>
         <div class="form-group">
-            <label class="lng-EnterPasswordLogin" asp-for="Password">Enter password:</label>
+            <label class="lng-EnterPasswordLogin" asp-for="Password" id="text">Enter password:</label>
             <input asp-for="Password" class="form-control" placeholder="********"/>
             <span asp-validation-for="Password"></span>
         </div>
         <div>
-            <label class="lng-RememberMe" asp-for="RememberMe"></label>
+            <label class="lng-RememberMe" asp-for="RememberMe" id="text"></label>
             <input asp-for="RememberMe" />
         </div>
         <div class="form-group">
@@ -26,6 +27,7 @@
 </form>
 
 <script src="/js/ChangeLanguage.js"></script>
+<script src="/js/site.js"></script>
 
 <script>
     if (getCurrentLanguage() === "en")

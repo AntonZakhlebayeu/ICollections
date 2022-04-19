@@ -116,6 +116,14 @@ const langArr = {
         "en": "Unblock",
         "ru": "Разблокировать",
     },
+    "Promote": {
+        "en": "Promote to admin",
+        "ru": "Повысить до администратора",
+    },
+    "Demote": {
+        "en": "Demote to user",
+        "ru": "Понизить до пользователя",
+    },
     //TODO
     //Fix repetitions
     "Logout": {

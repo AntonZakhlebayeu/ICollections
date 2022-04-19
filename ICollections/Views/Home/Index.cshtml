@@ -1,13 +1,13 @@
 ﻿@model ICollections.Models.User
 
 <div class="text-center">
-    <h1 class="display-4 lng-WelcomeText">Welcome to ICollections!</h1>
+    <h1 class="display-4 lng-WelcomeText" id="text">Welcome to ICollections!</h1>
 </div>
 
 @if(!User.Identity!.IsAuthenticated || Model == null)
 {
     <div class="text-center">
-        <h3 class="lng-TextInUnregisteredIndex"><b>Register or Login to post your own collections or write comments.</b></h3>
+        <h3 class="lng-TextInUnregisteredIndex" id="text"><b>Register or Login to post your own collections or write comments.</b></h3>
         <img src="https://i.ibb.co/h2sF85h/main-logo.png" alt="Chat Logo" style="width: 100%;height: 100%;object-fit: cover;">
     </div>
 }

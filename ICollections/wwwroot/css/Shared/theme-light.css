@@ -8,6 +8,15 @@ html {
   }
 }
 
+#footer-text {
+  color: white;
+  opacity: 0.5;
+}
+
+#text {
+  color: white;
+}
+
 html {
   position: relative;
   min-height: 100%;
@@ -27,9 +36,4 @@ body {
 footer {
   font-family: "Comic Sans MS";
   background-color: #191c1f;
-  position:fixed;
-  left:0px;
-  bottom:0px;
-  height:45px;
-  width:100%;
 }

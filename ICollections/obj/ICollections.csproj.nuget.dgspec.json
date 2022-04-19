@@ -1,20 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "/Users/ihar/ITransition internship/ICollections/ICollections/ICollections.csproj": {}
+    "C:\\Users\\hanny\\RiderProjects\\ICollections\\ICollections\\ICollections.csproj": {}
   },
   "projects": {
-    "/Users/ihar/ITransition internship/ICollections/ICollections/ICollections.csproj": {
+    "C:\\Users\\hanny\\RiderProjects\\ICollections\\ICollections\\ICollections.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/ihar/ITransition internship/ICollections/ICollections/ICollections.csproj",
+        "projectUniqueName": "C:\\Users\\hanny\\RiderProjects\\ICollections\\ICollections\\ICollections.csproj",
         "projectName": "ICollections",
-        "projectPath": "/Users/ihar/ITransition internship/ICollections/ICollections/ICollections.csproj",
-        "packagesPath": "/Users/ihar/.nuget/packages/",
-        "outputPath": "/Users/ihar/ITransition internship/ICollections/ICollections/obj/",
+        "projectPath": "C:\\Users\\hanny\\RiderProjects\\ICollections\\ICollections\\ICollections.csproj",
+        "packagesPath": "C:\\Users\\hanny\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\hanny\\RiderProjects\\ICollections\\ICollections\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "/Users/ihar/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\hanny\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
@@ -89,7 +92,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/6.0.202/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
         }
       }
     }

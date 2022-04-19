@@ -5,13 +5,13 @@
 <div class="d-flex align-items-center">
     <div class="row">
         <div class="">     
-            <h3 class = "display-2 text-black lng-ProfileText">Your profile:</h3>      
+            <h3 class = "display-2 lng-ProfileText" id="text">Your profile:</h3>      
             <br/>
-            <h3 class="display-2 text-black">@Model.FirstName @Model.LastName</h3>
-            <h4 class="lng-NickNameRegister">Nickname:</h4><h4>@Model.NickName</h4><br/>
-            <h4 class="lng-AgeRegister">Age:</h4><h4>@Model.Age</h4><br/>
-            <h5 class="lng-ProfileRegistrationDate">Registration date:</h5><h5>@Model.RegisterDate</h5><br/>   
-            <h5 class="lng-ProfileRole">Role:</h5><h5><b>@Model.Role</b></h5>
+            <h3 class="display-2" id="text">@Model.FirstName @Model.LastName</h3>
+            <h4 class="lng-NickNameRegister" id="text">Nickname:</h4><h4 id="text">@Model.NickName</h4><br/>
+            <h4 class="lng-AgeRegister" id="text">Age:</h4><h4 id="text">@Model.Age</h4><br/>
+            <h5 class="lng-ProfileRegistrationDate" id="text">Registration date:</h5><h5 id="text">@Model.RegisterDate</h5><br/>   
+            <h5 class="lng-ProfileRole" id="text">Role:</h5><h5 id="text"><b>@Model.Role</b></h5>
             @if (@Model.Role is "admin" or "super admin")
             {
                 <br/><br/>
@@ -24,6 +24,7 @@
 </div>
 
 <script src="/js/ChangeLanguage.js"></script>
+<script src="/js/site.js"></script>
 
 <script>
     if (getCurrentLanguage() === "en")
