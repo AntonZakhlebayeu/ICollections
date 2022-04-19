@@ -16,9 +16,10 @@ public class ApplicationDbContext : IdentityDbContext<User>
     {
         var adminRole = new IdentityRole("admin");
         var userRole = new IdentityRole("user");
+        var superAdminRole = new IdentityRole("super admin");
 
         modelBuilder.Entity<IdentityRole>()
-            .HasData(new IdentityRole[] {adminRole, userRole});
+            .HasData(new IdentityRole[] {superAdminRole, adminRole, userRole});
 
         base.OnModelCreating(modelBuilder);
     }

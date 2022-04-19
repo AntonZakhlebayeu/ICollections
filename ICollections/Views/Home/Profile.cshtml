@@ -12,7 +12,7 @@
             <h4 class="lng-AgeRegister">Age:</h4><h4>@Model.Age</h4><br/>
             <h5 class="lng-ProfileRegistrationDate">Registration date:</h5><h5>@Model.RegisterDate</h5><br/>   
             <h5 class="lng-ProfileRole">Role:</h5><h5><b>@Model.Role</b></h5>
-            @if (@Model.Role == "admin")
+            @if (@Model.Role is "admin" or "super admin")
             {
                 <br/><br/>
                 <form class="form-inline" asp-controller="Home" asp-action="AdminPanel">

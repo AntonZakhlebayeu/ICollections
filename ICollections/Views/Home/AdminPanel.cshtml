@@ -1,6 +1,17 @@
 ﻿@model IEnumerable<ICollections.Models.User>
+@using Microsoft.AspNetCore.Identity
+@using ICollections.Data
+@using Microsoft.EntityFrameworkCore
 
 <script src="~/js/AdminOptions.js"></script>
+
+@{
+    var data = ViewBag.db as ApplicationDbContext;
+}
+
+@{
+    var currentUser = data!.Users.FirstOrDefaultAsync(u => u.Email == User.Identity!.Name).Result;
+}
 
 <div class="container block2">
    
@@ -14,6 +25,11 @@
             <button type="button" onclick="deleteCheckedContacts()" class="btn btn-danger btn-lg btn-block lng-Delete">Delete</button>
             <button type="button" onclick="blockCheckedContacts()" class="btn btn-dark btn-lg btn-block lng-Block">Block</button>
             <button type="button" onclick="unblockCheckedContacts()" class="btn btn-dark btn-lg btn-block lng-Unblock">Unblock</button>
+            @if (@currentUser!.Role == "super admin")
+            {
+                <button type="button" onclick="promoteCheckedContacts()" class="btn btn-danger btn-lg btn-block lng-Unblock">Promote to admin</button>
+                <button type="button" onclick="demoteCheckedContacts()" class="btn btn-danger btn-lg btn-block lng-Unblock">Demote to user</button>
+            }
         </div>
         <table class="table table-hover table-responsive">
             <thead>
@@ -29,10 +45,10 @@
                 <th class="col-md-3 col-xs-3 lng-ProfileRegistrationDate">Registration</th>
                 <th class="col-md-3 col-xs-3 lng-UserStatus">Status</th>
                 <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="" id="flexCheckIndeterminate">
-                  <label class="form-check-label" for="flexCheckIndeterminate">
-                      <b>Select all / Unselect all</b>
-                  </label>
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckIndeterminate">
+                    <label class="form-check-label" for="flexCheckIndeterminate">
+                        <b>Select all / Unselect all</b>
+                    </label>
                 </div>
             </tr>
             </thead>
@@ -49,7 +65,10 @@
                     <td>@user.Role</td>
                     <td>@user.RegisterDate.ToString("d")</td>
                     <td>@user.Status</td>
-                    <td><input class="user-checkbox" type="checkbox" name="@user.Id"></td>
+                    @if(@user.Role == "user" || @currentUser!.Role == "super admin")
+                    {
+                        <td><input class="user-checkbox" type="checkbox" name="@user.Id"></td>   
+                    }
                 </tr>
             }
             </tbody>

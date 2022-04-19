@@ -48,7 +48,7 @@ public class HomeController : Controller
         if (user == null)
             return await Task.Run(() => RedirectToAction("Register", "Account"));
 
-        if (user!.Role == "admin")
+        if (user!.Role is "admin" or "super admin")
             return await Task.Run(() => View(_db.Users));
 
         return await Task.Run(() => RedirectToAction("Index", "Home"));
@@ -73,12 +73,43 @@ public class HomeController : Controller
         foreach (var id in Ids)
         {
             var objectToBlock = _db.Users.FindAsync(id).Result;
-            _db.Users.FindAsync(id)!.Result!.Status = "Blocked User";
+            objectToBlock!.Status = "Blocked User";
             
             await _db.SaveChangesAsync();
 
             if(objectToBlock!.Email == User.Identity!.Name)
                 return await Task.Run(() => RedirectToAction("Logout", "Account"));
+        }
+
+        return await Task.Run(() => RedirectToAction("AdminPanel"));
+    }
+    
+    [Authorize]
+    public async Task<IActionResult> Promote(string[] Ids)
+    {
+        foreach (var id in Ids)
+        {
+            var objectToPromote = _db.Users.FindAsync(id).Result;
+            objectToPromote!.Role = "admin";
+            
+            await _db.SaveChangesAsync();
+        }
+
+        return await Task.Run(() => RedirectToAction("AdminPanel"));
+    }
+    
+    [Authorize]
+    public async Task<IActionResult> Demote(string[] Ids)
+    {
+        foreach (var id in Ids)
+        {
+            var objectToDemote = _db.Users.FindAsync(id).Result;
+            objectToDemote!.Role = "user";
+            
+            await _db.SaveChangesAsync();
+
+            if(objectToDemote!.Email == User.Identity!.Name && objectToDemote!.Role == "user")
+                return await Task.Run(() => RedirectToAction("Index", "Home"));
         }
 
         return await Task.Run(() => RedirectToAction("AdminPanel"));
@@ -90,7 +121,7 @@ public class HomeController : Controller
         foreach (var id in Ids)
         {
             var objectToUnBlock = _db.Users.FindAsync(id).Result;
-            _db.Users.FindAsync(id)!.Result!.Status = "Active User";
+            objectToUnBlock!.Status = "Active User";
         }
 
         await _db.SaveChangesAsync();
