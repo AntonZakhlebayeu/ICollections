@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "/boK20Iq8AmY3oRZW01tdCfVxHz3GWze8J9Rcbd3gck=",
+  "Hash": "GLBz1rY9DR6EFq9zZipm4QZIIoMHGARpP2HC04kwoHg=",
   "Source": "ICollections",
   "BasePath": "_content/ICollections",
   "Mode": "Default",
@@ -1071,6 +1071,23 @@
       "OriginalItemSpec": "/Users/antonzakhlebayeu/ITransition Internship/ICollections/ICollections/obj/Debug/net6.0/scopedcss/projectbundle/ICollections.bundle.scp.css"
     },
     {
+      "Identity": "/Users/antonzakhlebayeu/ITransition Internship/ICollections/ICollections/wwwroot/css/CreateCollection/CreateCollection.css",
+      "SourceId": "ICollections",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/antonzakhlebayeu/ITransition Internship/ICollections/ICollections/wwwroot/",
+      "BasePath": "_content/ICollections",
+      "RelativePath": "css/CreateCollection/CreateCollection.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/css/CreateCollection/CreateCollection.css"
+    },
+    {
       "Identity": "/Users/antonzakhlebayeu/ITransition Internship/ICollections/ICollections/wwwroot/css/Shared/theme-dark.css",
       "SourceId": "ICollections",
       "SourceType": "Discovered",
@@ -1171,23 +1188,6 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/js/ChangeTheme.js"
-    },
-    {
-      "Identity": "/Users/antonzakhlebayeu/ITransition Internship/ICollections/ICollections/wwwroot/js/site.js",
-      "SourceId": "ICollections",
-      "SourceType": "Discovered",
-      "ContentRoot": "/Users/antonzakhlebayeu/ITransition Internship/ICollections/ICollections/wwwroot/",
-      "BasePath": "_content/ICollections",
-      "RelativePath": "js/site.js",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/js/site.js"
     },
     {
       "Identity": "/Users/antonzakhlebayeu/ITransition Internship/ICollections/ICollections/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.css",

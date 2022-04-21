@@ -1,0 +1,55 @@
+@using ICollections.Data
+@{
+    var data = ViewBag.db as ApplicationDbContext;
+    
+    var Model = data.Users.FirstOrDefault(u => u.Email == User.Identity!.Name);
+}
+
+<link rel="stylesheet" title="theme" href="#">
+<link rel="stylesheet" type="text/css" href="~/css/CreateCollection/CreateCollection.css"/>
+
+
+<form method="post" action="/create" enctype="multipart/form-data">
+    <input type="hidden" name="AuthorId" value="@data.Users.FirstOrDefault(u => u.Email == User.Identity!.Name).Id" />
+    <div class="drop-zone col-4">
+        <span class="drop-zone__prompt lng-DropImage lng-DropImageCollection" id="text">Drop file here or click to upload</span>
+        <input type="file" name="myFile" class="drop-zone__input" accept="image/*" />
+    </div>
+    <br/>
+
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text lng-CollectionTitle" id="basic-addon1">Title:</span>
+        </div>
+        <input type="text" class="form-control" name="Title" aria-label="Title" aria-describedby="basic-addon1">
+    </div>
+    
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text lng-CollectionSmallDescription" id="basic-addon1">Description:</span>
+      </div>
+      <input type="text" class="form-control" name="SmallDescription" aria-label="SmallDescription" aria-describedby="basic-addon1">
+    </div>
+    
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text lng-CollectionTheme" id="basic-addon1">Theme:</span>
+        </div>
+        <input type="text" class="form-control" name="Theme" aria-label="Theme" aria-describedby="basic-addon1">
+    </div>
+
+    <br/>
+    <button type="submit" class="btn btn-success" id="text">Create</button>
+</form>
+
+<script src="/js/ChangeLanguage.js"></script>
+<script src="/js/ChangeTheme.js"></script>
+
+<script>
+    if (getCurrentLanguage() === "en")
+         var pageTitle = "Create Collection Page - ICollections"
+     else
+         var pageTitle = "Создание коллекции - ICollections"
+         
+      document.querySelector('title').innerHTML = pageTitle;
+</script>

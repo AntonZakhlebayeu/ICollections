@@ -132,6 +132,22 @@ const langArr = {
         "en": "Logout",
         "ru": "Выйти",
     },
+    "CollectionTitle": {
+        "en": "Title:",
+        "ru": "Заголовок:",
+    },
+    "CollectionSmallDescription": {
+        "en": "Description:",
+        "ru": "Описание:",
+    },
+    "CollectionTheme": {
+        "en": "Theme:",
+        "ru": "Тема:",
+    },
+    "DropImageCollection": {
+        "en": "Drop file here or click to upload",
+        "ru": "Сбросьте сюда фото или нажмите для загрузки",
+    },
 }
 
 select.addEventListener('change',changeURLLanguage);

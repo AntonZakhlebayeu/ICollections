@@ -53,6 +53,21 @@ public class HomeController : Controller
 
         return await Task.Run(() => RedirectToAction("Index", "Home"));
     }
+
+    [Authorize]
+    [HttpGet]
+    public async Task<ViewResult> CreateView()
+    {
+        return await Task.Run(() => View("CreateCollection"));
+    }
+
+    /*
+    [Authorize]
+    [HttpPost]
+    public IActionResult CreateArticle(CreateArticleModel createArticleModel)
+    {
+    }
+    */
     
     [Authorize]
     public async Task<IActionResult> Delete(string[] Ids)

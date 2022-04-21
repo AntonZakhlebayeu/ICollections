@@ -44,11 +44,11 @@
                         <a class="nav-link lng-HomeLayout" id="text" asp-controller="Home" asp-action="Index">Home</a>
                     </li>
 
-                    @if (User.Identity!.IsAuthenticated && Model != null)
+                    @if (User.Identity!.IsAuthenticated)
                         {
                             <li class="nav-item">
                                 <form class="d-flex">
-                                    <button type="submit" class="nav-link btn btn-sm btn-outline-success lng-CreateCollection" id="text" asp-controller="Home" asp-action="Index">Home</button>
+                                    <button type="submit" class="nav-link btn btn-sm btn-outline-success lng-CreateCollection" id="text" asp-controller="Home" asp-action="CreateView">Create Collection</button>
                                 </form>
                             </li>
                             
