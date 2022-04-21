@@ -1,8 +1,6 @@
 @using ICollections.Data
 @{
     var data = ViewBag.db as ApplicationDbContext;
-    
-    var Model = data.Users.FirstOrDefault(u => u.Email == User.Identity!.Name);
 }
 
 <link rel="stylesheet" title="theme" href="#">
