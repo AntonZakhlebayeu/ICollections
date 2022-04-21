@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "rCLDlLGmbQEV1E/DZdSDOw+lC9o7i9cq/tMxddDQ8N4=",
+  "Hash": "/boK20Iq8AmY3oRZW01tdCfVxHz3GWze8J9Rcbd3gck=",
   "Source": "ICollections",
   "BasePath": "_content/ICollections",
   "Mode": "Default",
@@ -1154,6 +1154,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/js/ChangeLanguage.js"
+    },
+    {
+      "Identity": "/Users/antonzakhlebayeu/ITransition Internship/ICollections/ICollections/wwwroot/js/ChangeTheme.js",
+      "SourceId": "ICollections",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/antonzakhlebayeu/ITransition Internship/ICollections/ICollections/wwwroot/",
+      "BasePath": "_content/ICollections",
+      "RelativePath": "js/ChangeTheme.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/js/ChangeTheme.js"
     },
     {
       "Identity": "/Users/antonzakhlebayeu/ITransition Internship/ICollections/ICollections/wwwroot/js/site.js",

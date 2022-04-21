@@ -1,8 +1,6 @@
 ﻿const select = document.querySelector('select');
 const allLang = ['en', 'ru'];
 
-var currentLamguage;  
-
 const langArr = {
     "WelcomeText": {
         "en": "Welcome to ICollections!",
@@ -51,6 +49,10 @@ const langArr = {
     "ProfileDropDown": {
         "en": "Profile",
         "ru": "Профиль",
+    },
+    "CreateCollection": {
+        "en": "Create Collection",
+        "ru": "Создать коллекцию",
     },
     "LogoutDropDown": {
         "en": "Logout",
@@ -147,7 +149,6 @@ function changeLanguage() {
         location.href =  window.location.pathname + '#en';
         lang = "en";
         localStorage.setItem('lang', lang);
-        console.log(location.href);
     }
     location.href = window.location.pathname + "#" + lang;
     select.value = lang;

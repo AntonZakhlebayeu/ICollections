@@ -1,14 +1,14 @@
 ﻿function deleteCheckedContacts() {
-    var objectsToDelete = document.getElementsByClassName("user-checkbox");
-    var contactIds = [];
-    for (var i = 0; i < objectsToDelete.length; i++) {
-        var objectToDelete = objectsToDelete[i];
+    let objectsToDelete = document.getElementsByClassName("user-checkbox");
+    let contactIds = [];
+    for (let i = 0; i < objectsToDelete.length; i++) {
+        let objectToDelete = objectsToDelete[i];
         if (objectToDelete.checked)
             contactIds.push(objectsToDelete[i].getAttribute("name"));
     }
     if (contactIds.length > 0) {
-        var requestString = "";
-        for (var i = 0; i < contactIds.length - 1; i++) {
+        let requestString = "";
+        for (let i = 0; i < contactIds.length - 1; i++) {
             requestString += "Ids[" + i + "]=" + contactIds[i] + "&"
         }
         requestString += "Ids[" + (contactIds.length - 1) + "]=" + contactIds[contactIds.length - 1] + "";
@@ -19,16 +19,16 @@
 }
 
 function promoteCheckedContacts() {
-    var objectsToBlock = document.getElementsByClassName("user-checkbox")
-    var contactIds = [];
-    for (var i = 0; i < objectsToBlock.length; i++) {
-        var objectToDelete = objectsToBlock[i];
+    let objectsToPromote = document.getElementsByClassName("user-checkbox")
+    let contactIds = [];
+    for (let i = 0; i < objectsToPromote.length; i++) {
+        let objectToDelete = objectsToPromote[i];
         if (objectToDelete.checked)
-            contactIds.push(objectsToBlock[i].getAttribute("name"));
+            contactIds.push(objectsToPromote[i].getAttribute("name"));
     }
     if (contactIds.length > 0) {
-        var requestString = "";
-        for (var i = 0; i < contactIds.length - 1; i++) {
+        let requestString = "";
+        for (let i = 0; i < contactIds.length - 1; i++) {
             requestString += "Ids[" + i + "]=" + contactIds[i] + "&"
         }
         requestString += "Ids[" + (contactIds.length - 1) + "]=" + contactIds[contactIds.length - 1] + "";
@@ -38,16 +38,16 @@ function promoteCheckedContacts() {
 }
 
 function demoteCheckedContacts() {
-    var objectsToPromote = document.getElementsByClassName("user-checkbox")
-    var contactIds = [];
-    for (var i = 0; i < objectsToPromote.length; i++) {
-        var objectToDelete = objectsToPromote[i];
+    let objectsToDemote = document.getElementsByClassName("user-checkbox")
+    let contactIds = [];
+    for (let i = 0; i < objectsToDemote.length; i++) {
+        let objectToDelete = objectsToDemote[i];
         if (objectToDelete.checked)
-            contactIds.push(objectsToPromote[i].getAttribute("name"));
+            contactIds.push(objectsToDemote[i].getAttribute("name"));
     }
     if (contactIds.length > 0) {
-        var requestString = "";
-        for (var i = 0; i < contactIds.length - 1; i++) {
+        let requestString = "";
+        for (let i = 0; i < contactIds.length - 1; i++) {
             requestString += "Ids[" + i + "]=" + contactIds[i] + "&"
         }
         requestString += "Ids[" + (contactIds.length - 1) + "]=" + contactIds[contactIds.length - 1] + "";
@@ -57,16 +57,16 @@ function demoteCheckedContacts() {
 }
 
 function blockCheckedContacts() {
-    var objectsToDemote = document.getElementsByClassName("user-checkbox")
-    var contactIds = [];
-    for (var i = 0; i < objectsToDemote.length; i++) {
-        var objectToDelete = objectsToDemote[i];
+    let objectsToBlock = document.getElementsByClassName("user-checkbox")
+    let contactIds = [];
+    for (let i = 0; i < objectsToBlock.length; i++) {
+        let objectToDelete = objectsToBlock[i];
         if (objectToDelete.checked)
-            contactIds.push(objectsToDemote[i].getAttribute("name"));
+            contactIds.push(objectsToBlock[i].getAttribute("name"));
     }
     if (contactIds.length > 0) {
-        var requestString = "";
-        for (var i = 0; i < contactIds.length - 1; i++) {
+        let requestString = "";
+        for (let i = 0; i < contactIds.length - 1; i++) {
             requestString += "Ids[" + i + "]=" + contactIds[i] + "&"
         }
         requestString += "Ids[" + (contactIds.length - 1) + "]=" + contactIds[contactIds.length - 1] + "";

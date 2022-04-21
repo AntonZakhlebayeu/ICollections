@@ -11,8 +11,6 @@ function applyTheme(themeName) {
     console.log(themeName);
     let theme = `/css/Shared/theme-${themeName}.css`;
     document.querySelector('[title="theme"]').setAttribute('href', theme);
-    console.log(document.querySelector('[title="theme"]'));
-    //.setAttribute('href', `css/theme-${themeName}.css`);
     changeThemeButtons.forEach(button => {
         button.style.display = 'block';
     });

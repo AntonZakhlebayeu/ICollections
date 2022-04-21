@@ -30,8 +30,6 @@ public class AccountController : Controller
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
             if (!ModelState.IsValid) return View(model);
-            
-            Console.WriteLine(model.Role);
 
             var user = new User { Email = model.Email, Password = model.Password, FirstName = model.FirstName, LastName = model.LastName, NickName = model.NickName, Age = model.Age, UserName = model.Email, RegisterDate = DateTime.Now, LastLoginDate = DateTime.Now, Role = model.Role, Status = "Active User"};
 
@@ -61,14 +59,18 @@ public class AccountController : Controller
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
-            if (!ModelState.IsValid || _db.Users.FirstOrDefaultAsync(u => u.Email == model.Email).Result!.Status != "Active User") return View(model);
+            if (!ModelState.IsValid) return View(model);
+            
+            var user = _db.Users.FirstOrDefault(u => u.UserName == model.Email);
+
+            if (user == null || user.Status == "Blocked User")
+                return RedirectToAction("Index", "Home");
 
             var result = 
                 await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
 
             if (result.Succeeded)
             {
-                var user = _db.Users.FirstOrDefault(u => u.UserName == model.Email);
                 user!.LastLoginDate = DateTime.Now;
                 await _db.SaveChangesAsync();
                 
