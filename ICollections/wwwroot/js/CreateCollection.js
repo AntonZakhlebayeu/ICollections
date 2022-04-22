@@ -1,4 +1,4 @@
-const keys = ["alcohol", "books", "brand"];
+const keys = ["alcohol", "books", "films"];
 const classKeys = ["date", "brand"];
 
 const themeList = {
@@ -63,21 +63,22 @@ function changeContext() {
 }    
 
 function changeClass(additionalListLabels, selectedTheme) {
-    for(let additionalListLabel in additionalListLabels)
-        for(var key in keys)
-            for(var classKey in classKeys) 
-                if(additionalListLabels[index].classList.contains(themeList[key][classKey]["class"]))
-                    additionalListLabel.classList.remove(themeList[key][classKey]["class"])
+    for(let i = 0; i < 2; i++)
+        for(let key in keys)
+            for(let classKey in classKeys) 
+                if(additionalListLabels[i].classList.contains(themeList[keys[key]][classKeys[classKey]]["class"]))
+                    additionalListLabels[i].classList.remove(themeList[keys[key]][classKeys[classKey]]["class"]);
+            
 
-    for(var i = 0; i < 2; i++) 
-        additionalListLabels[i].classList.add(themeList[selectedTheme][i]["class"])
+    for(let i = 0; i < 2; i++) 
+        additionalListLabels[i].classList.add(themeList[selectedTheme][classKeys[i]]["class"])
     
     additionalListLabels[2].classList.add("lng-CollectionComments");
 }
 
 function changeValue(additionalListInputs, selectedTheme) {
-    for(var i = 0; i < 2; i++)
-        additionalListInputs[i].value = (themeList[selectedTheme][i]["value"])
+    for(let i = 0; i < 2; i++)
+        additionalListInputs[i].value = (themeList[selectedTheme][classKeys[i]]["value"])
 
     additionalListInputs[2].value = "CollectionComments";
 }
