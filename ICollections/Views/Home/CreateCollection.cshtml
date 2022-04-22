@@ -33,15 +33,45 @@
         <div class="input-group-prepend">
             <span class="input-group-text lng-CollectionTheme" id="basic-addon1">Theme:</span>
         </div>
-        <input type="text" class="form-control" name="Theme" aria-label="Theme" aria-describedby="basic-addon1">
+        <select class="form-select" id="themeSelector">
+            <option value="null" class="lng-SelectTheme" selected>Select theme of your Collection</option>
+            <option value="alcohol" class="lng-AlcoholTheme">Alcohol</option>
+            <option value="books" class="lng-BooksTheme">Books</option>
+            <option value="films" class="lng-FilmsTheme">Films</option>
+        </select>
     </div>
+    
+    <div id="checkBoxAdditional" style="display: none">
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="">
+            <label class="form-check-label" for="flexCheckDefault" id="text">
+                Default checkbox
+            </label>
+        </div>
+        
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="">
+            <label class="form-check-label" for="flexCheckDefault" id="text">
+                Default checkbox
+            </label>
+        </div>
+        
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="">
+          <label class="form-check-label" for="flexCheckDefault" id="text">
+            Default checkbox
+          </label>
+        </div>
+    </div>
+    
 
     <br/>
-    <button type="submit" class="btn btn-success" id="text">Create</button>
+    <button type="submit" class="btn btn-success lng-CreateCollection" id="text">Create</button>
 </form>
 
 <script src="/js/ChangeLanguage.js"></script>
 <script src="/js/ChangeTheme.js"></script>
+<script src="/js/CreateCollection.js"></script>
 
 <script>
     if (getCurrentLanguage() === "en")

@@ -148,6 +148,56 @@ const langArr = {
         "en": "Drop file here or click to upload",
         "ru": "Сбросьте сюда фото или нажмите для загрузки",
     },
+    "SelectTheme": {
+        "en": "Select theme of your collection",
+        "ru": "Выберите тему для своей коллекции",
+    },
+    "AlcoholTheme": {
+        "en": "Alcohol",
+        "ru": "Алкоголь",
+    },
+    "BooksTheme": {
+        "en": "Books",
+        "ru": "Книги",
+    },
+    "FilmsTheme": {
+        "en": "Films",
+        "ru": "Фильмы",
+    },
+    //TODO
+    //Fix repetitions
+    "CreateCollectionButton": {
+        "en": "Create",
+        "ru": "Создать",
+    },
+    "alcoholDate": {
+        "en": "Add date of manufacture",
+        "ru": "Добавить дату производства",
+    },
+    "alcoholBrand": {
+        "en": "Add alcohol brand",
+        "ru": "Добавить марку алкоголя",
+    },
+    "booksDate": {
+        "en": "Add writing date",
+        "ru": "Добавить дату написания",
+    },
+    "booksAuthor": {
+        "en": "Add books authors",
+        "ru": "Добавить авторов книг",
+    },
+    "filmsDate": {
+        "en": "Add release date to rental",
+        "ru": "Добавить дату выпуска в прокат",
+    },
+    "filmsAuthor": {
+        "en": "Add studio name",
+        "ru": "Добавить название студии",
+    },
+    "CollectionComments": {
+        "en": "Add comments",
+        "ru": "Добавить комментарии",
+    }
 }
 
 select.addEventListener('change',changeURLLanguage);
