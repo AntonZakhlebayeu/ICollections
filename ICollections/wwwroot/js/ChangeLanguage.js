@@ -197,6 +197,10 @@ const langArr = {
     "CollectionComments": {
         "en": "Add comments",
         "ru": "Добавить комментарии",
+    },
+    "FindButton": {
+        "en": "Find",
+        "ru": "Поиск",
     }
 }
 
