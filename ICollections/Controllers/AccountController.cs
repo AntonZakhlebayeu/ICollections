@@ -29,7 +29,7 @@ public class AccountController : Controller
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
-            if (!ModelState.IsValid) return View(model);
+            if (!ModelState.IsValid) return await Task.Run(() => View(model));
 
             var user = new User { Email = model.Email, Password = model.Password, FirstName = model.FirstName, LastName = model.LastName, NickName = model.NickName, Age = model.Age, UserName = model.Email, RegisterDate = DateTime.Now, LastLoginDate = DateTime.Now, Role = model.Role, Status = "Active User"};
 
@@ -46,20 +46,21 @@ public class AccountController : Controller
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
             }
-            return View(model);
+            
+            return await Task.Run(() => View(model));
         }
         
         [HttpGet]
-        public IActionResult Login()
+        public async Task<IActionResult> Login()
         {
-            return View();
+            return await Task.Run(View);
         }
         
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
-            if (!ModelState.IsValid) return View(model);
+            if (!ModelState.IsValid) return await Task.Run(() => View(model));
             
             var user = _db.Users.FirstOrDefault(u => u.UserName == model.Email);
 
@@ -81,7 +82,7 @@ public class AccountController : Controller
                 ModelState.AddModelError("", "Incorrect email and (or) password!");
             }
 
-            return View(model);
+            return await Task.Run(() => View(model));
         }
         
         
@@ -97,6 +98,6 @@ public class AccountController : Controller
             }
 
             await _signInManager.SignOutAsync();
-            return RedirectToAction("Index", "Home");
+            return await Task.Run(() => RedirectToAction("Index", "Home"));
         }
     }

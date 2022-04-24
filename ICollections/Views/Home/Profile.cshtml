@@ -2,6 +2,34 @@
 @using Microsoft.EntityFrameworkCore
 @model ICollections.Models.User
 
+@{
+    var data = ViewBag.db as ApplicationDbContext;
+
+    var userId = data!.Users.FirstOrDefaultAsync(u => u.Email == User.Identity!.Name).Result!.Id;
+
+    var userCollections = data!.Collections.Where(p => p.AuthorId == userId);
+}
+
+@functions {
+
+    string GetContentPart(string content) {
+
+        int CONTENT_PART_SIZE = 500;
+
+        if (content.Length > CONTENT_PART_SIZE)
+        {
+            content = content.Substring(0, CONTENT_PART_SIZE);
+            content += "...";
+        }
+
+        return content;
+
+    }
+
+}
+
+<link rel="stylesheet" type="text/css" href="~/css/Collections/Collection.css"/>
+
 <div class="d-flex align-items-center">
     <div class="row">
         <div class="">     
@@ -22,6 +50,30 @@
         </div>
     </div>
 </div>
+
+<br/>
+
+<div class="CollectionsArea">
+    
+    <h4 class = "lng-YourCollections">Your collections:</h4>
+    <br/>
+    
+    @foreach (var collection in userCollections)
+    {
+        <div class="CollectionArea">
+            <div class="col-md-8 card-body">
+                <div class="card-body">
+                    <h5 class="card-title"><a class="link">@collection.Title</a></h5>
+                    <p class="card-header">@collection.Theme</p>
+                    <p class="card-text">@GetContentPart(collection.Description!)</p>
+                    <p class="card-text"><small class="text-muted">@collection.LastEditDate!.ToString()</small></p>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+
 
 <script src="/js/ChangeLanguage.js"></script>
 <script src="/js/ChangeTheme.js"></script>

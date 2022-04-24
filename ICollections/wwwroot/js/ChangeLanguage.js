@@ -201,6 +201,10 @@ const langArr = {
     "FindButton": {
         "en": "Find",
         "ru": "Поиск",
+    },
+    "YourCollections": {
+        "en": "Your Collections:",
+        "ru": "Ваши коллекции:",
     }
 }
 

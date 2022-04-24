@@ -2,6 +2,7 @@
 using ICollections.Data;
 using Microsoft.AspNetCore.Mvc;
 using ICollections.Models;
+using ICollections.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -60,14 +61,28 @@ public class HomeController : Controller
     {
         return await Task.Run(() => View("CreateCollection"));
     }
-
-    /*
+    
     [Authorize]
     [HttpPost]
-    public IActionResult CreateArticle(CreateArticleModel createArticleModel)
+    public async Task<IActionResult> CreateCollection(CollectionViewModel collectionViewModel)
     {
+        if (!ModelState.IsValid || collectionViewModel.Theme == "null") return await Task.Run(() => View(collectionViewModel));
+        
+        var newCollection = new Collection
+        {
+            AuthorId = collectionViewModel.AuthorId, Title = collectionViewModel.Title,
+            Description = collectionViewModel.Description, Theme = collectionViewModel.Theme,
+            AddDates = collectionViewModel.IncludeDate, AddBrands = collectionViewModel.IncludeBrand,
+            AddComments = collectionViewModel.IncludeComments, LastEditDate = DateTime.UtcNow.AddHours(3).ToString("MM/dd/yyyy H:mm")
+        };
+
+       await _db.Collections.AddAsync(newCollection);
+
+       await _db.SaveChangesAsync();
+
+       return await Task.Run(() => View("CreateCollection"));
     }
-    */
+
     
     [Authorize]
     public async Task<IActionResult> Delete(string[] Ids)

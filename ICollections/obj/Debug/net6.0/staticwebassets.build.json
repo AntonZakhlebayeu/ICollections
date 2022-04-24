@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "GkA1IsXFKWjsMlN+kggWjoYibNk30dYCAAwW9TXwGZ0=",
+  "Hash": "DCbFDGAGnkWKGIeFsFEP78y9wM+nwX9+0+MlieN1xH4=",
   "Source": "ICollections",
   "BasePath": "_content/ICollections",
   "Mode": "Default",
@@ -1069,6 +1069,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "/Users/antonzakhlebayeu/ITransition Internship/ICollections/ICollections/obj/Debug/net6.0/scopedcss/projectbundle/ICollections.bundle.scp.css"
+    },
+    {
+      "Identity": "/Users/antonzakhlebayeu/ITransition Internship/ICollections/ICollections/wwwroot/css/Collections/Collection.css",
+      "SourceId": "ICollections",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/antonzakhlebayeu/ITransition Internship/ICollections/ICollections/wwwroot/",
+      "BasePath": "_content/ICollections",
+      "RelativePath": "css/Collections/Collection.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/css/Collections/Collection.css"
     },
     {
       "Identity": "/Users/antonzakhlebayeu/ITransition Internship/ICollections/ICollections/wwwroot/css/CreateCollection/CreateCollection.css",

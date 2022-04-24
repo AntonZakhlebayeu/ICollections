@@ -4,13 +4,23 @@ namespace ICollections.ViewModels;
 
 public class CollectionViewModel
 {
-    [Required(ErrorMessage = "Not specified Email")]
-    public string? Email { get; init; }
+    //TODO
+    //Add ErrorMessage
+    //Translate ErrorMessage
+    
+    [Required]
+    public string? AuthorId { get; init; }
+    
+    [Required]
+    public string? Title { get; init; }
          
-    [Required(ErrorMessage = "Not specified password")]
-    [DataType(DataType.Password)]
-    public string? Password { get; init; }
+    [Required]
+    public string? Description { get; init; }
+    
+    [Required]
+    public string? Theme { get; init; }
 
-    [Display(Name = "RememberMe?")]
-    public bool RememberMe { get; init; }
+    public string? IncludeDate { get; init; }
+    public string? IncludeBrand { get; init; }
+    public string? IncludeComments { get; init; }
 }
