@@ -63,7 +63,7 @@
         <div class="CollectionArea">
             <div class="col-md-8 card-body">
                 <div class="card-body">
-                    <h5 class="card-title"><a class="link">@collection.Title</a></h5>
+                    <h5 class="card-title"><a class="link" href="/Home/ViewCollection/@collection.CollectionId">@collection.Title</a></h5>
                     <p class="card-header">@collection.Theme</p>
                     <p class="card-text">@GetContentPart(collection.Description!)</p>
                     <p class="card-text"><small class="text-muted">@collection.LastEditDate!.ToString()</small></p>
@@ -78,11 +78,8 @@
 <script src="/js/ChangeLanguage.js"></script>
 <script src="/js/ChangeTheme.js"></script>
 
-<script>
-    if (getCurrentLanguage() === "en")
-         var pageTitle = "Profile Page - ICollections"
-     else
-         var pageTitle = "Профиль - ICollections"
+<script>   
+    let pageTitle = (getCurrentLanguage() === 'en') ? 'Profile Page - ICollections' : 'Профиль - ICollections';
          
-      document.querySelector('title').innerHTML = pageTitle;
+    document.querySelector('title').innerHTML = pageTitle;
 </script>

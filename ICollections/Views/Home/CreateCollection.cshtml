@@ -79,11 +79,8 @@
 <script src="/js/ChangeTheme.js"></script>
 <script src="/js/CreateCollection.js"></script>
 
-<script>
-    if (getCurrentLanguage() === "en")
-         var pageTitle = "Create Collection Page - ICollections"
-     else
-         var pageTitle = "Создание коллекции - ICollections"
+<script>   
+    let pageTitle = (getCurrentLanguage() === 'en') ? 'Create Collection Page - ICollections' : 'Создание коллекции - ICollections';
          
-      document.querySelector('title').innerHTML = pageTitle;
+    document.querySelector('title').innerHTML = pageTitle;
 </script>

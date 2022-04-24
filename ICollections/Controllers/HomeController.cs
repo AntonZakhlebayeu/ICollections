@@ -73,17 +73,25 @@ public class HomeController : Controller
             AuthorId = collectionViewModel.AuthorId, Title = collectionViewModel.Title,
             Description = collectionViewModel.Description, Theme = collectionViewModel.Theme,
             AddDates = collectionViewModel.IncludeDate, AddBrands = collectionViewModel.IncludeBrand,
-            AddComments = collectionViewModel.IncludeComments, LastEditDate = DateTime.UtcNow.AddHours(3).ToString("MM/dd/yyyy H:mm")
+            AddComments = collectionViewModel.IncludeComments, LastEditDate = DateTime.UtcNow.AddHours(3).ToString("MM/dd/yyyy H:mm"),
         };
 
        await _db.Collections.AddAsync(newCollection);
 
        await _db.SaveChangesAsync();
 
-       return await Task.Run(() => View("CreateCollection"));
+       return await Task.Run(() => RedirectToAction("ViewCollection", newCollection));
+    }
+    
+    [HttpGet]
+    [Route("/Home/ViewCollection/{collectionId:int}")]
+    public async Task<IActionResult> ViewCollection(int collectionId)
+    {
+        var userCollection = _db.Collections.FirstOrDefaultAsync(c => c.CollectionId == collectionId).Result;
+
+        return await Task.Run(() => View(userCollection));
     }
 
-    
     [Authorize]
     public async Task<IActionResult> Delete(string[] Ids)
     {

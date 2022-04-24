@@ -65,10 +65,7 @@
 <script src="/js/ChangeTheme.js"></script>
 
 <script>
-    if (getCurrentLanguage() === "en")
-         var pageTitle = "Register Page - ICollections"
-     else
-         var pageTitle = "Регистрация - ICollections"
+    let pageTitle = (getCurrentLanguage() === 'en') ? 'Register Page - ICollections' : 'Регистрация - ICollections';
          
-      document.querySelector('title').innerHTML = pageTitle;
+    document.querySelector('title').innerHTML = pageTitle;
 </script>

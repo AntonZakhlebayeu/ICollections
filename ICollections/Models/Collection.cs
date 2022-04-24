@@ -22,4 +22,6 @@ public class Collection
     public string? AddDates { get; set; }
     public string? AddBrands { get; set; }
     public string? AddComments { get; set; }
+
+    public ICollection<Item> CollectionItems { get; set; } = new List<Item>();
 }

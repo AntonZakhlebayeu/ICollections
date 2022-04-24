@@ -96,10 +96,7 @@
 <script src="/js/ChangeTheme.js"></script>
 
 <script>
-    if (getCurrentLanguage() === "en")
-         var pageTitle = "Admin Page - ICollections"
-     else
-         var pageTitle = "Панель администратора - ICollections"
-         
-      document.querySelector('title').innerHTML = pageTitle;
+    let pageTitle = (getCurrentLanguage() === 'en') ? 'Admin Page - ICollections' : 'Панель администратора - ICollections';
+     
+    document.querySelector('title').innerHTML = pageTitle;
 </script>

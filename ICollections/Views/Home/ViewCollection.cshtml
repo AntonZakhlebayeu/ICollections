@@ -1,0 +1,46 @@
+@model ICollections.Models.Collection
+
+<link rel="stylesheet" title="theme" href="#">
+<link rel="stylesheet" type="text/css" href="~/css/CreateCollection/CreateCollection.css"/>
+
+<h2 class="lng-CollectionTitle" id="text">Title:</h2>
+<h3 id="text">@Model.Title</h3>
+
+<br/>
+
+<h3 class="lng-CollectionSmallDescription" id="footer-text">Description:</h3>
+<h4 id="footer-text">@Model.Description</h4>
+
+<br/>
+
+<h4 class="lng-CollectionTheme" id="footer-text">Theme:</h4>
+<h5 id="footer-text">@Model.Theme</h5>
+
+<br/>
+
+<div align="right">
+    <h5 id="footer-text"><i>@Model.LastEditDate</i></h5>
+</div>
+
+<br/>
+
+@if(Model.CollectionItems!.Count == 0)
+{
+    <div class="text-center">
+        <h3 class="lng-CollectionEmpty" id="text"><b>Your collection is empty, expand it by adding new item in collection.</b></h3>
+    </div>
+    <br/>
+}
+
+<div class="text-center">
+    <button class="lng-AddItemButton btn btn-lg btn-outline-success btn-block">Add Item</button>
+</div>
+
+<script src="/js/ChangeLanguage.js"></script>
+<script src="/js/ChangeTheme.js"></script>
+
+<script>
+    let pageTitle = (getCurrentLanguage() === 'en') ? 'View Collection - ICollections' : 'Просмотр коллекции - ICollections';
+         
+    document.querySelector('title').innerHTML = pageTitle;
+</script>

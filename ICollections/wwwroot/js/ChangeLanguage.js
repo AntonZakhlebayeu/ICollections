@@ -205,7 +205,15 @@ const langArr = {
     "YourCollections": {
         "en": "Your Collections:",
         "ru": "Ваши коллекции:",
-    }
+    },
+    "CollectionEmpty": {
+        "en": "Your collection is empty, expand it by adding new item in collection.",
+        "ru": "Ваша коллекция пуста, расширьте ее добавив туда новые предметы.",
+    },
+    "AddItemButton": {
+        "en": "Add Item",
+        "ru": "Добавить Предмет",
+    },
 }
 
 select.addEventListener('change',changeURLLanguage);
