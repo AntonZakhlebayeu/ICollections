@@ -84,10 +84,48 @@ public class HomeController : Controller
     }
     
     [HttpGet]
+    [Route("/Home/AddItem/{collectionId:int}")]
+    public async Task<ViewResult> AddItem(int collectionId)
+    {
+        ViewBag.collectionId = collectionId;
+
+        return await Task.Run(() => View("AddItem"));
+    }
+    
+    [Authorize]
+    [HttpPost]
+    [Route("/Home/AddItem/{collectionId:int}")]
+    public async Task<IActionResult> AddItem(ItemViewModel itemViewModel, int collectionId)
+    {
+        ViewBag.collectionId = collectionId;
+        
+        if (!ModelState.IsValid) return await Task.Run(() => View(itemViewModel));
+        
+        var newItem = new Item
+        {
+            CollectionId = itemViewModel.CollectionId, Title = itemViewModel.Title,
+            Description = itemViewModel.Description, LastEditDate = DateTime.UtcNow.AddHours(3).ToString("MM/dd/yyyy H:mm"),
+            Date = itemViewModel.Date, Brand = itemViewModel.Brand
+        };
+
+        var currentCollection = _db.Collections.FirstOrDefaultAsync(c => c.CollectionId == newItem.CollectionId).Result;
+
+        currentCollection!.CollectionItems!.Append(newItem);
+
+        await _db.Items.AddAsync(newItem);
+
+        await _db.SaveChangesAsync();
+
+        return await Task.Run(() => RedirectToAction("ViewCollection", currentCollection));
+    }
+
+    [HttpGet]
     [Route("/Home/ViewCollection/{collectionId:int}")]
     public async Task<IActionResult> ViewCollection(int collectionId)
     {
         var userCollection = _db.Collections.FirstOrDefaultAsync(c => c.CollectionId == collectionId).Result;
+
+        userCollection!.CollectionItems = _db.Items.Where(i => i.CollectionId == userCollection.CollectionId).ToList();
 
         return await Task.Run(() => View(userCollection));
     }

@@ -14,7 +14,7 @@
         "outputPath": "/Users/antonzakhlebayeu/ITransition Internship/ICollections/ICollections/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/antonzakhlebayeu/.nuget/NuGet/NuGet.Config"
+          "/Users/antonzakhlebayeu/.config/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
@@ -24,7 +24,6 @@
         },
         "frameworks": {
           "net6.0": {
-            "targetAlias": "net6.0",
             "projectReferences": {}
           }
         },
@@ -36,7 +35,6 @@
       },
       "frameworks": {
         "net6.0": {
-          "targetAlias": "net6.0",
           "dependencies": {
             "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": {
               "target": "Package",
@@ -71,25 +69,7 @@
               "version": "[1.0.0-rc4-004707, )"
             }
           },
-          "imports": [
-            "net461",
-            "net462",
-            "net47",
-            "net471",
-            "net472",
-            "net48"
-          ],
-          "assetTargetFallback": true,
-          "warn": true,
-          "frameworkReferences": {
-            "Microsoft.AspNetCore.App": {
-              "privateAssets": "none"
-            },
-            "Microsoft.NETCore.App": {
-              "privateAssets": "all"
-            }
-          },
-          "runtimeIdentifierGraphPath": "/Users/antonzakhlebayeu/.dotnet/sdk/6.0.202/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/Library/Frameworks/Mono.framework/Versions/6.12.0/lib/mono/msbuild/Current/bin/RuntimeIdentifierGraph.json"
         }
       }
     }

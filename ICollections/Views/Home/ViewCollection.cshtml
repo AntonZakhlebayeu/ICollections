@@ -1,7 +1,26 @@
 @model ICollections.Models.Collection
 
+@functions {
+
+    string GetContentPart(string content) {
+
+        int CONTENT_PART_SIZE = 500;
+
+        if (content.Length > CONTENT_PART_SIZE)
+        {
+            content = content.Substring(0, CONTENT_PART_SIZE);
+            content += "...";
+        }
+
+        return content;
+
+    }
+
+}
+
 <link rel="stylesheet" title="theme" href="#">
 <link rel="stylesheet" type="text/css" href="~/css/CreateCollection/CreateCollection.css"/>
+<link rel="stylesheet" type="text/css" href="~/css/Collections/Collection.css"/>
 
 <h2 class="lng-CollectionTitle" id="text">Title:</h2>
 <h3 id="text">@Model.Title</h3>
@@ -24,17 +43,34 @@
 
 <br/>
 
-@if(Model.CollectionItems!.Count == 0)
+@if(Model.CollectionItems!.Count() == 0)
 {
     <div class="text-center">
         <h3 class="lng-CollectionEmpty" id="text"><b>Your collection is empty, expand it by adding new item in collection.</b></h3>
     </div>
     <br/>
 }
+else
+{
+    foreach (var item in Model.CollectionItems!.ToList())
+    {
+        <div class="CollectionArea">
+            <div class="col-md-8 card-body">
+                <div class="card-body">
+                    <h5 class="card-title"><a class="link">@item.Title</a></h5>
+                    <p class="card-text">@GetContentPart(item.Description!)</p>
+                    <p class="card-text"><small class="text-muted">@item.LastEditDate</small></p>
+                </div>
+            </div>
+        </div>
+    }
+}
 
-<div class="text-center">
-    <button class="lng-AddItemButton btn btn-lg btn-outline-success btn-block">Add Item</button>
-</div>
+<form action="/Home/AddItem/@Model.CollectionId">
+    <div class="text-center">
+        <button class="lng-AddItemButton btn btn-lg btn-outline-success btn-block" href="/Home/AddItem/@Model.CollectionId">Add Item</button>
+    </div>
+</form>
 
 <script src="/js/ChangeLanguage.js"></script>
 <script src="/js/ChangeTheme.js"></script>

@@ -1,5 +1,8 @@
 const keys = ["alcohol", "books", "films"];
 const classKeys = ["date", "brand"];
+const themeSelector = document.getElementById("themeSelector");
+
+themeSelector.addEventListener("change", changeContext)
 
 const themeList = {
     "alcohol": {
@@ -30,10 +33,6 @@ const themeList = {
     }
     
 }
-
-const themeSelector = document.getElementById("themeSelector");
-
-themeSelector.addEventListener("change", changeContext)
 
 function changeContext() {
     let selectedTheme = themeSelector.value;
@@ -67,5 +66,5 @@ function changeClass(additionalListLabels, selectedTheme) {
     additionalListLabels[2].classList.add("lng-CollectionComments");
 }
 
-changeContext();changeContext();
+changeContext();
 

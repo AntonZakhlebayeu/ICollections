@@ -46,8 +46,8 @@ public class ApplicationDbContext : IdentityDbContext<User>
             b.Property(p => p.Title).HasColumnName("Title").IsRequired();
             b.Property(p => p.Description).HasColumnName("Description").IsRequired();
             b.Property(p => p.LastEditDate).HasColumnName("LastEditDate").IsRequired();
-            b.Property(p => p.Date).HasColumnName("Date").IsRequired();
-            b.Property(p => p.Brand).HasColumnName("Brand").IsRequired();
+            b.Property(p => p.Date).HasColumnName("Date");
+            b.Property(p => p.Brand).HasColumnName("Brand");
         });
 
         base.OnModelCreating(modelBuilder);
