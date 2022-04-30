@@ -58,9 +58,9 @@
     <h4 class = "lng-YourCollections">Your collections:</h4>
     <br/>
     
-    @foreach (var collection in userCollections)
+    @foreach (var collection in userCollections.OrderByDescending(n => n.LastEditDate))
     {
-        <div class="CollectionArea">
+        <div class="CollectionArea" id = "text">
             <div class="col-md-8 card-body">
                 <div class="card-body">
                     <h5 class="card-title"><a class="link" href="/Home/ViewCollection/@collection.CollectionId">@collection.Title</a></h5>

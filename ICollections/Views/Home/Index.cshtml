@@ -1,4 +1,30 @@
-﻿@model ICollections.Models.User
+﻿@using ICollections.Data
+@using Microsoft.EntityFrameworkCore
+@model ICollections.Models.User
+
+@{
+    var data = ViewBag.db as ApplicationDbContext;
+
+    var userCollections = data!.Collections.ToListAsync().Result;
+}
+
+@functions {
+
+    string GetContentPart(string content) {
+
+        int CONTENT_PART_SIZE = 500;
+
+        if (content.Length > CONTENT_PART_SIZE)
+        {
+            content = content.Substring(0, CONTENT_PART_SIZE);
+            content += "...";
+        }
+
+        return content;
+
+    }
+
+}
 
 <div class="text-center">
     <h1 class="display-4 lng-WelcomeText" id="text">Welcome to ICollections!</h1>
@@ -8,9 +34,24 @@
 {
     <div class="text-center">
         <h3 class="lng-TextInUnregisteredIndex" id="text"><b>Register or Login to post your own collections or write comments.</b></h3>
-        <img src="https://i.ibb.co/h2sF85h/main-logo.png" alt="Chat Logo" style="width: 100%;height: 100%;object-fit: cover;">
     </div>
 }
+
+@foreach (var collection in userCollections.OrderByDescending(n => n.LastEditDate))
+    {
+        <div class="CollectionArea">
+            <div class="col-md-8 card-body">
+                <div class="card-body" id="text">
+                    <h5 class="card-title"><a class="link" href="/Home/ViewCollection/@collection.CollectionId">@collection.Title</a></h5>
+                    <p class="card-header">@collection.Theme</p>
+                    <p class="card-text">@GetContentPart(collection.Description!)</p>
+                    <p class="card-text">Author:</p>
+                    <p class="card-text">@data!.Users.FindAsync(collection.AuthorId).Result!.NickName</p>
+                    <p class="card-text">@collection.LastEditDate</p>
+                </div>
+            </div>
+        </div>
+    }
 
 <script src="/js/ChangeLanguage.js"></script>
 
