@@ -118,16 +118,52 @@ public class HomeController : Controller
 
         return await Task.Run(() => RedirectToAction("ViewCollection", currentCollection));
     }
-
-    [HttpGet]
+    
     [Route("/Home/ViewCollection/{collectionId:int}")]
     public async Task<IActionResult> ViewCollection(int collectionId)
     {
         var userCollection = _db.Collections.FirstOrDefaultAsync(c => c.CollectionId == collectionId).Result;
+        
+        if (userCollection == null) return await Task.Run(() => RedirectToAction("Profile", "Home"));
 
         userCollection!.CollectionItems = _db.Items.Where(i => i.CollectionId == userCollection.CollectionId).ToList();
 
         return await Task.Run(() => View(userCollection));
+    }
+
+    [HttpGet]
+    [Route("/Home/ViewItem/{collectionId}/{itemId:int}")]
+    public async Task<IActionResult> ViewItem(int itemId)
+    {
+        var item = _db.Items.FirstOrDefaultAsync(i => i.Id == itemId).Result;
+
+        if (item == null) return await Task.Run(() => RedirectToAction("Profile", "Home"));
+
+        return await Task.Run(() => View(item));
+    }
+    
+    [Route("/Home/ViewItem/{collectionId}/DeleteCollection")]
+    public async Task<IActionResult> DeleteCollection(int collectionId)
+    {
+        var objectToDelete = _db.Collections.FindAsync(collectionId).Result;
+
+        var result = _db.Collections.Remove(objectToDelete!);
+
+        await _db.SaveChangesAsync();
+
+        return await Task.Run(() => RedirectToAction("Profile", "Home"));
+    }
+    
+    [Route("/Home/ViewItem/{collectionId}/{itemId:int}/DeleteItem")]
+    public async Task<IActionResult> DeleteItem(int itemId, int collectionId)
+    {
+        var objectToDelete = _db.Items.FindAsync(itemId).Result;
+
+        var result = _db.Items.Remove(objectToDelete!);
+
+        await _db.SaveChangesAsync();
+
+        return await Task.Run(() => Redirect($"/Home/ViewCollection/{collectionId}"));
     }
 
     [Authorize]

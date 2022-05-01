@@ -1,0 +1,63 @@
+@using ICollections.Data
+@model ICollections.Models.Item
+
+@functions {
+    
+    string GetTheUserId(string userId)
+    {
+        var data = ViewBag.db as ApplicationDbContext;
+
+        var userEmail = data!.Users.FindAsync(userId).Result!.Email;
+
+        return userEmail;
+    }
+
+    string GetAuthorId(int? collectionId)
+    {
+        var data = ViewBag.db as ApplicationDbContext;
+
+        var authorId = data!.Collections.FindAsync(collectionId).Result!.AuthorId;
+
+        return authorId!;
+    }
+}
+
+<link rel="stylesheet" title="theme" href="#">
+<link rel="stylesheet" type="text/css" href="~/css/CreateCollection/CreateCollection.css"/>
+<link rel="stylesheet" type="text/css" href="~/css/Collections/Collection.css"/>
+
+<div class="col-md-100" id="text">
+    <h2 class="lng-CollectionTitle">Title:</h2>
+    <h3>@Model.Title</h3>
+</div>
+
+<br/>
+
+<div class="col-md-auto" id="footer-text">
+    <h3 class="lng-CollectionSmallDescription">Description:</h3>
+    <h4>@Model.Description</h4>
+</div>
+
+<br/>
+
+<div align="right" class="col-md-auto">
+    <h5 id="footer-text"><i>@Model.LastEditDate</i></h5>
+</div>
+
+@if (GetTheUserId(GetAuthorId(Model.CollectionId)) == User.Identity!.Name)
+{
+    <form action="/Home/ViewItem/@Model.CollectionId/@Model.Id/DeleteItem">
+        <div align="right">
+            <button class="lng-Delete btn btn-lg btn-outline-danger btn-block">Delete</button>
+        </div>
+    </form>
+}
+
+<script src="/js/ChangeLanguage.js"></script>
+<script src="/js/ChangeTheme.js"></script>
+
+<script>
+    let pageTitle = (getCurrentLanguage() === 'en') ? 'View Item - ICollections' : 'Просмотр предмета - ICollections';
+         
+    document.querySelector('title').innerHTML = pageTitle;
+</script>

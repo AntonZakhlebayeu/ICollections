@@ -214,6 +214,10 @@ const langArr = {
         "en": "Add Item",
         "ru": "Добавить Предмет",
     },
+    "CollectionEmptyNotUser": {
+        "en": "This is collection is empty, author will expand id by adding new items.",
+        "ru": "Эта коллекция пуста, автор расширит ее добавив новые предметы.",
+    },
 }
 
 select.addEventListener('change',changeURLLanguage);

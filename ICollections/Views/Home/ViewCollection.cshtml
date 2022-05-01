@@ -1,7 +1,19 @@
 @model ICollections.Models.Collection
+@using ICollections.Data
+@using Microsoft.EntityFrameworkCore
 
 @functions {
 
+    string GetTheUserId(string userId)
+    {
+        var data = ViewBag.db as ApplicationDbContext;
+
+        var userEmail = data!.Users.FindAsync(userId).Result!.Email;
+
+        return userEmail;
+    }
+    
+    
     string GetContentPart(string content) {
 
         int CONTENT_PART_SIZE = 500;
@@ -22,18 +34,24 @@
 <link rel="stylesheet" type="text/css" href="~/css/CreateCollection/CreateCollection.css"/>
 <link rel="stylesheet" type="text/css" href="~/css/Collections/Collection.css"/>
 
-<h2 class="lng-CollectionTitle" id="text">Title:</h2>
-<h3 id="text">@Model.Title</h3>
+<div class="col-md-100" id="text">
+    <h2 class="lng-CollectionTitle">Title:</h2>
+    <h3>@Model.Title</h3>
+</div>
 
 <br/>
 
-<h3 class="lng-CollectionSmallDescription" id="footer-text">Description:</h3>
-<h4 id="footer-text">@Model.Description</h4>
+<div class="col-md-auto" id="footer-text">
+    <h3 class="lng-CollectionSmallDescription">Description:</h3>
+    <h4>@Model.Description</h4>
+</div>
 
 <br/>
 
-<h4 class="lng-CollectionTheme" id="footer-text">Theme:</h4>
-<h5 id="footer-text">@Model.Theme</h5>
+<div class="col-md-auto" id="footer-text">
+    <h4 class="lng-CollectionTheme">Theme:</h4>
+    <h5>@Model.Theme</h5>
+</div>
 
 <br/>
 
@@ -41,14 +59,26 @@
     <h5 id="footer-text"><i>@Model.LastEditDate</i></h5>
 </div>
 
-<br/>
-
-@if(Model.CollectionItems!.Count() == 0)
+@if (GetTheUserId(Model.AuthorId!) == User.Identity!.Name)
 {
-    <div class="text-center">
+    <form action="/Home/ViewItem/@Model.CollectionId/DeleteCollection">
+        <div align="right">
+            <button class="lng-Delete btn btn-lg btn-outline-danger btn-block">Delete</button>
+        </div>
+    </form>
+}
+
+@if(Model.CollectionItems!.Count() == 0 && GetTheUserId(Model.AuthorId!) == User.Identity!.Name)
+{
+    <div class="text-center col-md-auto">
         <h3 class="lng-CollectionEmpty" id="text"><b>Your collection is empty, expand it by adding new item in collection.</b></h3>
     </div>
-    <br/>
+}
+else if (Model.CollectionItems!.Count() == 0 && GetTheUserId(Model.AuthorId!) != User.Identity!.Name)
+{
+    <div class="text-center col-md-auto">
+        <h3 class="lng-CollectionEmptyNotUser" id="text"><b>This is collection is empty, author will expand id by adding new items.</b></h3>
+    </div>
 }
 else
 {
@@ -57,7 +87,7 @@ else
         <div class="CollectionArea">
             <div class="col-md-8 card-body">
                 <div class="card-body">
-                    <h5 class="card-title"><a class="link">@item.Title</a></h5>
+                    <h5 class="card-title"><a class="link" href="/Home/ViewItem/@item.CollectionId/@item.Id">@item.Title</a></h5>
                     <p class="card-text">@GetContentPart(item.Description!)</p>
                     <p class="card-text"><small class="text-muted">@item.LastEditDate</small></p>
                 </div>
@@ -66,11 +96,16 @@ else
     }
 }
 
-<form action="/Home/AddItem/@Model.CollectionId">
-    <div class="text-center">
-        <button class="lng-AddItemButton btn btn-lg btn-outline-success btn-block" href="/Home/AddItem/@Model.CollectionId">Add Item</button>
-    </div>
-</form>
+<br/>
+
+@if (GetTheUserId(Model.AuthorId!) == User.Identity!.Name)
+{
+    <form action="/Home/AddItem/@Model.CollectionId">
+        <div class="text-center">
+            <button class="lng-AddItemButton btn btn-lg btn-outline-success btn-block">Add Item</button>
+        </div>
+    </form>
+}
 
 <script src="/js/ChangeLanguage.js"></script>
 <script src="/js/ChangeTheme.js"></script>
