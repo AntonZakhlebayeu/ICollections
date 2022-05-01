@@ -147,7 +147,14 @@ public class HomeController : Controller
     {
         var objectToDelete = _db.Collections.FindAsync(collectionId).Result;
 
-        var result = _db.Collections.Remove(objectToDelete!);
+        var itemsToDelete = _db.Items.Where(i => i.CollectionId == objectToDelete!.CollectionId);
+
+        foreach (var item in itemsToDelete)
+        {
+            _db.Items.Remove(item);
+        }
+
+        _db.Collections.Remove(objectToDelete!);
 
         await _db.SaveChangesAsync();
 

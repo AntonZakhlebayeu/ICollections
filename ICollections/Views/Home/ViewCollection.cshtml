@@ -4,6 +4,17 @@
 
 @functions {
 
+    string GetUserRole()
+    {
+        if (!User.Identity!.IsAuthenticated) return "user";
+        
+        var data = ViewBag.db as ApplicationDbContext;
+
+        var userRole = data!.Users.FirstOrDefaultAsync(u => u.Email == User.Identity!.Name).Result!.Role;
+
+        return userRole!;
+    }
+
     string GetTheUserId(string userId)
     {
         var data = ViewBag.db as ApplicationDbContext;
@@ -25,9 +36,7 @@
         }
 
         return content;
-
     }
-
 }
 
 <link rel="stylesheet" title="theme" href="#">
@@ -59,7 +68,7 @@
     <h5 id="footer-text"><i>@Model.LastEditDate</i></h5>
 </div>
 
-@if (GetTheUserId(Model.AuthorId!) == User.Identity!.Name)
+@if (GetTheUserId(Model.AuthorId!) == User.Identity!.Name || GetUserRole() != "user")
 {
     <form action="/Home/ViewItem/@Model.CollectionId/DeleteCollection">
         <div align="right">
@@ -68,7 +77,7 @@
     </form>
 }
 
-@if(Model.CollectionItems!.Count() == 0 && GetTheUserId(Model.AuthorId!) == User.Identity!.Name)
+@if(Model.CollectionItems!.Count() == 0 && (GetTheUserId(Model.AuthorId!) == User.Identity!.Name || GetUserRole() != "user"))
 {
     <div class="text-center col-md-auto">
         <h3 class="lng-CollectionEmpty" id="text"><b>Your collection is empty, expand it by adding new item in collection.</b></h3>
@@ -98,7 +107,7 @@ else
 
 <br/>
 
-@if (GetTheUserId(Model.AuthorId!) == User.Identity!.Name)
+@if (GetTheUserId(Model.AuthorId!) == User.Identity!.Name || GetUserRole() != "user")
 {
     <form action="/Home/AddItem/@Model.CollectionId">
         <div class="text-center">
