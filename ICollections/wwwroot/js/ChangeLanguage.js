@@ -218,6 +218,10 @@ const langArr = {
         "en": "This is collection is empty, author will expand id by adding new items.",
         "ru": "Эта коллекция пуста, автор расширит ее добавив новые предметы.",
     },
+    "Edit": {
+        "en": "Edit",
+        "ru": "Редактировать",
+    },
 }
 
 select.addEventListener('change',changeURLLanguage);

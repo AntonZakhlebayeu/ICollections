@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace ICollections.Views.Home;
+namespace ICollections.Views.AdminPanel;
 
 public class AdminPanel : PageModel
 {

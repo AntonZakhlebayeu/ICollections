@@ -43,7 +43,7 @@
             @if (@Model.Role is "admin" or "super admin")
             {
                 <br/><br/>
-                <form class="form-inline" asp-controller="Home" asp-action="AdminPanel">
+                <form class="form-inline" asp-controller="AdminPanel" asp-action="AdminPanel">
                     <button type="submit" class="btn btn-danger text-dark lng-AdminPanel">Admin panel</button>
                 </form>
             }
@@ -55,7 +55,7 @@
 
 <div class="CollectionsArea">
     
-    <h4 class = "lng-YourCollections">Your collections:</h4>
+    <h4 class = "lng-YourCollections" id="text">Your collections:</h4>
     <br/>
     
     @foreach (var collection in userCollections.OrderByDescending(n => n.LastEditDate))

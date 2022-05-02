@@ -70,6 +70,12 @@
 
 @if (GetTheUserId(Model.AuthorId!) == User.Identity!.Name || GetUserRole() != "user")
 {
+    <form action="/Home/EditCollection/@Model.CollectionId">
+        <div align="right" style="margin-bottom: 20px">
+            <button class="lng-Edit btn btn-lg btn-outline-primary btn-block">Edit</button>
+        </div>
+    </form>
+    
     <form action="/Home/ViewItem/@Model.CollectionId/DeleteCollection">
         <div align="right">
             <button class="lng-Delete btn btn-lg btn-outline-danger btn-block">Delete</button>
@@ -95,7 +101,7 @@ else
     {
         <div class="CollectionArea">
             <div class="col-md-8 card-body">
-                <div class="card-body">
+                <div class="card-body" id="text">
                     <h5 class="card-title"><a class="link" href="/Home/ViewItem/@item.CollectionId/@item.Id">@item.Title</a></h5>
                     <p class="card-text">@GetContentPart(item.Description!)</p>
                     <p class="card-text"><small class="text-muted">@item.LastEditDate</small></p>

@@ -13,7 +13,7 @@
         }
         requestString += "Ids[" + (contactIds.length - 1) + "]=" + contactIds[contactIds.length - 1] + "";
 
-        window.location.replace("/home/delete?" + requestString);
+        window.location.replace("/AdminPanel/delete?" + requestString);
     }
 
 }
@@ -33,7 +33,7 @@ function promoteCheckedContacts() {
         }
         requestString += "Ids[" + (contactIds.length - 1) + "]=" + contactIds[contactIds.length - 1] + "";
 
-        window.location.replace("/home/promote?" + requestString);
+        window.location.replace("/AdminPanel/promote?" + requestString);
     }
 }
 
@@ -52,7 +52,7 @@ function demoteCheckedContacts() {
         }
         requestString += "Ids[" + (contactIds.length - 1) + "]=" + contactIds[contactIds.length - 1] + "";
 
-        window.location.replace("/home/demote?" + requestString);
+        window.location.replace("/AdminPanel/demote?" + requestString);
     }
 }
 
@@ -71,7 +71,7 @@ function blockCheckedContacts() {
         }
         requestString += "Ids[" + (contactIds.length - 1) + "]=" + contactIds[contactIds.length - 1] + "";
 
-        window.location.replace("/home/block?" + requestString);
+        window.location.replace("/AdminPanel/block?" + requestString);
     }
 }
 
@@ -91,7 +91,7 @@ function unblockCheckedContacts() {
         }
         requestString += "Ids[" + (contactIds.length - 1) + "]=" + contactIds[contactIds.length - 1] + "";
 
-        window.location.replace("/home/unblock?" + requestString);
+        window.location.replace("/AdminPanel/unblock?" + requestString);
 
     }
 

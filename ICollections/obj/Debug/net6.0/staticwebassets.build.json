@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "DCbFDGAGnkWKGIeFsFEP78y9wM+nwX9+0+MlieN1xH4=",
+  "Hash": "kveMJ3U4atsLasVbpsBSHKm03zCfnGLxs7H8B2Ri0Z8=",
   "Source": "ICollections",
   "BasePath": "_content/ICollections",
   "Mode": "Default",
@@ -1071,6 +1071,40 @@
       "OriginalItemSpec": "/Users/antonzakhlebayeu/ITransition Internship/ICollections/ICollections/obj/Debug/net6.0/scopedcss/projectbundle/ICollections.bundle.scp.css"
     },
     {
+      "Identity": "/Users/antonzakhlebayeu/ITransition Internship/ICollections/ICollections/wwwroot/.DS_Store",
+      "SourceId": "ICollections",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/antonzakhlebayeu/ITransition Internship/ICollections/ICollections/wwwroot/",
+      "BasePath": "_content/ICollections",
+      "RelativePath": ".DS_Store",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/.DS_Store"
+    },
+    {
+      "Identity": "/Users/antonzakhlebayeu/ITransition Internship/ICollections/ICollections/wwwroot/css/.DS_Store",
+      "SourceId": "ICollections",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/antonzakhlebayeu/ITransition Internship/ICollections/ICollections/wwwroot/",
+      "BasePath": "_content/ICollections",
+      "RelativePath": "css/.DS_Store",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/css/.DS_Store"
+    },
+    {
       "Identity": "/Users/antonzakhlebayeu/ITransition Internship/ICollections/ICollections/wwwroot/css/Collections/Collection.css",
       "SourceId": "ICollections",
       "SourceType": "Discovered",
@@ -1103,6 +1137,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/css/CreateCollection/CreateCollection.css"
+    },
+    {
+      "Identity": "/Users/antonzakhlebayeu/ITransition Internship/ICollections/ICollections/wwwroot/css/Shared/.DS_Store",
+      "SourceId": "ICollections",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/antonzakhlebayeu/ITransition Internship/ICollections/ICollections/wwwroot/",
+      "BasePath": "_content/ICollections",
+      "RelativePath": "css/Shared/.DS_Store",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/css/Shared/.DS_Store"
     },
     {
       "Identity": "/Users/antonzakhlebayeu/ITransition Internship/ICollections/ICollections/wwwroot/css/Shared/theme-dark.css",

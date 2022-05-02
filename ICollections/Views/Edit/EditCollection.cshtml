@@ -1,0 +1,53 @@
+@model ICollections.ViewModels.EditCollectionViewModel
+
+@using ICollections.Data
+@{
+    var data = ViewBag.db as ApplicationDbContext;
+
+    var collectionId = ViewBag.collectionId;
+
+    var editingCollection = data!.Collections.FindAsync(collectionId is int id ? id : 0).Result;
+}
+
+<link rel="stylesheet" title="theme" href="#">
+<link rel="stylesheet" type="text/css" href="~/css/CreateCollection/CreateCollection.css"/>
+
+
+<form method="post" action="/Home/EditCollection/@collectionId" enctype="multipart/form-data">
+    <div asp-validation-summary="ModelOnly"></div>
+    <input type="hidden" name="AuthorId" value="@collectionId" asp-for="CollectionId"/>
+    <div class="drop-zone col-4">
+        <span class="drop-zone__prompt lng-DropImage lng-DropImageCollection" id="text">Drop file here or click to upload</span>
+        <input type="file" name="myFile" class="drop-zone__input" accept="image/*" />
+    </div>
+    <br/>
+
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text lng-CollectionTitle" id="basic-addon1">Title:</span>
+        </div>
+        <input type="text" class="form-control" name="Title" aria-label="Title" aria-describedby="basic-addon1" value="@editingCollection!.Title" asp-for="Title">
+        <span asp-validation-for="Title"></span>
+    </div>
+    
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text lng-CollectionSmallDescription" id="basic-addon1">Description:</span>
+      </div>
+      <input type="text" class="form-control" name="Description" aria-label="Description" aria-describedby="basic-addon1" value="@editingCollection!.Description" asp-for="Description">
+      <span asp-validation-for="Description"></span>
+    </div>
+
+    <br/>
+    <button type="submit" class="btn btn-success lng-Edit" id="text">Create</button>
+</form>
+
+<script src="/js/ChangeLanguage.js"></script>
+<script src="/js/ChangeTheme.js"></script>
+<script src="/js/CreateCollection.js"></script>
+
+<script>   
+    let pageTitle = (getCurrentLanguage() === 'en') ? 'Edit Collection Page - ICollections' : 'Редактирование коллекции - ICollections';
+         
+    document.querySelector('title').innerHTML = pageTitle;
+</script>

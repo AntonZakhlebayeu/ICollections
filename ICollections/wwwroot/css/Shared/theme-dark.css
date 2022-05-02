@@ -9,12 +9,12 @@ html {
 }
 
 #footer-text {
-  color: black;
+  color: white;
   opacity: 0.5;
 }
 
 #text {
-  color: black;
+  color: white;
 }
 
 html {
@@ -24,18 +24,18 @@ html {
 
 header {
   font-family: "Comic Sans MS";
-  background-color: #adb5bd;
+  background-color: #191c1f;
 }
 
 body {
   margin-bottom: 60px;
-  background-image: url("https://i.ibb.co/8X4vP77/ezgif-4-54363841c6.jpg");
+  background-image: url("https://i.stack.imgur.com/9WYxT.png");
   background-size: cover;
 }
 
 footer {
   font-family: "Comic Sans MS";
-  background-color: #adb5bd;
+  background-color: #191c1f;
   position: absolute;
   left: 0;
   bottom: 0;

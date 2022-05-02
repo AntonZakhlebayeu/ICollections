@@ -17,7 +17,7 @@
 <form method="post" asp-action="AddItem" enctype="multipart/form-data">
     
     <div asp-validation-summary="ModelOnly"></div>
-    <input type="hidden" name="AuthorId" value="@collection.CollectionId" asp-for="CollectionId"/>
+    <input type="hidden" name="AuthorId" value="@collection!.CollectionId" asp-for="CollectionId"/>
     
     <div class="input-group mb-3">
         <div class="input-group-prepend">

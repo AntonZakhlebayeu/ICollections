@@ -27,16 +27,24 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWNjb3VudC9SZWdpc3Rlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/antonzakhlebayeu/ITransition Internship/ICollections/ICollections/Views/Home/AddItem.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9BZGRJdGVtLmNzaHRtbA==
+[/Users/antonzakhlebayeu/ITransition Internship/ICollections/ICollections/Views/AdminPanel/AdminPanel.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWRtaW5QYW5lbC9BZG1pblBhbmVsLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/antonzakhlebayeu/ITransition Internship/ICollections/ICollections/Views/Home/AdminPanel.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9BZG1pblBhbmVsLmNzaHRtbA==
+[/Users/antonzakhlebayeu/ITransition Internship/ICollections/ICollections/Views/Create/AddItem.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ3JlYXRlL0FkZEl0ZW0uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/antonzakhlebayeu/ITransition Internship/ICollections/ICollections/Views/Home/CreateCollection.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9DcmVhdGVDb2xsZWN0aW9uLmNzaHRtbA==
+[/Users/antonzakhlebayeu/ITransition Internship/ICollections/ICollections/Views/Create/CreateCollection.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ3JlYXRlL0NyZWF0ZUNvbGxlY3Rpb24uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/antonzakhlebayeu/ITransition Internship/ICollections/ICollections/Views/Edit/EditCollection.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRWRpdC9FZGl0Q29sbGVjdGlvbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/antonzakhlebayeu/ITransition Internship/ICollections/ICollections/Views/Edit/EditItem.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRWRpdC9FZGl0SXRlbS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Users/antonzakhlebayeu/ITransition Internship/ICollections/ICollections/Views/Home/Index.cshtml]
