@@ -19,6 +19,11 @@
     
     <div asp-validation-summary="ModelOnly"></div>
     <input type="hidden" name="CollectionId" value="@collection!.CollectionId" asp-for="CollectionId"/>
+    <div class="drop-zone col-4">
+        <span class="drop-zone__prompt lng-DropImage lng-DropImageCollection" id="text">Drop file here or click to upload</span>
+        <input type="file" name="myFile" class="drop-zone__input" accept="image/*"/>
+    </div>
+    <br/>
     
     <div class="input-group mb-3">
         <div class="input-group-prepend">

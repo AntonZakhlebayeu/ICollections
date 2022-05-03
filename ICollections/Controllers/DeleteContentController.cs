@@ -1,3 +1,5 @@
+using Dropbox.Api;
+using ICollections.Constants;
 using ICollections.Data;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,7 +23,26 @@ public class DeleteContentController : Controller
 
         foreach (var item in itemsToDelete)
         {
+            
+            if (item!.FileName != "")
+            {
+                using (var dbx = new DropboxClient(AccessDropBoxConstants.GetToken()))
+                {
+                    item.FileUrl += "?dl=0";
+                    await dbx.Files.DeleteV2Async(AccessDropBoxConstants.Folder + "/" + item.FileName);
+                }
+            }
+
             _db.Items.Remove(item);
+        }
+
+        if (objectToDelete!.FileName != "")
+        {
+            using (var dbx = new DropboxClient(AccessDropBoxConstants.GetToken()))
+            {
+                objectToDelete.FileUrl += "?dl=0";
+                await dbx.Files.DeleteV2Async(AccessDropBoxConstants.Folder + "/" + objectToDelete.FileName);
+            }
         }
 
         _db.Collections.Remove(objectToDelete!);
@@ -35,6 +56,15 @@ public class DeleteContentController : Controller
     public async Task<IActionResult> DeleteItem(int itemId, int collectionId)
     {
         var objectToDelete = _db.Items.FindAsync(itemId).Result;
+        
+        if (objectToDelete!.FileName != "")
+        {
+            using (var dbx = new DropboxClient(AccessDropBoxConstants.GetToken()))
+            {
+                objectToDelete.FileUrl += "?dl=0";
+                await dbx.Files.DeleteV2Async(AccessDropBoxConstants.Folder + "/" + objectToDelete.FileName);
+            }
+        }
 
         var result = _db.Items.Remove(objectToDelete!);
 

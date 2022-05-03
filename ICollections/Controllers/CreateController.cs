@@ -33,12 +33,16 @@ public class CreateController : Controller
     {
         if (!ModelState.IsValid || collectionViewModel.Theme == "null") return await Task.Run(() => View(collectionViewModel));
 
-        var resultingName = "";
+        var resultingStrings = new List<string>
+        {
+            "",
+            ""
+        };
         
         if (Request.Form.Files.Count != 0)
         {
             var file = Request.Form.Files.First();
-            resultingName = SaveFileAsync(file).Result;
+            resultingStrings = SaveFileAsync(file).Result;
         }
 
         var newCollection = new Collection
@@ -47,7 +51,7 @@ public class CreateController : Controller
             Description = collectionViewModel.Description, Theme = collectionViewModel.Theme,
             AddDates = collectionViewModel.IncludeDate, AddBrands = collectionViewModel.IncludeBrand,
             AddComments = collectionViewModel.IncludeComments, LastEditDate = DateTime.UtcNow.AddHours(3).ToString("MM/dd/yyyy H:mm"),
-            FileName = resultingName,
+            FileName = resultingStrings[0], FileUrl = resultingStrings[1]
         };
 
         await _db.Collections.AddAsync(newCollection);
@@ -75,11 +79,24 @@ public class CreateController : Controller
         
         if (!ModelState.IsValid) return await Task.Run(() => View(itemViewModel));
 
+        var resultingStrings = new List<string>
+        {
+            "",
+            ""
+        };
+        
+        if (Request.Form.Files.Count != 0)
+        {
+            var file = Request.Form.Files.First();
+            resultingStrings = SaveFileAsync(file).Result;
+        }
+
+        
         var newItem = new Item
         {
             CollectionId = itemViewModel.CollectionId, Title = itemViewModel.Title,
             Description = itemViewModel.Description, LastEditDate = DateTime.UtcNow.AddHours(3).ToString("MM/dd/yyyy H:mm"),
-            Date = itemViewModel.Date, Brand = itemViewModel.Brand
+            Date = itemViewModel.Date, Brand = itemViewModel.Brand, FileName = resultingStrings[0], FileUrl = resultingStrings[1],
         };
 
         var currentCollection = _db.Collections.FirstOrDefaultAsync(c => c.CollectionId == newItem.CollectionId).Result;
@@ -109,7 +126,7 @@ public class CreateController : Controller
                 tx.Wait();
 
                 url = tx.Result.Url;
-                url = url.TrimEnd(AccessDropBoxConstants.ToCut);
+                url = url.TrimEnd(AccessDropBoxConstants.ToCutView);
             }
         }
         uploadFileStream.Close();
@@ -124,7 +141,7 @@ public class CreateController : Controller
         return fileName;
     }
 
-    private static async Task<string> SaveFileAsync(IFormFile file)
+    private static async Task<List<string>> SaveFileAsync(IFormFile file)
     {
 
         var originalFileName = Path.GetFileName(file.FileName);
@@ -136,8 +153,12 @@ public class CreateController : Controller
             await file.CopyToAsync(stream);
         }
 
-        var resultingName = uniqueFileName + '.' + extension;
+        var resultingStrings = new List<string>();
+        
+        resultingStrings.Add(uniqueFileName + '.' + extension);
 
-        return await Task.Run(() => PushToCloud(resultingName, resultingName).Result);
+        resultingStrings.Add(PushToCloud(resultingStrings[0], resultingStrings[0]).Result);
+
+        return await Task.Run(() => resultingStrings);
     }
 }

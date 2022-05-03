@@ -44,6 +44,13 @@
 <link rel="stylesheet" type="text/css" href="~/css/CreateCollection/CreateCollection.css"/>
 <link rel="stylesheet" type="text/css" href="~/css/Collections/Collection.css"/>
 
+@if (Model.FileName != "")
+{
+    <div style="margin-bottom: 12px" align="center">
+        <img src="@Model.FileUrl?raw=1" width="640px" height="360px" alt="User Photo">
+    </div>   
+}
+
 <div class="col-md-100" id="text">
     <h2 class="lng-CollectionTitle">Title:</h2>
     <h3>@Model.Title</h3>

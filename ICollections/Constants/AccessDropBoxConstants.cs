@@ -12,7 +12,7 @@ public static class AccessDropBoxConstants
     
     public const string Folder = "/Images";
 
-    public static char[] ToCut = { '?', 'd', 'l', '=', '0' };
+    public static char[] ToCutView = { '?', 'd', 'l', '=', '0' };
 
     public static void SetAccessToken() => ConvertHexToString(accessTokenCoded, Encoding.UTF8);
     public static string GetToken() => accessToken;
