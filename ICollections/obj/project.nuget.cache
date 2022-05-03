@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "2paAKVLJWXQN6z9ahvd/DJ9w10l/KZA6jiHjKJFKam895hBZbWcmsOfEvRKseYQR3RTDAP4Xemrd2Csmu5f+Pg==",
+  "dgSpecHash": "CyLx2p81xi6G+0xPsMi+f86iLqxOoUST8NWoDfvxVrJzbU6IFlFZVTIEejYWDdA24wXPVWUh4cLK40Q50LeBaw==",
   "success": true,
   "projectFilePath": "/Users/antonzakhlebayeu/ITransition Internship/ICollections/ICollections/ICollections.csproj",
   "expectedPackageFiles": [
+    "/Users/antonzakhlebayeu/.nuget/packages/dropbox.api/6.27.0/dropbox.api.6.27.0.nupkg.sha512",
     "/Users/antonzakhlebayeu/.nuget/packages/humanizer.core/2.8.26/humanizer.core.2.8.26.nupkg.sha512",
     "/Users/antonzakhlebayeu/.nuget/packages/microsoft.aspnetcore.cryptography.internal/6.0.3/microsoft.aspnetcore.cryptography.internal.6.0.3.nupkg.sha512",
     "/Users/antonzakhlebayeu/.nuget/packages/microsoft.aspnetcore.cryptography.keyderivation/6.0.3/microsoft.aspnetcore.cryptography.keyderivation.6.0.3.nupkg.sha512",
@@ -46,6 +47,7 @@
     "/Users/antonzakhlebayeu/.nuget/packages/microsoft.netcore.platforms/3.1.0/microsoft.netcore.platforms.3.1.0.nupkg.sha512",
     "/Users/antonzakhlebayeu/.nuget/packages/microsoft.win32.registry/4.7.0/microsoft.win32.registry.4.7.0.nupkg.sha512",
     "/Users/antonzakhlebayeu/.nuget/packages/microsoft.win32.systemevents/4.7.0/microsoft.win32.systemevents.4.7.0.nupkg.sha512",
+    "/Users/antonzakhlebayeu/.nuget/packages/newtonsoft.json/12.0.3/newtonsoft.json.12.0.3.nupkg.sha512",
     "/Users/antonzakhlebayeu/.nuget/packages/sqlitepclraw.bundle_e_sqlite3/2.0.6/sqlitepclraw.bundle_e_sqlite3.2.0.6.nupkg.sha512",
     "/Users/antonzakhlebayeu/.nuget/packages/sqlitepclraw.core/2.0.6/sqlitepclraw.core.2.0.6.nupkg.sha512",
     "/Users/antonzakhlebayeu/.nuget/packages/sqlitepclraw.lib.e_sqlite3/2.0.6/sqlitepclraw.lib.e_sqlite3.2.0.6.nupkg.sha512",

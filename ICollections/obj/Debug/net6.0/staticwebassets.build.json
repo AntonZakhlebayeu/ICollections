@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "kveMJ3U4atsLasVbpsBSHKm03zCfnGLxs7H8B2Ri0Z8=",
+  "Hash": "amM8Y+SLvqbN4XZo+wfEGM2fiVqARXnsMWVi0e0cV54=",
   "Source": "ICollections",
   "BasePath": "_content/ICollections",
   "Mode": "Default",
@@ -1273,6 +1273,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/js/CreateCollection.js"
+    },
+    {
+      "Identity": "/Users/antonzakhlebayeu/ITransition Internship/ICollections/ICollections/wwwroot/js/DropZone.js",
+      "SourceId": "ICollections",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/antonzakhlebayeu/ITransition Internship/ICollections/ICollections/wwwroot/",
+      "BasePath": "_content/ICollections",
+      "RelativePath": "js/DropZone.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/js/DropZone.js"
     },
     {
       "Identity": "/Users/antonzakhlebayeu/ITransition Internship/ICollections/ICollections/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.css",

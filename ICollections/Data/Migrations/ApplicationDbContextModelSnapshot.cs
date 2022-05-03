@@ -17,6 +17,101 @@ namespace ICollections.Data.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.4");
 
+            modelBuilder.Entity("ICollections.Models.Collection", b =>
+                {
+                    b.Property<int?>("CollectionId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("AddBrands")
+                        .HasColumnType("TEXT")
+                        .HasColumnName("AddBrands");
+
+                    b.Property<string>("AddComments")
+                        .HasColumnType("TEXT")
+                        .HasColumnName("AddComments");
+
+                    b.Property<string>("AddDates")
+                        .HasColumnType("TEXT")
+                        .HasColumnName("AddDates");
+
+                    b.Property<string>("AuthorId")
+                        .IsRequired()
+                        .HasColumnType("TEXT")
+                        .HasColumnName("AuthorId");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("TEXT")
+                        .HasColumnName("Description");
+
+                    b.Property<string>("FileName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("LastEditDate")
+                        .IsRequired()
+                        .HasColumnType("TEXT")
+                        .HasColumnName("LastEditName");
+
+                    b.Property<string>("Theme")
+                        .IsRequired()
+                        .HasColumnType("TEXT")
+                        .HasColumnName("Theme");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("TEXT")
+                        .HasColumnName("Title");
+
+                    b.HasKey("CollectionId");
+
+                    b.ToTable("Collections", (string)null);
+                });
+
+            modelBuilder.Entity("ICollections.Models.Item", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Brand")
+                        .HasColumnType("TEXT")
+                        .HasColumnName("Brand");
+
+                    b.Property<int?>("CollectionId")
+                        .IsRequired()
+                        .HasColumnType("INTEGER")
+                        .HasColumnName("CollectionId");
+
+                    b.Property<string>("Date")
+                        .HasColumnType("TEXT")
+                        .HasColumnName("Date");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("TEXT")
+                        .HasColumnName("Description");
+
+                    b.Property<string>("FileName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("LastEditDate")
+                        .IsRequired()
+                        .HasColumnType("TEXT")
+                        .HasColumnName("LastEditDate");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("TEXT")
+                        .HasColumnName("Title");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CollectionId");
+
+                    b.ToTable("Items", (string)null);
+                });
+
             modelBuilder.Entity("ICollections.Models.User", b =>
                 {
                     b.Property<string>("Id")
@@ -136,14 +231,20 @@ namespace ICollections.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "36b6da0d-d47f-414d-a181-f66794eaa1b8",
-                            ConcurrencyStamp = "9e30eda2-e1be-4fdd-a26f-6a979f1f3891",
+                            Id = "9760ed61-1fb2-4dae-ae0a-6613b09c3194",
+                            ConcurrencyStamp = "4dae496a-4e0d-47b5-81f3-f976d5f562ac",
+                            Name = "super admin"
+                        },
+                        new
+                        {
+                            Id = "e79d487b-b7b5-43e1-9702-94931fc197d7",
+                            ConcurrencyStamp = "2cb4d7d9-3495-43d4-a2ec-c9ec5c68e18a",
                             Name = "admin"
                         },
                         new
                         {
-                            Id = "5fa8faab-905e-4ba8-a8c8-da74aaa36750",
-                            ConcurrencyStamp = "0cd37185-4764-4907-8d3a-d17b76feabb3",
+                            Id = "a5c3f93f-699e-4d2e-9ab3-47cd244408bb",
+                            ConcurrencyStamp = "ca1efd90-e286-4d5d-a9b0-37fdd55d2be6",
                             Name = "user"
                         });
                 });
@@ -250,6 +351,15 @@ namespace ICollections.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("ICollections.Models.Item", b =>
+                {
+                    b.HasOne("ICollections.Models.Collection", null)
+                        .WithMany("CollectionItems")
+                        .HasForeignKey("CollectionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -299,6 +409,11 @@ namespace ICollections.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("ICollections.Models.Collection", b =>
+                {
+                    b.Navigation("CollectionItems");
                 });
 #pragma warning restore 612, 618
         }

@@ -18,6 +18,8 @@ public class Collection
     public string? Theme { get; set; }
     
     public string? LastEditDate { get; set; }
+    
+    public string? FileName { get; set; }
 
     public string? AddDates { get; set; }
     public string? AddBrands { get; set; }

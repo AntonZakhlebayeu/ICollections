@@ -14,7 +14,7 @@
     <input type="hidden" name="AuthorId" value="@data.Users.FirstOrDefault(u => u.Email == User.Identity!.Name).Id" asp-for="AuthorId"/>
     <div class="drop-zone col-4">
         <span class="drop-zone__prompt lng-DropImage lng-DropImageCollection" id="text">Drop file here or click to upload</span>
-        <input type="file" name="myFile" class="drop-zone__input" accept="image/*" />
+        <input type="file" name="myFile" class="drop-zone__input" accept="image/*"/>
     </div>
     <br/>
 
@@ -78,6 +78,7 @@
 <script src="/js/ChangeLanguage.js"></script>
 <script src="/js/ChangeTheme.js"></script>
 <script src="/js/CreateCollection.js"></script>
+<script src="/js/DropZone.js"></script>
 
 <script>   
     let pageTitle = (getCurrentLanguage() === 'en') ? 'Create Collection Page - ICollections' : 'Создание коллекции - ICollections';

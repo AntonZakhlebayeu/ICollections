@@ -8,6 +8,7 @@
     ".NETCoreApp,Version=v6.0": {
       "ICollections/1.0.0": {
         "dependencies": {
+          "Dropbox.Api": "6.27.0",
           "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": "6.0.3",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "6.0.3",
           "Microsoft.AspNetCore.Identity.UI": "6.0.3",
@@ -19,6 +20,17 @@
         },
         "runtime": {
           "ICollections.dll": {}
+        }
+      },
+      "Dropbox.Api/6.27.0": {
+        "dependencies": {
+          "Newtonsoft.Json": "12.0.3"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Dropbox.Api.dll": {
+            "assemblyVersion": "6.27.0.0",
+            "fileVersion": "6.27.0.0"
+          }
         }
       },
       "Humanizer.Core/2.8.26": {
@@ -439,6 +451,14 @@
           }
         }
       },
+      "Newtonsoft.Json/12.0.3": {
+        "runtime": {
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {
+            "assemblyVersion": "12.0.0.0",
+            "fileVersion": "12.0.3.23909"
+          }
+        }
+      },
       "SQLitePCLRaw.bundle_e_sqlite3/2.0.6": {
         "dependencies": {
           "SQLitePCLRaw.core": "2.0.6",
@@ -714,6 +734,13 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
+    },
+    "Dropbox.Api/6.27.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-2zSkNFMnMqhpZ+84yHfpPtsgx6O0rpefE8SECCiqsG0q9sMIAyVcLaFhfKQ17h++ZEFOpHMS7KwZL4srb0ZmKw==",
+      "path": "dropbox.api/6.27.0",
+      "hashPath": "dropbox.api.6.27.0.nupkg.sha512"
     },
     "Humanizer.Core/2.8.26": {
       "type": "package",
@@ -1008,6 +1035,13 @@
       "sha512": "sha512-mtVirZr++rq+XCDITMUdnETD59XoeMxSpLRIII7JRI6Yj0LEDiO1pPn0ktlnIj12Ix8bfvQqQDMMIF9wC98oCA==",
       "path": "microsoft.win32.systemevents/4.7.0",
       "hashPath": "microsoft.win32.systemevents.4.7.0.nupkg.sha512"
+    },
+    "Newtonsoft.Json/12.0.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-6mgjfnRB4jKMlzHSl+VD+oUc1IebOZabkbyWj2RiTgWwYPPuaK1H97G1sHqGwPlS5npiF5Q0OrxN1wni2n5QWg==",
+      "path": "newtonsoft.json/12.0.3",
+      "hashPath": "newtonsoft.json.12.0.3.nupkg.sha512"
     },
     "SQLitePCLRaw.bundle_e_sqlite3/2.0.6": {
       "type": "package",

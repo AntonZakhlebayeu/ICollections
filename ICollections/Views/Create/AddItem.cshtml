@@ -1,6 +1,7 @@
 @model ICollections.ViewModels.ItemViewModel
 @using ICollections.Data
 @using Microsoft.EntityFrameworkCore
+@using Dropbox.Api;
 
 @{
     var data = ViewBag.db as ApplicationDbContext;
@@ -71,6 +72,7 @@
 <script src="/js/ChangeLanguage.js"></script>
 <script src="/js/ChangeTheme.js"></script>
 <script src="/js/CreateCollection.js"></script>
+<script src="/js/DropZone.js"></script>
 
 <script>   
     let pageTitle = (getCurrentLanguage() === 'en') ? 'Add Item Page - ICollections' : 'Добавление предмета - ICollections';

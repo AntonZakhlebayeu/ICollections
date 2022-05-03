@@ -18,6 +18,8 @@ public class Item
     public string? Date { get; set; }
     public string? Brand { get; set; }
     
+    public string? FileName { get; set; }
+    
     //TODO
     //Add comments
     
