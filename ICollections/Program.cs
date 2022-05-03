@@ -73,6 +73,4 @@ app.MapRazorPages();
 
 AccessDropBoxConstants.SetAccessToken();
 
-Console.WriteLine(AccessDropBoxConstants.GetToken());
-
 app.Run();
