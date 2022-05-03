@@ -182,7 +182,7 @@ const langArr = {
         "en": "Add writing date",
         "ru": "Добавить дату написания",
     },
-    "booksAuthor": {
+    "booksBrand": {
         "en": "Add books authors",
         "ru": "Добавить авторов книг",
     },
@@ -190,7 +190,7 @@ const langArr = {
         "en": "Add release date to rental",
         "ru": "Добавить дату выпуска в прокат",
     },
-    "filmsAuthor": {
+    "filmsBrand": {
         "en": "Add studio name",
         "ru": "Добавить название студии",
     },
@@ -221,6 +221,30 @@ const langArr = {
     "Edit": {
         "en": "Edit",
         "ru": "Редактировать",
+    },
+    "alcoholItemDate": {
+        "en": "Date of manufacture:",
+        "ru": "Дата изготовления:",
+    },
+    "alcoholItemBrand": {
+        "en": "Brand:",
+        "ru": "Марка:",
+    },
+    "booksItemDate": {
+        "en": "Date of writing:",
+        "ru": "Дата написания:",
+    },
+    "booksItemBrand": {
+        "en": "Book author:",
+        "ru": "Автор книги:",
+    },
+    "filmsItemDate": {
+        "en": "Release date:",
+        "ru": "Дата премьеры:",
+    },
+    "filmsItemBrand": {
+        "en": "Studio:",
+        "ru": "Студия:",
     },
 }
 

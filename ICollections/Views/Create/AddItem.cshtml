@@ -17,7 +17,7 @@
 <form method="post" asp-action="AddItem" enctype="multipart/form-data">
     
     <div asp-validation-summary="ModelOnly"></div>
-    <input type="hidden" name="AuthorId" value="@collection!.CollectionId" asp-for="CollectionId"/>
+    <input type="hidden" name="CollectionId" value="@collection!.CollectionId" asp-for="CollectionId"/>
     
     <div class="input-group mb-3">
         <div class="input-group-prepend">
@@ -39,13 +39,13 @@
 
     @if (collection.AddDates == "true")
     {
-        var className = "lng-" + collection.Theme + "DateItem";
+        var className = "lng-" + collection.Theme + "Date";
 
         <div class="input-group mb-3">
             <div class="input-group-prepend">
                 <span class="input-group-text @className" id="basic-addon1"></span>
             </div>
-            <input type="text" class="form-control" name="Title" aria-label="Date" aria-describedby="basic-addon1" asp-for="Date">
+            <input type="date" class="form-control" name="Date" aria-label="Date" aria-describedby="basic-addon1" asp-for="Date">
         </div>
 
         <br/>
@@ -53,13 +53,13 @@
 
     @if (collection.AddBrands == "true")
     {
-        var className = "lng-" + collection.Theme + "BrandItem";
+        var className = "lng-" + collection.Theme + "Brand";
 
         <div class="input-group mb-3">
             <div class="input-group-prepend">
                 <span class="input-group-text @className" id="basic-addon1"></span>
             </div>
-            <input type="text" class="form-control" name="Title" aria-label="Date" aria-describedby="basic-addon1" asp-for="Brand">
+            <input type="text" class="form-control" name="Brand" aria-label="Date" aria-describedby="basic-addon1" asp-for="Brand">
         </div>
 
         <br/>

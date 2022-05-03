@@ -19,7 +19,7 @@ const themeList = {
             "class": "lng-booksDate",
         },
         "brand": {
-            "class": "lng-booksAuthor",
+            "class": "lng-booksBrand",
         }
     },
     
@@ -28,7 +28,7 @@ const themeList = {
             "class": "lng-filmsDate",
         },
         "brand": {
-            "class": "lng-filmsAuthor",
+            "class": "lng-filmsBrand",
         }
     }
     

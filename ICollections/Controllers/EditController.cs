@@ -70,6 +70,8 @@ public class EditController : Controller
 
         editedItem!.Title = editItemViewModel.Title;
         editedItem!.Description = editItemViewModel.Description;
+        editedItem!.Date = editItemViewModel.Date;
+        editedItem!.Brand = editItemViewModel.Brand;
 
         await _db.SaveChangesAsync();
 

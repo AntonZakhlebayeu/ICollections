@@ -34,6 +34,12 @@
     }
 }
 
+@{
+    var data = ViewBag.db as ApplicationDbContext;
+
+    var currentCollection = data!.Collections.FindAsync(Model.CollectionId).Result;
+}
+
 <link rel="stylesheet" title="theme" href="#">
 <link rel="stylesheet" type="text/css" href="~/css/CreateCollection/CreateCollection.css"/>
 <link rel="stylesheet" type="text/css" href="~/css/Collections/Collection.css"/>
@@ -51,6 +57,25 @@
 </div>
 
 <br/>
+
+<div style="margin-bottom: 12px" id="text">
+    @if (currentCollection!.AddDates == "true")
+    {
+        var itemClassNameDate = "lng-" + currentCollection.Theme + "ItemDate";
+        <h2 class="@itemClassNameDate">Date:</h2>
+        <h3>@Model.Date</h3>
+    }
+</div>
+
+<div style="margin-bottom: 12px" id="text">
+    @if (currentCollection!.AddBrands == "true")
+    {
+        var itemClassNameDate = "lng-" + currentCollection.Theme + "ItemBrand";
+        <h2 class="@itemClassNameDate">Brand:</h2>
+        <h3>@Model.Brand</h3>
+    }
+</div>
+
 
 <div align="right" class="col-md-auto">
     <h5 id="footer-text"><i>@Model.LastEditDate</i></h5>

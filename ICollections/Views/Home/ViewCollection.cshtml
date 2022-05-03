@@ -97,7 +97,7 @@ else if (Model.CollectionItems!.Count() == 0 && GetTheUserId(Model.AuthorId!) !=
 }
 else
 {
-    foreach (var item in Model.CollectionItems!.ToList())
+    foreach (var item in Model.CollectionItems!.ToList().OrderByDescending(n => n.Id))
     {
         <div class="CollectionArea">
             <div class="col-md-8 card-body">

@@ -5,9 +5,10 @@
 @{
     var data = ViewBag.db as ApplicationDbContext;
 
-    var collectionId = ViewBag.collectionId;
+    var collectionId = ViewBag.collectionId is int ? (int)ViewBag.collectionId : 0;
     var itemId = ViewBag.itemId;
 
+    var currentCollection = data!.Collections.FindAsync(collectionId).Result;
     var editingItem = data!.Items.FindAsync(itemId is int id ? id : 0).Result;
 }
 
@@ -38,9 +39,32 @@
 
     <br/>
     
-    @{
-        //TODO
-        //Add editing for Date, Brand and Comments
+    @if (currentCollection!.AddDates == "true")
+    {
+        var className = "lng-" + currentCollection!.Theme + "Date";
+
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text @className" id="basic-addon1"></span>
+            </div>
+            <input type="date" class="form-control" name="Date" aria-label="Date" aria-describedby="basic-addon1" value="@editingItem.Date" asp-for="Date">
+        </div>
+
+        <br/>
+    }
+
+    @if (currentCollection!.AddBrands == "true")
+    {
+        var className = "lng-" + currentCollection!.Theme + "Brand";
+
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text @className" id="basic-addon1"></span>
+            </div>
+            <input type="text" class="form-control" name="Brand" aria-label="Date" aria-describedby="basic-addon1" value="@editingItem.Brand" asp-for="Brand">
+        </div>
+
+        <br/>
     }
     
     <button type="submit" class="btn btn-success lng-Edit" id="text">Create</button>

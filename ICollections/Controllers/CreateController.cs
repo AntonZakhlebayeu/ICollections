@@ -62,6 +62,8 @@ public class CreateController : Controller
         
         if (!ModelState.IsValid) return await Task.Run(() => View(itemViewModel));
         
+        Console.WriteLine("Date: " + itemViewModel.Date + "\nBrand: " + itemViewModel.Brand);
+        
         var newItem = new Item
         {
             CollectionId = itemViewModel.CollectionId, Title = itemViewModel.Title,

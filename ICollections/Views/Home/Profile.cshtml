@@ -58,7 +58,7 @@
     <h4 class = "lng-YourCollections" id="text">Your collections:</h4>
     <br/>
     
-    @foreach (var collection in userCollections.OrderByDescending(n => n.LastEditDate))
+    @foreach (var collection in userCollections.OrderByDescending(n => n.CollectionId))
     {
         <div class="CollectionArea" id = "text">
             <div class="col-md-8 card-body">

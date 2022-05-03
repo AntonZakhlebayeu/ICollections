@@ -37,7 +37,7 @@
     </div>
 }
 
-@foreach (var collection in userCollections.OrderByDescending(n => n.LastEditDate))
+@foreach (var collection in userCollections.OrderByDescending(n => n.CollectionId))
     {
         <div class="CollectionArea">
             <div class="col-md-8 card-body">
