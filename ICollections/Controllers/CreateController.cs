@@ -93,12 +93,12 @@ public class CreateController : Controller
         return await Task.Run(() => RedirectToAction("ViewCollection", "Home", currentCollection));
     }
     
-    private static string PushToCloud(string fileName, string path)
+    private static async Task<string> PushToCloud(string fileName, string path)
     {
         using var uploadFileStream = System.IO.File.OpenRead(path);
 
         string url;
-        
+
         using (var dbx = new DropboxClient(AccessDropBoxConstants.GetToken()))
         {
             using (var mem = new MemoryStream(System.IO.File.ReadAllBytes(uploadFileStream.Name)))
@@ -115,7 +115,7 @@ public class CreateController : Controller
         uploadFileStream.Close();
         System.IO.File.Delete(fileName);
 
-        return url;
+        return await Task.Run(() => url);
     }
     
     private static string GetFileName()
@@ -138,8 +138,6 @@ public class CreateController : Controller
 
         var resultingName = uniqueFileName + '.' + extension;
 
-        resultingName = PushToCloud(resultingName, resultingName);
-
-        return resultingName;
+        return await Task.Run(() => PushToCloud(resultingName, resultingName).Result);
     }
 }
