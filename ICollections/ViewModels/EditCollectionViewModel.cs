@@ -12,4 +12,6 @@ public class EditCollectionViewModel
          
     [Required]
     public string? Description { get; init; }
+    
+    public string? DeleteImage { get; init; }
 }

@@ -8,7 +8,9 @@
     ".NETCoreApp,Version=v6.0": {
       "ICollections/1.0.0": {
         "dependencies": {
+          "Azure.Storage.Blobs": "12.12.0",
           "Dropbox.Api": "6.27.0",
+          "HigLabo.Net": "6.1.0",
           "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": "6.0.3",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "6.0.3",
           "Microsoft.AspNetCore.Identity.UI": "6.0.3",
@@ -22,14 +24,86 @@
           "ICollections.dll": {}
         }
       },
+      "Azure.Core/1.24.0": {
+        "dependencies": {
+          "Microsoft.Bcl.AsyncInterfaces": "1.1.1",
+          "System.Diagnostics.DiagnosticSource": "6.0.0",
+          "System.Memory.Data": "1.0.2",
+          "System.Numerics.Vectors": "4.5.0",
+          "System.Text.Encodings.Web": "6.0.0",
+          "System.Text.Json": "6.0.0",
+          "System.Threading.Tasks.Extensions": "4.5.4"
+        },
+        "runtime": {
+          "lib/net5.0/Azure.Core.dll": {
+            "assemblyVersion": "1.24.0.0",
+            "fileVersion": "1.2400.22.20404"
+          }
+        }
+      },
+      "Azure.Storage.Blobs/12.12.0": {
+        "dependencies": {
+          "Azure.Storage.Common": "12.11.0",
+          "System.Text.Json": "6.0.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Azure.Storage.Blobs.dll": {
+            "assemblyVersion": "12.12.0.0",
+            "fileVersion": "12.1200.22.25202"
+          }
+        }
+      },
+      "Azure.Storage.Common/12.11.0": {
+        "dependencies": {
+          "Azure.Core": "1.24.0",
+          "System.IO.Hashing": "6.0.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Azure.Storage.Common.dll": {
+            "assemblyVersion": "12.11.0.0",
+            "fileVersion": "12.1100.22.25202"
+          }
+        }
+      },
       "Dropbox.Api/6.27.0": {
         "dependencies": {
-          "Newtonsoft.Json": "12.0.3"
+          "Newtonsoft.Json": "13.0.1"
         },
         "runtime": {
           "lib/netstandard2.0/Dropbox.Api.dll": {
             "assemblyVersion": "6.27.0.0",
             "fileVersion": "6.27.0.0"
+          }
+        }
+      },
+      "HigLabo.Converter/6.0.0": {
+        "runtime": {
+          "lib/net6.0/HigLabo.Converter.dll": {
+            "assemblyVersion": "6.0.0.0",
+            "fileVersion": "6.0.0.0"
+          }
+        }
+      },
+      "HigLabo.Core/6.0.0": {
+        "dependencies": {
+          "HigLabo.Converter": "6.0.0"
+        },
+        "runtime": {
+          "lib/net6.0/HigLabo.Core.dll": {
+            "assemblyVersion": "6.0.0.0",
+            "fileVersion": "6.0.0.0"
+          }
+        }
+      },
+      "HigLabo.Net/6.1.0": {
+        "dependencies": {
+          "HigLabo.Core": "6.0.0",
+          "Newtonsoft.Json": "13.0.1"
+        },
+        "runtime": {
+          "lib/net6.0/HigLabo.Net.dll": {
+            "assemblyVersion": "6.1.0.0",
+            "fileVersion": "6.1.0.0"
           }
         }
       },
@@ -92,6 +166,14 @@
           "lib/net6.0/Microsoft.AspNetCore.Identity.UI.dll": {
             "assemblyVersion": "6.0.3.0",
             "fileVersion": "6.0.322.12401"
+          }
+        }
+      },
+      "Microsoft.Bcl.AsyncInterfaces/1.1.1": {
+        "runtime": {
+          "lib/netstandard2.1/Microsoft.Bcl.AsyncInterfaces.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "4.700.20.21406"
           }
         }
       },
@@ -451,11 +533,11 @@
           }
         }
       },
-      "Newtonsoft.Json/12.0.3": {
+      "Newtonsoft.Json/13.0.1": {
         "runtime": {
           "lib/netstandard2.0/Newtonsoft.Json.dll": {
-            "assemblyVersion": "12.0.0.0",
-            "fileVersion": "12.0.3.23909"
+            "assemblyVersion": "13.0.0.0",
+            "fileVersion": "13.0.1.25517"
           }
         }
       },
@@ -634,8 +716,29 @@
           }
         }
       },
+      "System.IO.Hashing/6.0.0": {
+        "runtime": {
+          "lib/net6.0/System.IO.Hashing.dll": {
+            "assemblyVersion": "6.0.0.0",
+            "fileVersion": "6.0.21.52210"
+          }
+        }
+      },
       "System.Memory/4.5.4": {},
+      "System.Memory.Data/1.0.2": {
+        "dependencies": {
+          "System.Text.Encodings.Web": "6.0.0",
+          "System.Text.Json": "6.0.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/System.Memory.Data.dll": {
+            "assemblyVersion": "1.0.2.0",
+            "fileVersion": "1.0.221.20802"
+          }
+        }
+      },
       "System.Native/1.0.0-rc4-004707": {},
+      "System.Numerics.Vectors/4.5.0": {},
       "System.Runtime.Caching/4.7.0": {
         "dependencies": {
           "System.Configuration.ConfigurationManager": "4.7.0"
@@ -708,6 +811,7 @@
           "System.Text.Encodings.Web": "6.0.0"
         }
       },
+      "System.Threading.Tasks.Extensions/4.5.4": {},
       "System.Windows.Extensions/4.7.0": {
         "dependencies": {
           "System.Drawing.Common": "4.7.0"
@@ -735,12 +839,54 @@
       "serviceable": false,
       "sha512": ""
     },
+    "Azure.Core/1.24.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-+/qI1j2oU1S4/nvxb2k/wDsol00iGf1AyJX5g3epV7eOpQEP/2xcgh/cxgKMeFgn3U2fmgSiBnQZdkV+l5y0Uw==",
+      "path": "azure.core/1.24.0",
+      "hashPath": "azure.core.1.24.0.nupkg.sha512"
+    },
+    "Azure.Storage.Blobs/12.12.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-DYirbNIkP2KeCz+/7AP9Un8GkrmSfHSSE+J0k4pyIlI5d8wVWndZj5Pp74rNsgjE/jDRdr3dIhJHPQwHE4ifAg==",
+      "path": "azure.storage.blobs/12.12.0",
+      "hashPath": "azure.storage.blobs.12.12.0.nupkg.sha512"
+    },
+    "Azure.Storage.Common/12.11.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-BPZ1JwYvehHGoTSXhXfAmwtFYejJghE6dkKvpZtPIL0DulzSIJdll9OZI+h5W+3wLYK0yn5hc1r6mvId0q4npA==",
+      "path": "azure.storage.common/12.11.0",
+      "hashPath": "azure.storage.common.12.11.0.nupkg.sha512"
+    },
     "Dropbox.Api/6.27.0": {
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-2zSkNFMnMqhpZ+84yHfpPtsgx6O0rpefE8SECCiqsG0q9sMIAyVcLaFhfKQ17h++ZEFOpHMS7KwZL4srb0ZmKw==",
       "path": "dropbox.api/6.27.0",
       "hashPath": "dropbox.api.6.27.0.nupkg.sha512"
+    },
+    "HigLabo.Converter/6.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-S3oi2smNo8wMv2PesiNNwPvD5c9Ny/VVOpB6ngvHyOIVRiPMq1ITHEAAFfgerl0Kz+fFDiHq8InkO3uHIMyWpg==",
+      "path": "higlabo.converter/6.0.0",
+      "hashPath": "higlabo.converter.6.0.0.nupkg.sha512"
+    },
+    "HigLabo.Core/6.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-i3d6+n057LtVgbc67Vi2qTMmtBUkH+oXfZiiDDOGQ5xp0pybhKlYDzcwQRwlsoEeedyrGUVEUwss5m/1yBJ5dg==",
+      "path": "higlabo.core/6.0.0",
+      "hashPath": "higlabo.core.6.0.0.nupkg.sha512"
+    },
+    "HigLabo.Net/6.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-D/zP/lIHaqeedbLPi5sla9qxcojgRva7y1mXvHtIXr/fivbF7HQbCeUnSaCobBMyk7CqBZwunymwD9MJbWcHaw==",
+      "path": "higlabo.net/6.1.0",
+      "hashPath": "higlabo.net.6.1.0.nupkg.sha512"
     },
     "Humanizer.Core/2.8.26": {
       "type": "package",
@@ -783,6 +929,13 @@
       "sha512": "sha512-pc4y2vU1ew07uZdlitaoi/Yx8DXAGuVUr+8rBk+KTMH6YCfh5yRu1Y5SXo9qxmffinI/wkveQNhXmwgvFcU8Xg==",
       "path": "microsoft.aspnetcore.identity.ui/6.0.3",
       "hashPath": "microsoft.aspnetcore.identity.ui.6.0.3.nupkg.sha512"
+    },
+    "Microsoft.Bcl.AsyncInterfaces/1.1.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-yuvf07qFWFqtK3P/MRkEKLhn5r2UbSpVueRziSqj0yJQIKFwG1pq9mOayK3zE5qZCTs0CbrwL9M6R8VwqyGy2w==",
+      "path": "microsoft.bcl.asyncinterfaces/1.1.1",
+      "hashPath": "microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512"
     },
     "Microsoft.CSharp/4.5.0": {
       "type": "package",
@@ -1036,12 +1189,12 @@
       "path": "microsoft.win32.systemevents/4.7.0",
       "hashPath": "microsoft.win32.systemevents.4.7.0.nupkg.sha512"
     },
-    "Newtonsoft.Json/12.0.3": {
+    "Newtonsoft.Json/13.0.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-6mgjfnRB4jKMlzHSl+VD+oUc1IebOZabkbyWj2RiTgWwYPPuaK1H97G1sHqGwPlS5npiF5Q0OrxN1wni2n5QWg==",
-      "path": "newtonsoft.json/12.0.3",
-      "hashPath": "newtonsoft.json.12.0.3.nupkg.sha512"
+      "sha512": "sha512-ppPFpBcvxdsfUonNcvITKqLl3bqxWbDCZIzDWHzjpdAHRFfZe0Dw9HmA0+za13IdyrgJwpkDTDA9fHaxOrt20A==",
+      "path": "newtonsoft.json/13.0.1",
+      "hashPath": "newtonsoft.json.13.0.1.nupkg.sha512"
     },
     "SQLitePCLRaw.bundle_e_sqlite3/2.0.6": {
       "type": "package",
@@ -1113,6 +1266,13 @@
       "path": "system.identitymodel.tokens.jwt/6.8.0",
       "hashPath": "system.identitymodel.tokens.jwt.6.8.0.nupkg.sha512"
     },
+    "System.IO.Hashing/6.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Rfm2jYCaUeGysFEZjDe7j1R4x6Z6BzumS/vUT5a1AA/AWJuGX71PoGB0RmpyX3VmrGqVnAwtfMn39OHR8Y/5+g==",
+      "path": "system.io.hashing/6.0.0",
+      "hashPath": "system.io.hashing.6.0.0.nupkg.sha512"
+    },
     "System.Memory/4.5.4": {
       "type": "package",
       "serviceable": true,
@@ -1120,12 +1280,26 @@
       "path": "system.memory/4.5.4",
       "hashPath": "system.memory.4.5.4.nupkg.sha512"
     },
+    "System.Memory.Data/1.0.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-JGkzeqgBsiZwKJZ1IxPNsDFZDhUvuEdX8L8BDC8N3KOj+6zMcNU28CNN59TpZE/VJYy9cP+5M+sbxtWJx3/xtw==",
+      "path": "system.memory.data/1.0.2",
+      "hashPath": "system.memory.data.1.0.2.nupkg.sha512"
+    },
     "System.Native/1.0.0-rc4-004707": {
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-Hfz7zeHPKcgGMDvTVi5YLgPNWE4pEzpQkbmdPOKSjMpKWgsoWOtbkhi88FHwPWEHfenQSNezsJN9BGGVKx/2tg==",
       "path": "system.native/1.0.0-rc4-004707",
       "hashPath": "system.native.1.0.0-rc4-004707.nupkg.sha512"
+    },
+    "System.Numerics.Vectors/4.5.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-QQTlPTl06J/iiDbJCiepZ4H//BVraReU4O4EoRw1U02H5TLUIT7xn3GnDp9AXPSlJUDyFs4uWjWafNX6WrAojQ==",
+      "path": "system.numerics.vectors/4.5.0",
+      "hashPath": "system.numerics.vectors.4.5.0.nupkg.sha512"
     },
     "System.Runtime.Caching/4.7.0": {
       "type": "package",
@@ -1196,6 +1370,13 @@
       "sha512": "sha512-zaJsHfESQvJ11vbXnNlkrR46IaMULk/gHxYsJphzSF+07kTjPHv+Oc14w6QEOfo3Q4hqLJgStUaYB9DBl0TmWg==",
       "path": "system.text.json/6.0.0",
       "hashPath": "system.text.json.6.0.0.nupkg.sha512"
+    },
+    "System.Threading.Tasks.Extensions/4.5.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-zteT+G8xuGu6mS+mzDzYXbzS7rd3K6Fjb9RiZlYlJPam2/hU7JCBZBVEcywNuR+oZ1ncTvc/cq0faRr3P01OVg==",
+      "path": "system.threading.tasks.extensions/4.5.4",
+      "hashPath": "system.threading.tasks.extensions.4.5.4.nupkg.sha512"
     },
     "System.Windows.Extensions/4.7.0": {
       "type": "package",

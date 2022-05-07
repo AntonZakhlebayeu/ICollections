@@ -1,7 +1,4 @@
-using System.Text;
-using Dropbox.Api;
-using Dropbox.Api.Files;
-using ICollections.Constants;
+using Azure.Storage.Blobs;
 using ICollections.Data;
 using Microsoft.AspNetCore.Mvc;
 using ICollections.Models;
@@ -14,17 +11,19 @@ namespace ICollections.Controllers;
 public class CreateController : Controller
 {
     private readonly ApplicationDbContext _db;
+    private readonly IConfiguration _configuration;
 
-    public CreateController(ApplicationDbContext context)
+    public CreateController(ApplicationDbContext context, IConfiguration configuration)
     {
         _db = context;
+        _configuration = configuration;
     }
     
     [Authorize]
     [HttpGet]
-    public async Task<ViewResult> CreateView()
+    public ViewResult CreateView()
     {
-        return await Task.Run(() => View("CreateCollection"));
+        return View("CreateCollection");
     }
     
     [Authorize]
@@ -33,16 +32,12 @@ public class CreateController : Controller
     {
         if (!ModelState.IsValid || collectionViewModel.Theme == "null") return await Task.Run(() => View(collectionViewModel));
 
-        var resultingStrings = new List<string>
-        {
-            "",
-            ""
-        };
-        
+        var resultingString = "";
+
         if (Request.Form.Files.Count != 0)
         {
             var file = Request.Form.Files.First();
-            resultingStrings = SaveFileAsync(file).Result;
+            resultingString = SaveFileAsync(file).Result;
         }
 
         var newCollection = new Collection
@@ -51,7 +46,7 @@ public class CreateController : Controller
             Description = collectionViewModel.Description, Theme = collectionViewModel.Theme,
             AddDates = collectionViewModel.IncludeDate, AddBrands = collectionViewModel.IncludeBrand,
             AddComments = collectionViewModel.IncludeComments, LastEditDate = DateTime.UtcNow.AddHours(3).ToString("MM/dd/yyyy H:mm"),
-            FileName = resultingStrings[0], FileUrl = resultingStrings[1]
+            FileName = resultingString,
         };
 
         await _db.Collections.AddAsync(newCollection);
@@ -63,11 +58,11 @@ public class CreateController : Controller
 
     [HttpGet]
     [Route("/Home/AddItem/{collectionId:int}")]
-    public async Task<ViewResult> AddItem(int collectionId)
+    public ViewResult AddItem(int collectionId)
     {
         ViewBag.collectionId = collectionId;
 
-        return await Task.Run(() => View("AddItem"));
+        return View("AddItem");
     }
     
     [Authorize]
@@ -79,12 +74,8 @@ public class CreateController : Controller
         
         if (!ModelState.IsValid) return await Task.Run(() => View(itemViewModel));
 
-        var resultingStrings = new List<string>
-        {
-            "",
-            ""
-        };
-        
+        var resultingStrings = ""; 
+
         if (Request.Form.Files.Count != 0)
         {
             var file = Request.Form.Files.First();
@@ -96,7 +87,7 @@ public class CreateController : Controller
         {
             CollectionId = itemViewModel.CollectionId, Title = itemViewModel.Title,
             Description = itemViewModel.Description, LastEditDate = DateTime.UtcNow.AddHours(3).ToString("MM/dd/yyyy H:mm"),
-            Date = itemViewModel.Date, Brand = itemViewModel.Brand, FileName = resultingStrings[0], FileUrl = resultingStrings[1],
+            Date = itemViewModel.Date, Brand = itemViewModel.Brand, FileName = resultingStrings,
         };
 
         var currentCollection = _db.Collections.FirstOrDefaultAsync(c => c.CollectionId == newItem.CollectionId).Result;
@@ -110,55 +101,42 @@ public class CreateController : Controller
         return await Task.Run(() => RedirectToAction("ViewCollection", "Home", currentCollection));
     }
     
-    private static async Task<string> PushToCloud(string fileName, string path)
+    private async Task PushToCloud(string fileName, string path)
     {
-        using var uploadFileStream = System.IO.File.OpenRead(path);
-
-        string url;
-
-        using (var dbx = new DropboxClient(AccessDropBoxConstants.GetToken()))
-        {
-            using (var mem = new MemoryStream(System.IO.File.ReadAllBytes(uploadFileStream.Name)))
-            {
-                var updated = dbx.Files.UploadAsync(AccessDropBoxConstants.Folder + "/" + fileName, WriteMode.Overwrite.Instance, body: mem);
-                updated.Wait();
-                var tx = dbx.Sharing.CreateSharedLinkWithSettingsAsync(AccessDropBoxConstants.Folder  + "/" + fileName);
-                tx.Wait();
-
-                url = tx.Result.Url;
-                url = url.TrimEnd(AccessDropBoxConstants.ToCutView);
-            }
-        }
+        var connectionString = _configuration.GetConnectionString("BlobStorageConnection");
+        
+        var serverClient = new BlobServiceClient(connectionString);
+        var containerClient = serverClient.GetBlobContainerClient("images");
+        var blobClient = containerClient.GetBlobClient(fileName);
+        await using var uploadFileStream = System.IO.File.OpenRead(path);
+        
+        await blobClient.UploadAsync(uploadFileStream, true);
         uploadFileStream.Close();
-        System.IO.File.Delete(fileName);
 
-        return await Task.Run(() => url);
+        System.IO.File.Delete(fileName);
     }
-    
+
     private static string GetFileName()
     {
         var fileName = Guid.NewGuid().ToString();
         return fileName;
     }
 
-    private static async Task<List<string>> SaveFileAsync(IFormFile file)
+    private async Task<string> SaveFileAsync(IFormFile file)
     {
 
         var originalFileName = Path.GetFileName(file.FileName);
         var extension = originalFileName.Substring(originalFileName.LastIndexOf('.') + 1, originalFileName.Length - 1 - originalFileName.LastIndexOf('.'));
         var uniqueFileName = GetFileName();
 
-        using (var stream = System.IO.File.Create(uniqueFileName + '.' + extension))
+        await using (var stream = System.IO.File.Create(uniqueFileName + '.' + extension))
         {
             await file.CopyToAsync(stream);
         }
 
-        var resultingStrings = new List<string>();
-        
-        resultingStrings.Add(uniqueFileName + '.' + extension);
+        var resultingName = uniqueFileName + '.' + extension;
+        await PushToCloud(resultingName, resultingName);
 
-        resultingStrings.Add(PushToCloud(resultingStrings[0], resultingStrings[0]).Result);
-
-        return await Task.Run(() => resultingStrings);
+        return resultingName;
     }
 }

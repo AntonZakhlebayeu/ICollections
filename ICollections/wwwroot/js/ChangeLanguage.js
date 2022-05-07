@@ -246,6 +246,10 @@ const langArr = {
         "en": "Studio:",
         "ru": "Студия:",
     },
+    "DeleteImage": {
+        "en": "Delete Image",
+        "ru": "Удалить картинку",
+    },
 }
 
 select.addEventListener('change',changeURLLanguage);

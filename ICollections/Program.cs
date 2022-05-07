@@ -1,8 +1,3 @@
-using System.Net.WebSockets;
-using System.Text;
-using Dropbox.Api;
-using ICollections;
-using ICollections.Constants;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using ICollections.Data;
@@ -70,7 +65,5 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}",
     "{controller=Account}/{action=Login}/{id?}");
 app.MapRazorPages();
-
-AccessDropBoxConstants.SetAccessToken();
 
 app.Run();

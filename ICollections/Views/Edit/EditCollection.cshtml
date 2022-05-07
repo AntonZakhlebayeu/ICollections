@@ -12,14 +12,33 @@
 <link rel="stylesheet" title="theme" href="#">
 <link rel="stylesheet" type="text/css" href="~/css/CreateCollection/CreateCollection.css"/>
 
-
 <form method="post" action="/Home/EditCollection/@collectionId" enctype="multipart/form-data">
     <div asp-validation-summary="ModelOnly"></div>
     <input type="hidden" name="AuthorId" value="@collectionId" asp-for="CollectionId"/>
-    <div class="drop-zone col-4">
-        <span class="drop-zone__prompt lng-DropImage lng-DropImageCollection" id="text">Drop file here or click to upload</span>
-        <input type="file" name="myFile" class="drop-zone__input" accept="image/*" />
-    </div>
+    @if (editingCollection!.FileName != "")
+    {
+        <div class="drop-zone col-4" style="margin-bottom: 20px">
+            <div class="drop-zone__thumb" style="background-image: url('https://nikminerstorage.blob.core.windows.net/images/@(editingCollection!.FileName)');">
+            </div>
+            <span class="drop-zone__prompt" id="text"></span>
+            <input type="file" name="myFile" class="drop-zone__input" accept="image/*">
+        </div>
+
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" asp-for="DeleteImage">
+            <label class="form-check-label lng-DeleteImage" for="flexCheckDefault" id="text">
+                Default checkbox
+            </label>
+        </div>
+    }
+    else
+    {
+        <div class="drop-zone col-4">
+            <span class="drop-zone__prompt lng-DropImage lng-DropImageCollection" id="text">Drop file here or click to upload</span>
+            <input type="file" name="myFile" class="drop-zone__input" accept="image/*"/>
+        </div>
+    }
+    
     <br/>
 
     <div class="input-group mb-3">
@@ -45,6 +64,7 @@
 <script src="/js/ChangeLanguage.js"></script>
 <script src="/js/ChangeTheme.js"></script>
 <script src="/js/CreateCollection.js"></script>
+<script src="/js/DropZone.js"></script>
 
 <script>   
     let pageTitle = (getCurrentLanguage() === 'en') ? 'Edit Collection Page - ICollections' : 'Редактирование коллекции - ICollections';

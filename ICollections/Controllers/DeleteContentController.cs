@@ -1,5 +1,5 @@
+using Azure.Storage.Blobs;
 using Dropbox.Api;
-using ICollections.Constants;
 using ICollections.Data;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,10 +8,12 @@ namespace ICollections.Controllers;
 public class DeleteContentController : Controller
 {
     private readonly ApplicationDbContext _db;
+    private readonly IConfiguration _configuration;
 
-    public DeleteContentController(ApplicationDbContext context)
+    public DeleteContentController(ApplicationDbContext context, IConfiguration configuration)
     {
         _db = context;
+        _configuration = configuration;
     }
     
     [Route("/Home/ViewItem/{collectionId}/DeleteCollection")]
@@ -23,14 +25,9 @@ public class DeleteContentController : Controller
 
         foreach (var item in itemsToDelete)
         {
-            
             if (item!.FileName != "")
             {
-                using (var dbx = new DropboxClient(AccessDropBoxConstants.GetToken()))
-                {
-                    item.FileUrl += "?dl=0";
-                    await dbx.Files.DeleteV2Async(AccessDropBoxConstants.Folder + "/" + item.FileName);
-                }
+                DeleteBlob(item.FileName);
             }
 
             _db.Items.Remove(item);
@@ -38,11 +35,7 @@ public class DeleteContentController : Controller
 
         if (objectToDelete!.FileName != "")
         {
-            using (var dbx = new DropboxClient(AccessDropBoxConstants.GetToken()))
-            {
-                objectToDelete.FileUrl += "?dl=0";
-                await dbx.Files.DeleteV2Async(AccessDropBoxConstants.Folder + "/" + objectToDelete.FileName);
-            }
+            DeleteBlob(objectToDelete.FileName);
         }
 
         _db.Collections.Remove(objectToDelete!);
@@ -59,11 +52,7 @@ public class DeleteContentController : Controller
         
         if (objectToDelete!.FileName != "")
         {
-            using (var dbx = new DropboxClient(AccessDropBoxConstants.GetToken()))
-            {
-                objectToDelete.FileUrl += "?dl=0";
-                await dbx.Files.DeleteV2Async(AccessDropBoxConstants.Folder + "/" + objectToDelete.FileName);
-            }
+            DeleteBlob(objectToDelete.FileName);
         }
 
         var result = _db.Items.Remove(objectToDelete!);
@@ -71,5 +60,16 @@ public class DeleteContentController : Controller
         await _db.SaveChangesAsync();
 
         return await Task.Run(() => Redirect($"/Home/ViewCollection/{collectionId}"));
+    }
+
+    private async void DeleteBlob(string? fileName)
+    {
+        var connectionString = _configuration.GetConnectionString("BlobStorageConnection");
+        var serverClient = new BlobServiceClient(connectionString);
+        var containerClient = serverClient.GetBlobContainerClient("images");
+        
+        var blobClient = containerClient.GetBlobClient(fileName);
+        
+        await blobClient.DeleteAsync();
     }
 }

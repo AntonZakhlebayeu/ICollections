@@ -1,7 +1,6 @@
 @model ICollections.Models.Collection
 @using ICollections.Data
 @using Microsoft.EntityFrameworkCore
-@using ICollections.Constants
 
 @functions {
 
@@ -47,7 +46,7 @@
 @if (Model.FileName != "")
 {
     <div style="margin-bottom: 12px" align="center">
-        <img src="@Model.FileUrl?raw=1" width="640px" height="360px" alt="User Photo">
+        <img src="https://nikminerstorage.blob.core.windows.net/images/@(Model.FileName)" width="640px" height="360px" alt="User Photo">
     </div>   
 }
 

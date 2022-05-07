@@ -368,3 +368,12 @@ C:/Users/hanny/RiderProjects/ICollections/ICollections/obj/Debug/net6.0/ref/ICol
 /Users/antonzakhlebayeu/ITransition Internship/ICollections/ICollections/obj/Debug/net6.0/ref/ICollections.dll
 /Users/antonzakhlebayeu/ITransition Internship/ICollections/ICollections/bin/Debug/net6.0/Dropbox.Api.dll
 /Users/antonzakhlebayeu/ITransition Internship/ICollections/ICollections/bin/Debug/net6.0/Newtonsoft.Json.dll
+/Users/antonzakhlebayeu/ITransition Internship/ICollections/ICollections/bin/Debug/net6.0/Azure.Core.dll
+/Users/antonzakhlebayeu/ITransition Internship/ICollections/ICollections/bin/Debug/net6.0/Azure.Storage.Blobs.dll
+/Users/antonzakhlebayeu/ITransition Internship/ICollections/ICollections/bin/Debug/net6.0/Azure.Storage.Common.dll
+/Users/antonzakhlebayeu/ITransition Internship/ICollections/ICollections/bin/Debug/net6.0/HigLabo.Converter.dll
+/Users/antonzakhlebayeu/ITransition Internship/ICollections/ICollections/bin/Debug/net6.0/HigLabo.Core.dll
+/Users/antonzakhlebayeu/ITransition Internship/ICollections/ICollections/bin/Debug/net6.0/HigLabo.Net.dll
+/Users/antonzakhlebayeu/ITransition Internship/ICollections/ICollections/bin/Debug/net6.0/Microsoft.Bcl.AsyncInterfaces.dll
+/Users/antonzakhlebayeu/ITransition Internship/ICollections/ICollections/bin/Debug/net6.0/System.IO.Hashing.dll
+/Users/antonzakhlebayeu/ITransition Internship/ICollections/ICollections/bin/Debug/net6.0/System.Memory.Data.dll

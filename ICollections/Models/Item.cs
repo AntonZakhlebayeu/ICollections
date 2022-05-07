@@ -19,9 +19,7 @@ public class Item
     public string? Brand { get; set; }
     
     public string? FileName { get; set; }
-    
-    public string? FileUrl { get; set; }
-    
+
     //TODO
     //Add comments
     

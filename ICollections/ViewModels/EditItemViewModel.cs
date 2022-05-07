@@ -18,4 +18,6 @@ public class EditItemViewModel
 
     public string? Date { get; init; }
     public string? Brand { get; init; }
+    
+    public string? DeleteImage { get; init; }
 }
