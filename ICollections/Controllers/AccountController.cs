@@ -51,9 +51,9 @@ public class AccountController : Controller
         }
         
         [HttpGet]
-        public async Task<IActionResult> Login()
+        public IActionResult Login()
         {
-            return await Task.Run(View);
+            return View();
         }
         
         [HttpPost]

@@ -1,6 +1,7 @@
 using Azure.Storage.Blobs;
 using Dropbox.Api;
 using ICollections.Data;
+using ICollections.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ICollections.Controllers;
@@ -9,11 +10,13 @@ public class DeleteContentController : Controller
 {
     private readonly ApplicationDbContext _db;
     private readonly IConfiguration _configuration;
+    private readonly IDeleteBlob _deleteBlob;
 
-    public DeleteContentController(ApplicationDbContext context, IConfiguration configuration)
+    public DeleteContentController(ApplicationDbContext context, IConfiguration configuration, IDeleteBlob deleteBlob)
     {
         _db = context;
         _configuration = configuration;
+        _deleteBlob = deleteBlob;
     }
     
     [Route("/Home/ViewItem/{collectionId}/DeleteCollection")]
@@ -27,7 +30,7 @@ public class DeleteContentController : Controller
         {
             if (item!.FileName != "")
             {
-                DeleteBlob(item.FileName);
+                _deleteBlob.DeleteBlob(item.FileName);
             }
 
             _db.Items.Remove(item);
@@ -35,7 +38,7 @@ public class DeleteContentController : Controller
 
         if (objectToDelete!.FileName != "")
         {
-            DeleteBlob(objectToDelete.FileName);
+            _deleteBlob.DeleteBlob(objectToDelete.FileName);
         }
 
         _db.Collections.Remove(objectToDelete!);
@@ -52,7 +55,7 @@ public class DeleteContentController : Controller
         
         if (objectToDelete!.FileName != "")
         {
-            DeleteBlob(objectToDelete.FileName);
+            _deleteBlob.DeleteBlob(objectToDelete.FileName);
         }
 
         var result = _db.Items.Remove(objectToDelete!);
@@ -60,16 +63,5 @@ public class DeleteContentController : Controller
         await _db.SaveChangesAsync();
 
         return await Task.Run(() => Redirect($"/Home/ViewCollection/{collectionId}"));
-    }
-
-    private async void DeleteBlob(string? fileName)
-    {
-        var connectionString = _configuration.GetConnectionString("BlobStorageConnection");
-        var serverClient = new BlobServiceClient(connectionString);
-        var containerClient = serverClient.GetBlobContainerClient("images");
-        
-        var blobClient = containerClient.GetBlobClient(fileName);
-        
-        await blobClient.DeleteAsync();
     }
 }

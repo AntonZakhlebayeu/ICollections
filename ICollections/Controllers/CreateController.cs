@@ -2,6 +2,7 @@ using Azure.Storage.Blobs;
 using ICollections.Data;
 using Microsoft.AspNetCore.Mvc;
 using ICollections.Models;
+using ICollections.Services;
 using ICollections.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
@@ -12,16 +13,18 @@ public class CreateController : Controller
 {
     private readonly ApplicationDbContext _db;
     private readonly IConfiguration _configuration;
+    private readonly ISaveFileAsync _saveFileAsync;
 
-    public CreateController(ApplicationDbContext context, IConfiguration configuration)
+    public CreateController(ApplicationDbContext context, IConfiguration configuration, ISaveFileAsync saveFileAsync)
     {
         _db = context;
         _configuration = configuration;
+        _saveFileAsync = saveFileAsync;
     }
     
     [Authorize]
     [HttpGet]
-    public ViewResult CreateView()
+    public IActionResult CreateView()
     {
         return View("CreateCollection");
     }
@@ -37,7 +40,7 @@ public class CreateController : Controller
         if (Request.Form.Files.Count != 0)
         {
             var file = Request.Form.Files.First();
-            resultingString = SaveFileAsync(file).Result;
+            resultingString = _saveFileAsync.SaveFileAsync(file).Result;
         }
 
         var newCollection = new Collection
@@ -58,7 +61,7 @@ public class CreateController : Controller
 
     [HttpGet]
     [Route("/Home/AddItem/{collectionId:int}")]
-    public ViewResult AddItem(int collectionId)
+    public IActionResult AddItem(int collectionId)
     {
         ViewBag.collectionId = collectionId;
 
@@ -79,7 +82,7 @@ public class CreateController : Controller
         if (Request.Form.Files.Count != 0)
         {
             var file = Request.Form.Files.First();
-            resultingStrings = SaveFileAsync(file).Result;
+            resultingStrings = _saveFileAsync.SaveFileAsync(file).Result;
         }
 
         
@@ -92,51 +95,12 @@ public class CreateController : Controller
 
         var currentCollection = _db.Collections.FirstOrDefaultAsync(c => c.CollectionId == newItem.CollectionId).Result;
 
-        currentCollection!.CollectionItems!.Append(newItem);
+        currentCollection!.CollectionItems!.Add(newItem);
 
         await _db.Items.AddAsync(newItem);
 
         await _db.SaveChangesAsync();
 
         return await Task.Run(() => RedirectToAction("ViewCollection", "Home", currentCollection));
-    }
-    
-    private async Task PushToCloud(string fileName, string path)
-    {
-        var connectionString = _configuration.GetConnectionString("BlobStorageConnection");
-        
-        var serverClient = new BlobServiceClient(connectionString);
-        var containerClient = serverClient.GetBlobContainerClient("images");
-        var blobClient = containerClient.GetBlobClient(fileName);
-        await using var uploadFileStream = System.IO.File.OpenRead(path);
-        
-        await blobClient.UploadAsync(uploadFileStream, true);
-        uploadFileStream.Close();
-
-        System.IO.File.Delete(fileName);
-    }
-
-    private static string GetFileName()
-    {
-        var fileName = Guid.NewGuid().ToString();
-        return fileName;
-    }
-
-    private async Task<string> SaveFileAsync(IFormFile file)
-    {
-
-        var originalFileName = Path.GetFileName(file.FileName);
-        var extension = originalFileName.Substring(originalFileName.LastIndexOf('.') + 1, originalFileName.Length - 1 - originalFileName.LastIndexOf('.'));
-        var uniqueFileName = GetFileName();
-
-        await using (var stream = System.IO.File.Create(uniqueFileName + '.' + extension))
-        {
-            await file.CopyToAsync(stream);
-        }
-
-        var resultingName = uniqueFileName + '.' + extension;
-        await PushToCloud(resultingName, resultingName);
-
-        return resultingName;
     }
 }
