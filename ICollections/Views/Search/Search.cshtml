@@ -1,0 +1,77 @@
+@using ICollections.Data
+@using Microsoft.EntityFrameworkCore
+@model ICollections.ViewModels.SearchViewModel
+
+<link rel="stylesheet" title="theme" href="#">
+<link rel="stylesheet" type="text/css" href="~/css/CreateCollection/CreateCollection.css"/>
+<link rel="stylesheet" type="text/css" href="~/css/Collections/Collection.css"/>
+
+@{
+    var data = ViewBag.db as ApplicationDbContext;
+}
+
+@functions {
+    string GetContentPart(string content) {
+
+        int CONTENT_PART_SIZE = 500;
+
+        if (content.Length > CONTENT_PART_SIZE)
+        {
+            content = content.Substring(0, CONTENT_PART_SIZE);
+            content += "...";
+        }
+
+        return content;
+    }
+}
+
+
+
+@if (Model.resultItems.Count() == 0)
+{
+    <div id="text" style="margin-bottom: 12px">
+        <h3 class="lng-SearchResultFalse">Nothing founded: </h3>
+        <h5>All items: </h5>
+    </div>
+    
+    foreach (var item in data!.Items.OrderByDescending(n => n.Id))
+    {
+        <div class="CollectionArea">
+            <div class="col-md-8 card-body">
+                <div class="card-body" id="text">
+                    <h5 class="card-title"><a class="link" href="/Home/ViewItem/@item.CollectionId/@item.Id">@item.Title</a></h5>
+                    <p class="card-text">@GetContentPart(item.Description!)</p>
+                    <p class="card-text"><small class="text-muted">@item.LastEditDate</small></p>
+                </div>
+            </div>
+        </div>
+    }
+}
+else
+{
+    <div id="text" style="margin-bottom: 12px">
+        <h3 class="lng-SearchResult">Search results: </h3>
+    </div>
+    
+    foreach (var item in Model.resultItems.OrderByDescending(n => n.Id))
+    {
+        <div class="CollectionArea">
+            <div class="col-md-8 card-body">
+                <div class="card-body" id="text">
+                    <h5 class="card-title"><a class="link" href="/Home/ViewItem/@item.CollectionId/@item.Id">@item.Title</a></h5>
+                    <p class="card-text">@GetContentPart(item.Description!)</p>
+                    <p class="card-text"><small class="text-muted">@item.LastEditDate</small></p>
+                </div>
+            </div>
+        </div>
+    }
+}
+
+<script src="/js/ChangeLanguage.js"></script>
+<script src="/js/ChangeTheme.js"></script>
+
+<script>
+    let pageTitle = (getCurrentLanguage() === 'en') ? 'Search Result - ICollections' : 'Результаты поиска - ICollections';
+         
+    document.querySelector('title').innerHTML = pageTitle;
+</script>

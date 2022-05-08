@@ -50,6 +50,10 @@
               "target": "Package",
               "version": "[6.1.0, )"
             },
+            "Korzh.EasyQuery.Linq": {
+              "target": "Package",
+              "version": "[7.2.1, )"
+            },
             "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": {
               "target": "Package",
               "version": "[6.0.3, )"

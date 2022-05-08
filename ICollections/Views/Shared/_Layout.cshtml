@@ -45,50 +45,48 @@
                     </li>
 
                     @if (User.Identity!.IsAuthenticated)
-                        {
-                            <li class="nav-item">
-                                <form class="d-flex">
-                                    <button type="submit" class="nav-link btn btn-sm btn-outline-success lng-CreateCollection" id="text" asp-controller="Create" asp-action="CreateView">Create Collection</button>
-                                </form>
-                            </li>
+                    {
+                        <li class="nav-item">
+                            <form class="d-flex">
+                                <button type="submit" class="nav-link btn btn-sm btn-outline-success lng-CreateCollection" id="text" asp-controller="Create" asp-action="CreateView">Create Collection</button>
+                            </form>
+                        </li>
                             
-                            <ul class="nav-item">
-                                <div class="dropdown show" style="position: relative">
-                                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        @GetUserFullName(data)
-                                    </button>
+                        <ul class="nav-item">
+                            <div class="dropdown show" style="position: relative">
+                                <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    @GetUserFullName(data)
+                                </button>
 
-                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 
-                                        <form class="form-inline dropdown-item" asp-controller="Home" asp-action="Profile">
-                                            <button type="submit" class="nav-link btn btn-link text-dark lng-ProfileDropDown">Profile</button>
-                                        </form>
+                                    <form class="form-inline dropdown-item" asp-controller="Home" asp-action="Profile">
+                                        <button type="submit" class="nav-link btn btn-link text-dark lng-ProfileDropDown">Profile</button>
+                                    </form>
 
-                                        <form class="form-inline dropdown-item" asp-controller="Account" asp-action="Logout">
-                                            <button type="submit" class="nav-link btn btn-link text-dark lng-LogoutDropDown">Logout</button>
-                                        </form>
-                                    </div>
+                                    <form class="form-inline dropdown-item" asp-controller="Account" asp-action="Logout">
+                                        <button type="submit" class="nav-link btn btn-link text-dark lng-LogoutDropDown">Logout</button>
+                                    </form>
                                 </div>
-                            </ul>
-                        }
-                        else
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link lng-RegisterLayout" asp-controller="Account" asp-action="Register" id="text">Register</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link lng-LoginLayout" asp-controller="Account" asp-action="Login" id="text">Login</a>
-                            </li>
-                        }
+                            </div>
+                        </ul>
+                    }
+                    else
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link lng-RegisterLayout" asp-controller="Account" asp-action="Register" id="text">Register</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link lng-LoginLayout" asp-controller="Account" asp-action="Login" id="text">Login</a>
+                        </li>
+                    }
                 </ul>
 
                 <ul class="nav navbar-nav mx-auto">
                     <li class="nav-item">
                         <div class="input-group">
-                          <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
-                          <form>
-                                <button type="submit" class="btn btn-outline-success lng-FindButton" asp-controller="Home" asp-action="Index">Find</button>
-                          </form>
+                            <input type="search" class="form-control rounded" placeholder="Search" id="searchText" aria-label="Search" aria-describedby="search-addon"/>
+                            <button class="btn btn-outline-success lng-FindButton" onclick="searchMechanism()">Find</button>
                         </div>
                     </li>
                 </ul>
@@ -124,6 +122,15 @@
 @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+
+<script>
+    function searchMechanism() {
+        const searchString = document.getElementById("searchText").value;
+        console.log(searchString);
+        window.location.href = "/Home/Search/" + searchString;
+        console.log(window.location.href)
+    }
+</script>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
