@@ -38,7 +38,7 @@
     </div>
 }
 
-@foreach (var collection in userCollections.OrderByDescending(n => n.CollectionId))
+@foreach (var collection in userCollections.OrderByDescending(n => n.Id))
 {
     <div class="card mb-3" style="max-width: 1400px;">
         <div class="row g-0">
@@ -50,7 +50,7 @@
             }
             <div class="col-md-8">
                 <div class="card-body">
-                    <h5 class="card-title"><a class="link" href="/Home/ViewCollection/@collection.CollectionId">@collection.Title</a></h5>
+                    <h5 class="card-title"><a class="link" href="/Home/ViewCollection/@collection.Id">@collection.Title</a></h5>
                     <p class="card-header">@collection.Theme</p>
                     <p class="card-text">@GetContentPart(collection.Description!)</p>
                     <p class="card-text">Author:</p>

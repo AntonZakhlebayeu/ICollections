@@ -12,6 +12,7 @@ public class ApplicationDbContext : IdentityDbContext<User>
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : base(options)
     {
+        Database.EnsureCreated();
     }
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -26,12 +27,12 @@ public class ApplicationDbContext : IdentityDbContext<User>
         modelBuilder.Entity<Collection>(b =>
         {
             b.ToTable("Collections");
-            b.HasKey(p => p.CollectionId);
+            b.HasKey(p => p.Id);
             b.Property(p => p.AuthorId).HasColumnName("AuthorId").IsRequired();
             b.Property(p => p.Title).HasColumnName("Title").IsRequired();
             b.Property(p => p.Description).HasColumnName("Description").IsRequired();
             b.Property(p => p.Theme).HasColumnName("Theme").IsRequired();
-            b.Property(p => p.LastEditDate).HasColumnName("LastEditName").IsRequired();
+            b.Property(p => p.LastEditDate).HasColumnName("LastEditDate").IsRequired();
             b.Property(p => p.AddDates).HasColumnName("AddDates");
             b.Property(p => p.AddBrands).HasColumnName("AddBrands");
             b.Property(p => p.AddComments).HasColumnName("AddComments");

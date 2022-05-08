@@ -25,7 +25,7 @@ public class SearchController : Controller
 
             foreach (var collection in itemsInCollection)
             {
-                collection.CollectionItems = _db.Items.Where(c => c.CollectionId == collection.CollectionId).ToList();
+                collection.CollectionItems = _db.Items.Where(c => c.CollectionId == collection.Id).ToList();
 
                 foreach (var item in collection!.CollectionItems!.Where(item => !searchViewModel.resultItems.Contains(item)))
                 {

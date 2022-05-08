@@ -60,7 +60,7 @@
     <br/>
 
     <div class="row row-cols-1 row-cols-md-3 g-4" id="text">
-        @foreach (var collection in userCollections.OrderByDescending(n => n.CollectionId))
+        @foreach (var collection in userCollections.OrderByDescending(n => n.Id))
         {
             <div class="col">
                 <div class="card h-100">
@@ -69,7 +69,7 @@
                         <img style="display: block; margin: 0 auto" src="https://nikminerstorage.blob.core.windows.net/images/@(collection.FileName)" class="rounded-start" alt="Collection photo" width="140px" height="80px">
                     }
                     <div class="card-body">
-                        <h5 class="card-title"><a class="link" href="/Home/ViewCollection/@collection.CollectionId">@collection.Title</a></h5>
+                        <h5 class="card-title"><a class="link" href="/Home/ViewCollection/@collection.Id">@collection.Title</a></h5>
                         <p class="card-header">@collection.Theme</p>
                         <p class="card-text">@GetContentPart(collection.Description!)</p>
                     </div>

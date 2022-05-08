@@ -41,11 +41,11 @@ public class HomeController : Controller
     [Route("/Home/ViewCollection/{collectionId:int}")]
     public async Task<IActionResult> ViewCollection(int collectionId)
     {
-        var userCollection = _db.Collections.FirstOrDefaultAsync(c => c.CollectionId == collectionId).Result;
+        var userCollection = _db.Collections.FirstOrDefaultAsync(c => c.Id == collectionId).Result;
         
         if (userCollection == null) return await Task.Run(() => RedirectToAction("Profile", "Home"));
 
-        userCollection!.CollectionItems = _db.Items.Where(i => i.CollectionId == userCollection.CollectionId).ToList();
+        userCollection!.CollectionItems = _db.Items.Where(i => i.CollectionId == userCollection.Id).ToList();
 
         return await Task.Run(() => View(userCollection));
     }

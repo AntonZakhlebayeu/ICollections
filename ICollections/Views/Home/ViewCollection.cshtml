@@ -78,13 +78,13 @@
 
 @if (GetTheUserId(Model.AuthorId!) == User.Identity!.Name || GetUserRole() != "user")
 {
-    <form action="/Home/EditCollection/@Model.CollectionId">
+    <form action="/Home/EditCollection/@Model.Id">
         <div align="right" style="margin-bottom: 20px">
             <button class="lng-Edit btn btn-lg btn-outline-primary btn-block">Edit</button>
         </div>
     </form>
     
-    <form action="/Home/ViewItem/@Model.CollectionId/DeleteCollection" style="margin-bottom: 36px">
+    <form action="/Home/ViewItem/@Model.Id/DeleteCollection" style="margin-bottom: 36px">
         <div align="right">
             <button class="lng-Delete btn btn-lg btn-outline-danger btn-block">Delete</button>
         </div>
@@ -131,7 +131,7 @@ else
 
 @if (GetTheUserId(Model.AuthorId!) == User.Identity!.Name || GetUserRole() != "user")
 {
-    <form action="/Home/AddItem/@Model.CollectionId">
+    <form action="/Home/AddItem/@Model.Id">
         <div class="text-center">
             <button class="lng-AddItemButton btn btn-lg btn-outline-success btn-block">Add Item</button>
         </div>

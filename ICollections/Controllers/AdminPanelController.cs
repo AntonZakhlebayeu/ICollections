@@ -44,7 +44,7 @@ public class AdminPanelController : Controller
 
             foreach (var collection in userCollections)
             {
-                var itemsToDelete = _db.Items.Where(i => i.CollectionId == collection!.CollectionId);
+                var itemsToDelete = _db.Items.Where(i => i.CollectionId == collection!.Id);
                 foreach (var item in itemsToDelete)
                 {
                     _db.Items.Remove(item);

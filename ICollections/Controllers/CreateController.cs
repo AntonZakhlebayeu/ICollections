@@ -91,7 +91,7 @@ public class CreateController : Controller
             Date = itemViewModel.Date, Brand = itemViewModel.Brand, FileName = resultingStrings,
         };
 
-        var currentCollection = _db.Collections.FirstOrDefaultAsync(c => c.CollectionId == newItem.CollectionId).Result;
+        var currentCollection = _db.Collections.FirstOrDefaultAsync(c => c.Id == newItem.CollectionId).Result;
 
         currentCollection!.CollectionItems!.Add(newItem);
 

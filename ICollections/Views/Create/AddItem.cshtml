@@ -7,7 +7,7 @@
 
     var collectionId = ViewBag.collectionId is int ? (int)ViewBag.collectionId : 0;
 
-    var collection = data!.Collections.FirstOrDefaultAsync(r => r.CollectionId == collectionId).Result;
+    var collection = data!.Collections.FirstOrDefaultAsync(r => r.Id == collectionId).Result;
 }
 
 <link rel="stylesheet" title="theme" href="#">
@@ -17,7 +17,7 @@
 <form method="post" asp-action="AddItem" enctype="multipart/form-data">
     
     <div asp-validation-summary="ModelOnly"></div>
-    <input type="hidden" name="CollectionId" value="@collection!.CollectionId" asp-for="CollectionId"/>
+    <input type="hidden" name="CollectionId" value="@collection!.Id" asp-for="CollectionId"/>
     <div class="drop-zone col-4">
         <span class="drop-zone__prompt lng-DropImage lng-DropImageCollection" id="text">Drop file here or click to upload</span>
         <input type="file" name="myFile" class="drop-zone__input" accept="image/*"/>

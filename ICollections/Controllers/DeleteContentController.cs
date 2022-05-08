@@ -23,7 +23,7 @@ public class DeleteContentController : Controller
     {
         var objectToDelete = _db.Collections.FindAsync(collectionId).Result;
 
-        var itemsToDelete = _db.Items.Where(i => i.CollectionId == objectToDelete!.CollectionId);
+        var itemsToDelete = _db.Items.Where(i => i.CollectionId == objectToDelete!.Id);
 
         foreach (var item in itemsToDelete)
         {
