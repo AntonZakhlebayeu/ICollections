@@ -1,5 +1,4 @@
 ﻿@model IEnumerable<ICollections.Models.User>
-@using Microsoft.AspNetCore.Identity
 @using ICollections.Data
 @using Microsoft.EntityFrameworkCore
 
@@ -7,9 +6,7 @@
 
 @{
     var data = ViewBag.db as ApplicationDbContext;
-}
-
-@{
+    
     var currentUser = data!.Users.FirstOrDefaultAsync(u => u.Email == User.Identity!.Name).Result;
 }
 

@@ -8,17 +8,18 @@
     var userCollections = data!.Collections.ToListAsync().Result;
 }
 
-@functions {
+@functions
+{
 
-    string GetContentPart(string content) {
+    static string GetContentPart(string content) 
+    {
 
-        int CONTENT_PART_SIZE = 500;
+        const int contentPartSize = 500;
 
-        if (content.Length > CONTENT_PART_SIZE)
-        {
-            content = content.Substring(0, CONTENT_PART_SIZE);
-            content += "...";
-        }
+        if (content.Length <= contentPartSize) return content;
+        
+        content = content.Substring(0, contentPartSize);
+        content += "...";
 
         return content;
 

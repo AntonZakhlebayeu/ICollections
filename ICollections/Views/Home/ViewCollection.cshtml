@@ -2,7 +2,8 @@
 @using ICollections.Data
 @using Microsoft.EntityFrameworkCore
 
-@functions {
+@functions 
+{
 
     string GetUserRole()
     {
@@ -23,17 +24,17 @@
 
         return userEmail;
     }
-    
-    
-    string GetContentPart(string content) {
 
-        int CONTENT_PART_SIZE = 500;
 
-        if (content.Length > CONTENT_PART_SIZE)
-        {
-            content = content.Substring(0, CONTENT_PART_SIZE);
-            content += "...";
-        }
+    static string GetContentPart(string content) 
+    {
+
+        const int contentPartSize = 500;
+
+        if (content.Length <= contentPartSize) return content;
+        
+        content = content.Substring(0, contentPartSize);
+        content += "...";
 
         return content;
     }
