@@ -2,7 +2,6 @@
 using ICollections.Data;
 using Microsoft.AspNetCore.Mvc;
 using ICollections.Models;
-using ICollections.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -11,12 +10,10 @@ namespace ICollections.Controllers;
 
 public class HomeController : Controller
 {
-    private readonly UserManager<User> _userManager;
     private readonly ApplicationDbContext _db;
 
-    public HomeController(UserManager<User> userManager, ApplicationDbContext context)
+    public HomeController(ApplicationDbContext context)
     {
-        _userManager = userManager;
         _db = context;
     }
     

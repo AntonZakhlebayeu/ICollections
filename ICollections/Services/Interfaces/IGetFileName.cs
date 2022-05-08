@@ -1,4 +1,4 @@
-namespace ICollections.Services;
+namespace ICollections.Services.Interfaces;
 
 public interface IGetFileName
 {

@@ -1,10 +1,8 @@
 using HigLabo.Core;
 using ICollections.Data;
-using ICollections.Models;
 using ICollections.ViewModels;
 using Korzh.EasyQuery.Linq;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Query.Internal;
 
 namespace ICollections.Controllers;
 

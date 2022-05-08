@@ -1,28 +1,21 @@
-using System.Diagnostics;
-using System.Security.Cryptography;
-using Azure.Storage.Blobs;
 using ICollections.Data;
 using Microsoft.AspNetCore.Mvc;
-using ICollections.Models;
 using ICollections.Services;
+using ICollections.Services.Interfaces;
 using ICollections.ViewModels;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 
 namespace ICollections.Controllers;
 
 public class EditController : Controller
 {
     private readonly ApplicationDbContext _db;
-    private readonly IConfiguration _configuration;
     private readonly ISaveFileAsync _saveFileAsync;
     private readonly IDeleteBlob _deleteBlob;
 
-    public EditController(ApplicationDbContext context, IConfiguration configuration, ISaveFileAsync saveFileAsync, IDeleteBlob deleteBlob)
+    public EditController(ApplicationDbContext context, ISaveFileAsync saveFileAsync, IDeleteBlob deleteBlob)
     {
         _db = context;
-        _configuration = configuration;
         _saveFileAsync = saveFileAsync;
         _deleteBlob = deleteBlob;
     }

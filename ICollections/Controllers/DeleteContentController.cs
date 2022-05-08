@@ -2,6 +2,7 @@ using Azure.Storage.Blobs;
 using Dropbox.Api;
 using ICollections.Data;
 using ICollections.Services;
+using ICollections.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ICollections.Controllers;
@@ -9,13 +10,11 @@ namespace ICollections.Controllers;
 public class DeleteContentController : Controller
 {
     private readonly ApplicationDbContext _db;
-    private readonly IConfiguration _configuration;
     private readonly IDeleteBlob _deleteBlob;
 
-    public DeleteContentController(ApplicationDbContext context, IConfiguration configuration, IDeleteBlob deleteBlob)
+    public DeleteContentController(ApplicationDbContext context, IDeleteBlob deleteBlob)
     {
         _db = context;
-        _configuration = configuration;
         _deleteBlob = deleteBlob;
     }
     

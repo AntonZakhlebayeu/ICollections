@@ -4,6 +4,7 @@ using ICollections.Data;
 using ICollections.Models;
 using ICollections.Services;
 using ICollections.Services.Classes;
+using ICollections.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);

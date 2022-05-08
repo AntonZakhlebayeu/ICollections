@@ -12,13 +12,11 @@ namespace ICollections.Controllers;
 public class CreateController : Controller
 {
     private readonly ApplicationDbContext _db;
-    private readonly IConfiguration _configuration;
     private readonly ISaveFileAsync _saveFileAsync;
 
-    public CreateController(ApplicationDbContext context, IConfiguration configuration, ISaveFileAsync saveFileAsync)
+    public CreateController(ApplicationDbContext context, ISaveFileAsync saveFileAsync)
     {
         _db = context;
-        _configuration = configuration;
         _saveFileAsync = saveFileAsync;
     }
     
