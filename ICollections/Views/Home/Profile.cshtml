@@ -57,20 +57,28 @@
     
     <h4 class = "lng-YourCollections" id="text">Your collections:</h4>
     <br/>
-    
-    @foreach (var collection in userCollections.OrderByDescending(n => n.CollectionId))
-    {
-        <div class="CollectionArea" id = "text">
-            <div class="col-md-8 card-body">
-                <div class="card-body">
-                    <h5 class="card-title"><a class="link" href="/Home/ViewCollection/@collection.CollectionId">@collection.Title</a></h5>
-                    <p class="card-header">@collection.Theme</p>
-                    <p class="card-text">@GetContentPart(collection.Description!)</p>
-                    <p class="card-text"><small class="text-muted">@collection.LastEditDate</small></p>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4" id="text">
+        @foreach (var collection in userCollections.OrderByDescending(n => n.CollectionId))
+        {
+            <div class="col">
+                <div class="card h-100">
+                    @if (collection.FileName != "")
+                    {
+                        <img style="display: block; margin: 0 auto" src="https://nikminerstorage.blob.core.windows.net/images/@(collection.FileName)" class="rounded-start" alt="Collection photo" width="140px" height="80px">
+                    }
+                    <div class="card-body">
+                        <h5 class="card-title"><a class="link" href="/Home/ViewCollection/@collection.CollectionId">@collection.Title</a></h5>
+                        <p class="card-header">@collection.Theme</p>
+                        <p class="card-text">@GetContentPart(collection.Description!)</p>
+                    </div>
+                    <div class="card-footer">
+                         <p class="card-text"><small class="text-muted">@collection.LastEditDate</small></p>
+                    </div>
                 </div>
             </div>
-        </div>
-    }
+        }
+    </div>
 </div>
 
 

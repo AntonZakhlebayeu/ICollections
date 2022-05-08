@@ -71,7 +71,7 @@
 
 <br/>
 
-<div align="right">
+<div align="right" style="margin-bottom: 24px">
     <h5 id="footer-text"><i>@Model.LastEditDate</i></h5>
 </div>
 
@@ -83,7 +83,7 @@
         </div>
     </form>
     
-    <form action="/Home/ViewItem/@Model.CollectionId/DeleteCollection">
+    <form action="/Home/ViewItem/@Model.CollectionId/DeleteCollection" style="margin-bottom: 36px">
         <div align="right">
             <button class="lng-Delete btn btn-lg btn-outline-danger btn-block">Delete</button>
         </div>
@@ -104,18 +104,26 @@ else if (Model.CollectionItems!.Count() == 0 && GetTheUserId(Model.AuthorId!) !=
 }
 else
 {
-    foreach (var item in Model.CollectionItems!.ToList().OrderByDescending(n => n.Id))
-    {
-        <div class="CollectionArea">
-            <div class="col-md-8 card-body">
-                <div class="card-body" id="text">
-                    <h5 class="card-title"><a class="link" href="/Home/ViewItem/@item.CollectionId/@item.Id">@item.Title</a></h5>
-                    <p class="card-text">@GetContentPart(item.Description!)</p>
-                    <p class="card-text"><small class="text-muted">@item.LastEditDate</small></p>
+    <div class="row row-cols-1 row-cols-md-3 g-4" id="text">
+        @foreach (var item in Model.CollectionItems!.ToList().OrderByDescending(n => n.Id))
+        {
+            <div class="col">
+                <div class="card h-100">
+                    @if (item.FileName != "")
+                    {
+                        <img style="display: block; margin: 0 auto" src="https://nikminerstorage.blob.core.windows.net/images/@(item.FileName)" class="rounded-start" alt="Collection photo" width="140px" height="80px">
+                    }
+                    <div class="card-body">
+                        <h5 class="card-title"><a class="link" href="/Home/ViewItem/@item.CollectionId/@item.Id">@item.Title</a></h5>
+                        <p class="card-text">@GetContentPart(item.Description!)</p>
+                    </div>
+                    <div class="card-footer">
+                        <p class="card-text text-muted">@item.LastEditDate</p>
+                    </div>
                 </div>
             </div>
-        </div>
-    }
+        }
+    </div>
 }
 
 <br/>

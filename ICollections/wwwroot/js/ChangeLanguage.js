@@ -250,6 +250,10 @@ const langArr = {
         "en": "Delete Image",
         "ru": "Удалить картинку",
     },
+    "ParentCollection": {
+        "en": "Collection:",
+        "ru": "Коллекция:",
+    },
 }
 
 select.addEventListener('change',changeURLLanguage);

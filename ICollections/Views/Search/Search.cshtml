@@ -34,44 +34,60 @@
         <h5>All items: </h5>
     </div>
     
-    foreach (var item in data!.Items.OrderByDescending(n => n.Id))
-    {
-        <div class="CollectionArea">
-            <div class="col-md-8 card-body">
-                <div class="card-body" id="text">
-                    <h5 class="card-title"><a class="link" href="/Home/ViewItem/@item.CollectionId/@item.Id">@item.Title</a></h5>
-                    <p class="card-text">@GetContentPart(item.Description!)</p>
-                    <p class="card-text"><small class="text-muted">@item.LastEditDate</small></p>
+    <div class="row row-cols-1 row-cols-md-4 g-4" id="text">
+        @foreach (var item in data!.Items.OrderByDescending(n => n.Id))
+        {
+            <div class="col">
+                <div class="card h-100">
+                    @if (item.FileName != "")
+                    {
+                        <img style="display: block; margin: 0 auto" src="https://nikminerstorage.blob.core.windows.net/images/@(item.FileName)" class="rounded-start" alt="Collection photo" width="140px" height="80px">
+                    }
+                    <div class="card-body">
+                        <h5 class="card-title"><a class="link" href="/Home/ViewItem/@item.CollectionId/@item.Id">@item.Title</a></h5>
+                        <p class="card-text">@GetContentPart(item.Description!)</p>
+                    </div>
+                    <div class="card-footer">
+                        <p class="card-text text-muted">@item.LastEditDate</p>
+                    </div>
                 </div>
             </div>
-        </div>
-    }
+        }
+    </div>
 }
 else
 {
     <div id="text" style="margin-bottom: 12px">
         <h3 class="lng-SearchResult">Search results: </h3>
     </div>
-    
-    foreach (var item in Model.resultItems.OrderByDescending(n => n.Id))
-    {
-        <div class="CollectionArea">
-            <div class="col-md-8 card-body">
-                <div class="card-body" id="text">
-                    <h5 class="card-title"><a class="link" href="/Home/ViewItem/@item.CollectionId/@item.Id">@item.Title</a></h5>
-                    <p class="card-text">@GetContentPart(item.Description!)</p>
-                    <p class="card-text"><small class="text-muted">@item.LastEditDate</small></p>
+
+    <div class="row row-cols-1 row-cols-md-4 g-4">
+        @foreach (var item in Model.resultItems.OrderByDescending(n => n.Id))
+        {
+            <div class="col" id="text">
+                <div class="card h-100">
+                    @if (item.FileName != "")
+                    {
+                        <img style="display: block; margin: 0 auto" src="https://nikminerstorage.blob.core.windows.net/images/@(item.FileName)" class="rounded-start" alt="Collection photo" width="140px" height="80px">
+                    }
+                    <div class="card-body">
+                        <h5 class="card-title"><a class="link" href="/Home/ViewItem/@item.CollectionId/@item.Id">@item.Title</a></h5>
+                        <p class="card-text">@GetContentPart(item.Description!)</p>
+                    </div>
+                    <div class="card-footer">
+                        <p class="card-text text-muted">@item.LastEditDate</p>
+                    </div>
                 </div>
             </div>
-        </div>
-    }
+        }
+    </div>
 }
 
 <script src="/js/ChangeLanguage.js"></script>
 <script src="/js/ChangeTheme.js"></script>
 
 <script>
-    let pageTitle = (getCurrentLanguage() === 'en') ? 'Search Result - ICollections' : 'Результаты поиска - ICollections';
-         
-    document.querySelector('title').innerHTML = pageTitle;
+let pageTitle = (getCurrentLanguage() === 'en') ? 'Search Result - ICollections' : 'Результаты поиска - ICollections';
+     
+document.querySelector('title').innerHTML = pageTitle;
 </script>

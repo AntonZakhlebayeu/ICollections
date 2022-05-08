@@ -38,20 +38,28 @@
 }
 
 @foreach (var collection in userCollections.OrderByDescending(n => n.CollectionId))
-    {
-        <div class="CollectionArea">
-            <div class="col-md-8 card-body">
-                <div class="card-body" id="text">
+{
+    <div class="card mb-3" style="max-width: 1400px;">
+        <div class="row g-0">
+            @if (collection.FileName != "")
+            {
+                <div class="col-md-4">
+                    <img src="https://nikminerstorage.blob.core.windows.net/images/@(collection.FileName)" class="img-fluid rounded-start" alt="Collection photo">
+                </div>
+            }
+            <div class="col-md-8">
+                <div class="card-body">
                     <h5 class="card-title"><a class="link" href="/Home/ViewCollection/@collection.CollectionId">@collection.Title</a></h5>
                     <p class="card-header">@collection.Theme</p>
                     <p class="card-text">@GetContentPart(collection.Description!)</p>
                     <p class="card-text">Author:</p>
                     <p class="card-text">@data!.Users.FindAsync(collection.AuthorId).Result!.NickName</p>
-                    <p class="card-text">@collection.LastEditDate</p>
+                    <p class="card-text text-muted">@collection.LastEditDate</p>
                 </div>
             </div>
         </div>
-    }
+    </div>
+}
 
 <script src="/js/ChangeLanguage.js"></script>
 

@@ -9,11 +9,9 @@ public class ApplicationDbContext : IdentityDbContext<User>
 {
     public DbSet<Collection> Collections { get; set; }
     public DbSet<Item> Items { get; set; } 
-    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, DbSet<Collection> collections, DbSet<Item> items)
+    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : base(options)
     {
-        Collections = collections;
-        Items = items;
     }
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
