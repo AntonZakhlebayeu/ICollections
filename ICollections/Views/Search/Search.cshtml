@@ -1,4 +1,5 @@
 @model ICollections.ViewModels.SearchViewModel
+@using ICollections.Data.Interfaces
 
 <link rel="stylesheet" title="theme" href="#">
 <link rel="stylesheet" type="text/css" href="~/css/CreateCollection/CreateCollection.css"/>
@@ -28,7 +29,7 @@
 @if (!Model.resultItems.Any())
 {
     <div id="text" style="margin-bottom: 12px">
-        <h3 class="lng-SearchResultFalse">Nothing founded: </h3>
+        <h3 class="lng-SearchResultFalse">Nothing found: </h3>
         <h5>All items: </h5>
     </div>
     

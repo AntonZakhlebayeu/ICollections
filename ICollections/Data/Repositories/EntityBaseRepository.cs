@@ -136,7 +136,7 @@ public class EntityBaseRepository<T> : IEntityBaseRepository<T> where T : class
         dbEntityEntry.State = EntityState.Modified;
     }
 
-    public virtual IQueryable<T> FullTextSearch(string searchString)
+    public virtual IQueryable<T> FullTextSearch(string? searchString)
     {
         return _context.Set<T>().FullTextSearchQuery(searchString);
     }

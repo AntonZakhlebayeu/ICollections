@@ -254,6 +254,10 @@ const langArr = {
         "en": "Collection:",
         "ru": "Коллекция:",
     },
+    "SearchResultFalse": {
+        "en": "Nothing found: ",
+        "ru": "Ничего не найдено:",
+    },
 }
 
 select.addEventListener('change',changeURLLanguage);

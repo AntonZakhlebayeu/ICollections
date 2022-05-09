@@ -2,6 +2,7 @@
 @using Microsoft.AspNetCore.Identity
 @inject SignInManager<User> SignInManager
 @inject UserManager<User> UserManager
+@using ICollections.Data.Interfaces
 
 @{
     var data = ViewBag.userData as IUserRepository;
@@ -83,7 +84,7 @@
                 <ul class="nav navbar-nav mx-auto">
                     <li class="nav-item">
                         <div class="input-group">
-                            <input type="search" class="form-control rounded" placeholder="Search" id="searchText" aria-label="Search" aria-describedby="search-addon"/>
+                            <input type="search" class="form-control rounded" placeholder="Search" id="searchText" aria-label="Search" aria-describedby="search-addon" value=""/>
                             <button class="btn btn-outline-success lng-FindButton" onclick="searchMechanism()">Find</button>
                         </div>
                     </li>

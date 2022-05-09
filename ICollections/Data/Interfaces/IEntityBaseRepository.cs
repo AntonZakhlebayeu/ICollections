@@ -23,6 +23,6 @@ public interface IEntityBaseRepository<T>  where T : class
     T? GetSingle(Expression<Func<T?, bool>> predicate, params Expression<Func<T, object>>[] includeProperties);
     Task<T?> GetSingleAsync(Expression<Func<T?, bool>> predicate, params Expression<Func<T, object>>[] includeProperties);
     IEnumerable<T> FindBy(Expression<Func<T, bool>> predicate);
-    IQueryable<T> FullTextSearch(string searchString);
+    IQueryable<T> FullTextSearch(string? searchString);
     void Update(T entity);
 }

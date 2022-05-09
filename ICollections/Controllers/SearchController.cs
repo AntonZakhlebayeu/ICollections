@@ -1,5 +1,6 @@
 using HigLabo.Core;
 using ICollections.Data.Interfaces;
+using ICollections.Models;
 using ICollections.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,14 +17,14 @@ public class SearchController : Controller
         _collectionRepository = collectionRepository;
     }
     
-    [Route("/Home/Search/{searchString}")]
-    public async Task<IActionResult> SearchResultView(string searchString, SearchViewModel searchViewModel)
+    [Route("/Home/Search/")]
+    public async Task<IActionResult> SearchResultView(SearchViewModel searchViewModel)
     {
-        if (!searchString.IsNullOrEmpty())
+        if (!searchViewModel.Text.IsNullOrEmpty())
         {
-            searchViewModel.resultItems = _itemRepository.FullTextSearch(searchString).ToList();
+            searchViewModel.resultItems = _itemRepository.FullTextSearch(searchViewModel.Text).ToList();
             
-            var itemsInCollection = _collectionRepository.FullTextSearch(searchString);
+            var itemsInCollection = _collectionRepository.FullTextSearch(searchViewModel.Text);
 
             foreach (var collection in itemsInCollection)
             {
@@ -37,7 +38,7 @@ public class SearchController : Controller
         }
         else
         {
-            searchViewModel.resultItems = _itemRepository.GetAll().ToList();
+            searchViewModel.resultItems = new List<Item>();
         }
 
         return await Task.Run(() => View("Search", searchViewModel));

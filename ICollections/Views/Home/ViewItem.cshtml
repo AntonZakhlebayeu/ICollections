@@ -1,5 +1,6 @@
 @using Microsoft.EntityFrameworkCore
 @model ICollections.Models.Item
+@using ICollections.Data.Interfaces
 
 @functions 
 {
@@ -35,7 +36,7 @@
 }
 
 @{
-    var data = ViewBag.db as ICollectionRepository;
+    var data = ViewBag.collectionData as ICollectionRepository;
 
     var currentCollection = data!.FindAsync(Model.CollectionId).Result;
 }
