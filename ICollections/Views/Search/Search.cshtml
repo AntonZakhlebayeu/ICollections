@@ -17,7 +17,7 @@
 
         if (content.Length <= contentPartSize) return content;
         
-        content = content.Substring(0, contentPartSize);
+        content = content[..contentPartSize];
         content += "...";
 
         return content;
