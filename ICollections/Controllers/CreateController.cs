@@ -1,5 +1,6 @@
 using Azure.Storage.Blobs;
 using ICollections.Data;
+using ICollections.Data.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using ICollections.Models;
 using ICollections.Services;
@@ -11,13 +12,15 @@ namespace ICollections.Controllers;
 
 public class CreateController : Controller
 {
-    private readonly ApplicationDbContext _db;
     private readonly ISaveFileAsync _saveFileAsync;
+    private readonly ICollectionRepository _collectionRepository;
+    private readonly IItemRepository _itemRepository;
 
-    public CreateController(ApplicationDbContext context, ISaveFileAsync saveFileAsync)
+    public CreateController(ISaveFileAsync saveFileAsync, ICollectionRepository collectionRepository, IItemRepository itemRepository)
     {
-        _db = context;
         _saveFileAsync = saveFileAsync;
+        _collectionRepository = collectionRepository;
+        _itemRepository = itemRepository;
     }
     
     [Authorize]
@@ -50,9 +53,9 @@ public class CreateController : Controller
             FileName = resultingString,
         };
 
-        await _db.Collections.AddAsync(newCollection);
+        await _collectionRepository.AddAsync(newCollection);
 
-        await _db.SaveChangesAsync();
+        await _collectionRepository.CommitAsync();
 
         return await Task.Run(() => RedirectToAction("ViewCollection", "Home", newCollection));
     }
@@ -91,14 +94,14 @@ public class CreateController : Controller
             Date = itemViewModel.Date, Brand = itemViewModel.Brand, FileName = resultingStrings,
         };
 
-        var currentCollection = _db.Collections.FirstOrDefaultAsync(c => c.Id == newItem.CollectionId).Result;
+        var currentCollection = _collectionRepository.GetSingleAsync(c => c.Id == newItem.CollectionId).Result;
 
         currentCollection!.CollectionItems!.Add(newItem);
 
-        await _db.Items.AddAsync(newItem);
-
-        await _db.SaveChangesAsync();
+        await _itemRepository.AddAsync(newItem);
+        
+        await _itemRepository.CommitAsync();
 
         return await Task.Run(() => RedirectToAction("ViewCollection", "Home", currentCollection));
-    }
+    }   
 }

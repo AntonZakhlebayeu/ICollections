@@ -1,12 +1,11 @@
 @model ICollections.ViewModels.EditCollectionViewModel
 
-@using ICollections.Data
 @{
-    var data = ViewBag.db as ApplicationDbContext;
+    var data = ViewBag.collectionData as ICollectionRepository;
 
     var collectionId = ViewBag.collectionId;
 
-    var editingCollection = data!.Collections.FindAsync(collectionId is int id ? id : 0).Result;
+    var editingCollection = data!.FindAsync(collectionId is int id ? id : 0).Result;
 }
 
 <link rel="stylesheet" title="theme" href="#">

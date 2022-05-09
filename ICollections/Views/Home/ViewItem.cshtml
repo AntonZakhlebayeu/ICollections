@@ -1,4 +1,3 @@
-@using ICollections.Data
 @using Microsoft.EntityFrameworkCore
 @model ICollections.Models.Item
 
@@ -7,9 +6,9 @@
     
     string GetTheUserId(string userId)
     {
-        var data = ViewBag.db as ApplicationDbContext;
+        var data = ViewBag.userData as IUserRepository;
 
-        var userEmail = data!.Users.FindAsync(userId).Result!.Email;
+        var userEmail = data!.FindAsync(userId).Result!.Email;
 
         return userEmail;
     }
@@ -18,27 +17,27 @@
     {
         if (!User.Identity!.IsAuthenticated) return "user";
         
-        var data = ViewBag.db as ApplicationDbContext;
+        var data = ViewBag.userData as IUserRepository;
 
-        var userRole = data!.Users.FirstOrDefaultAsync(u => u.Email == User.Identity!.Name).Result!.Role;
+        var userRole = data!.GetSingleAsync(u => u.Email == User.Identity!.Name).Result!.Role;
 
         return userRole!;
     }
 
-    string GetAuthorId(int? collectionId)
+    string GetAuthorId(int collectionId)
     {
-        var data = ViewBag.db as ApplicationDbContext;
+        var data = ViewBag.collectionData as ICollectionRepository;
 
-        var authorId = data!.Collections.FindAsync(collectionId).Result!.AuthorId;
+        var authorId = data!.FindAsync(collectionId).Result!.AuthorId;
 
         return authorId!;
     }
 }
 
 @{
-    var data = ViewBag.db as ApplicationDbContext;
+    var data = ViewBag.db as ICollectionRepository;
 
-    var currentCollection = data!.Collections.FindAsync(Model.CollectionId).Result;
+    var currentCollection = data!.FindAsync(Model.CollectionId).Result;
 }
 
 <link rel="stylesheet" title="theme" href="#">
@@ -66,7 +65,7 @@
     <h2 class="lng-ParentCollection">Collection:</h2>
     <ul>
         <li>
-            <a href="/Home/ViewCollection/@Model.CollectionId">@data!.Collections.FindAsync(Model.CollectionId).Result!.Title</a>
+            <a href="/Home/ViewCollection/@Model.CollectionId">@data!.FindAsync(Model.CollectionId).Result!.Title</a>
         </li>
     </ul>
 </div>

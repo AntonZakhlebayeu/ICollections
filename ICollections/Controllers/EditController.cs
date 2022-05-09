@@ -1,4 +1,5 @@
 using ICollections.Data;
+using ICollections.Data.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using ICollections.Services;
 using ICollections.Services.Interfaces;
@@ -9,17 +10,18 @@ namespace ICollections.Controllers;
 
 public class EditController : Controller
 {
-    private readonly ApplicationDbContext _db;
     private readonly ISaveFileAsync _saveFileAsync;
     private readonly IDeleteBlob _deleteBlob;
+    private readonly ICollectionRepository _collectionRepository;
+    private readonly IItemRepository _itemRepository;
 
-    public EditController(ApplicationDbContext context, ISaveFileAsync saveFileAsync, IDeleteBlob deleteBlob)
+    public EditController(ISaveFileAsync saveFileAsync, IDeleteBlob deleteBlob, IItemRepository itemRepository, ICollectionRepository collectionRepository)
     {
-        _db = context;
         _saveFileAsync = saveFileAsync;
         _deleteBlob = deleteBlob;
+        _itemRepository = itemRepository;
+        _collectionRepository = collectionRepository;
     }
-    
     
     [Authorize]
     [HttpGet]
@@ -34,17 +36,17 @@ public class EditController : Controller
     [Authorize]
     [HttpPost]
     [Route("/Home/EditCollection/{collectionId:int}")]
-    public async Task<IActionResult> EditCollection(EditCollectionViewModel editCollectionViewModel)
+    public async Task<IActionResult> EditCollection(EditCollectionViewModel editCollectionViewModel, int collectionId)
     {
         if (!ModelState.IsValid) return await Task.Run(() => View(editCollectionViewModel));
         
-        var editingCollection = _db.Collections.FindAsync(editCollectionViewModel.CollectionId).Result;
-        
+        var editingCollection = _collectionRepository.FindAsync(collectionId).Result;
+
         var resultingString = "";
 
         if (Request.Form.Files.Count != 0)
         {
-            var file = Request.Form.Files.First();
+            var file = Request.Form.Files[0];
             resultingString = _saveFileAsync.SaveFileAsync(file).Result;
         }
 
@@ -61,8 +63,8 @@ public class EditController : Controller
         {
             editingCollection!.FileName = resultingString;
         }
-
-        await _db.SaveChangesAsync();
+        
+        await _collectionRepository.CommitAsync();
 
         return await Task.Run(() => RedirectToAction("ViewCollection", "Home", editCollectionViewModel));
     }
@@ -85,8 +87,8 @@ public class EditController : Controller
         ViewBag.collectionId = collectionId;
         
         if (!ModelState.IsValid) return await Task.Run(() => View(editItemViewModel));
-
-        var editingItem = _db.Items.FindAsync(itemId).Result;
+        
+        var editingItem = _itemRepository.FindAsync(itemId).Result;
         
         var resultingString = "";
         if (Request.Form.Files.Count != 0)
@@ -111,7 +113,7 @@ public class EditController : Controller
             editingItem!.FileName = resultingString;
         }
 
-        await _db.SaveChangesAsync();
+        await _itemRepository.CommitAsync();
 
         return await Task.Run(() => Redirect($"/Home/ViewItem/{collectionId}/{itemId}"));
     }

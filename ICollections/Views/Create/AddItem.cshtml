@@ -1,13 +1,11 @@
 @model ICollections.ViewModels.ItemViewModel
-@using ICollections.Data
-@using Microsoft.EntityFrameworkCore
 
 @{
-    var data = ViewBag.db as ApplicationDbContext;
+    var data = ViewBag.collectionData as ICollectionRepository;
 
     var collectionId = ViewBag.collectionId is int ? (int)ViewBag.collectionId : 0;
 
-    var collection = data!.Collections.FirstOrDefaultAsync(r => r.Id == collectionId).Result;
+    var collection = data!.GetSingleAsync(r => r.Id == collectionId).Result;
 }
 
 <link rel="stylesheet" title="theme" href="#">

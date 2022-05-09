@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ICollections.Data.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
+    [DbContext(typeof(ICollectionDbContext))]
     [Migration("20220503161545_AddImageString")]
     partial class AddImageString
     {

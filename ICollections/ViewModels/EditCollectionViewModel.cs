@@ -5,7 +5,7 @@ namespace ICollections.ViewModels;
 public class EditCollectionViewModel
 {
     [Required]
-    public int? CollectionId { get; init; }
+    public int CollectionId { get; init; }
     
     [Required]
     public string? Title { get; init; }

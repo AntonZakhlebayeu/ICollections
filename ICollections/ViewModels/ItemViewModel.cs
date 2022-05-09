@@ -8,7 +8,7 @@ public class ItemViewModel
     //Add ErrorMessage
     //Translate ErrorMessage
     [Required]
-    public int? CollectionId { get; set; }
+    public int CollectionId { get; set; }
 
     [Required]
     public string? Title { get; init; }

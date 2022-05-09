@@ -1,19 +1,17 @@
 ﻿@using System.ComponentModel.Design
 @using Microsoft.AspNetCore.Identity
-@using ICollections.Data
 @inject SignInManager<User> SignInManager
 @inject UserManager<User> UserManager
 
 @{
-    var data = ViewBag.db as ApplicationDbContext;
+    var data = ViewBag.userData as IUserRepository;
 }
 
-
-@functions {
-
-    string GetUserFullName(ApplicationDbContext? db)
+@functions
+{
+    string GetUserFullName(IUserRepository? db)
     {
-        var user = db!.Users.FirstOrDefault(u => u.Email == User.Identity!.Name);
+        var user = db!.GetSingleAsync(u => u.Email == User.Identity!.Name).Result;
         return user!.FirstName + " " + user.LastName;
     }
 

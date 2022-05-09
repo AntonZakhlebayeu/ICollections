@@ -1,14 +1,14 @@
 @model ICollections.ViewModels.EditItemViewModel
-@using ICollections.Data
 
 @{
-    var data = ViewBag.db as ApplicationDbContext;
+    var collectionData = ViewBag.collectionData as ICollectionRepository;
+    var itemData = ViewBag.itemData as IItemRepository;
 
     var collectionId = ViewBag.collectionId is int ? (int)ViewBag.collectionId : 0;
     var itemId = ViewBag.itemId;
 
-    var currentCollection = data!.Collections.FindAsync(collectionId).Result;
-    var editingItem = data!.Items.FindAsync(itemId is int id ? id : 0).Result;
+    var currentCollection = collectionData!.FindAsync(collectionId).Result;
+    var editingItem = itemData!.FindAsync(itemId is int id ? id : 0).Result;
 }
 
 <link rel="stylesheet" title="theme" href="#">

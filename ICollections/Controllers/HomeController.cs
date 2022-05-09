@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using ICollections.Data;
+using ICollections.Data.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using ICollections.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -10,16 +11,21 @@ namespace ICollections.Controllers;
 
 public class HomeController : Controller
 {
-    private readonly ApplicationDbContext _db;
-
-    public HomeController(ApplicationDbContext context)
+    private readonly IUserRepository _userRepository;
+    private readonly ICollectionRepository _collectionRepository;
+    private readonly IItemRepository _itemRepository;
+    
+    public HomeController(IUserRepository userRepository, ICollectionRepository collectionRepository, IItemRepository itemRepository)
     {
-        _db = context;
+        _userRepository = userRepository;
+        _collectionRepository = collectionRepository;
+        _itemRepository = itemRepository;
     }
     
     public async Task<IActionResult> Index()
     {
-        var user = _db.Users.FirstOrDefaultAsync(user => user.UserName == User.Identity!.Name && user.Status != "Blocked User").Result;
+        var user = _userRepository
+            .GetSingleAsync(user => user.UserName == User.Identity!.Name && user.Status != "Blocked User").Result;
 
         if (User.Identity!.IsAuthenticated && user == null)
             return await Task.Run(() => RedirectToAction("Logout", "Account"));
@@ -30,7 +36,8 @@ public class HomeController : Controller
     [Authorize]
     public async Task<IActionResult> Profile()
     {
-        var user = _db.Users.FirstOrDefaultAsync(user => user.UserName == User.Identity!.Name && user.Status != "Blocked User").Result;
+        var user = _userRepository
+            .GetSingleAsync(user => user.UserName == User.Identity!.Name && user.Status != "Blocked User").Result;
         
         if (user == null)
             return await Task.Run(() => RedirectToAction("Register", "Account"));
@@ -41,11 +48,11 @@ public class HomeController : Controller
     [Route("/Home/ViewCollection/{collectionId:int}")]
     public async Task<IActionResult> ViewCollection(int collectionId)
     {
-        var userCollection = _db.Collections.FirstOrDefaultAsync(c => c.Id == collectionId).Result;
+        var userCollection = _collectionRepository.GetSingleAsync(c => c.Id == collectionId).Result;
         
         if (userCollection == null) return await Task.Run(() => RedirectToAction("Profile", "Home"));
-
-        userCollection!.CollectionItems = _db.Items.Where(i => i.CollectionId == userCollection.Id).ToList();
+        
+        userCollection.CollectionItems = _itemRepository.FindBy(i => i.CollectionId == userCollection.Id).ToList();
 
         return await Task.Run(() => View(userCollection));
     }
@@ -54,7 +61,7 @@ public class HomeController : Controller
     [Route("/Home/ViewItem/{collectionId}/{itemId:int}")]
     public async Task<IActionResult> ViewItem(int itemId)
     {
-        var item = _db.Items.FirstOrDefaultAsync(i => i.Id == itemId).Result;
+        var item = _itemRepository.GetSingleAsync(i => i.Id == itemId).Result;
 
         if (item == null) return await Task.Run(() => RedirectToAction("Profile", "Home"));
 

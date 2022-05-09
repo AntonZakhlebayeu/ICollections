@@ -1,5 +1,13 @@
-@inject ICollections.Data.ApplicationDbContext _context;
+@using ICollections.Data.Interfaces
+@using ICollections.Models
+@inject IUserRepository UserRepository;
+@inject ICollectionRepository CollectionRepository;
+@inject IItemRepository ItemRepository;
+@inject ILikeRepository LikeRepository;
 @{
     Layout = "_Layout";
-    ViewBag.db = _context;
+    ViewBag.userData = UserRepository;
+    ViewBag.collectionData = CollectionRepository;
+    ViewBag.itemData = ItemRepository;
+    ViewBag.likeData = LikeRepository;
 }

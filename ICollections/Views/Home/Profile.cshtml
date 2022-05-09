@@ -3,25 +3,25 @@
 @model ICollections.Models.User
 
 @{
-    var data = ViewBag.db as ApplicationDbContext;
+    var userData = ViewBag.userData as IUserRepository;
+    var collectionData = ViewBag.collectionData as ICollectionRepository;
 
-    var userId = data!.Users.FirstOrDefaultAsync(u => u.Email == User.Identity!.Name).Result!.Id;
+    var userId = userData!.GetSingleAsync(u => u.Email == User.Identity!.Name).Result!.Id;
 
-    var userCollections = data!.Collections.Where(p => p.AuthorId == userId);
+    var userCollections = collectionData!.FindBy(p => p.AuthorId == userId);
 }
 
 @functions
 {
 
-    string GetContentPart(string content) {
+    private static string GetContentPart(string content) 
+    {
 
-        int CONTENT_PART_SIZE = 500;
+        const int contentPartSize = 500;
 
-        if (content.Length > CONTENT_PART_SIZE)
-        {
-            content = content.Substring(0, CONTENT_PART_SIZE);
-            content += "...";
-        }
+        if (content.Length <= contentPartSize) return content;
+        content = content[..contentPartSize];
+        content += "...";
 
         return content;
 

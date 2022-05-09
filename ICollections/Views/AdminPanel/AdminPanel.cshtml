@@ -1,13 +1,11 @@
 ﻿@model IEnumerable<ICollections.Models.User>
-@using ICollections.Data
-@using Microsoft.EntityFrameworkCore
 
 <script src="~/js/AdminOptions.js"></script>
 
 @{
-    var data = ViewBag.db as ApplicationDbContext;
+    var data = ViewBag.userData as IUserRepository;
     
-    var currentUser = data!.Users.FirstOrDefaultAsync(u => u.Email == User.Identity!.Name).Result;
+    var currentUser = data!.GetSingleAsync(u => u.Email == User.Identity!.Name).Result;
 }
 
 <div class="container block2">

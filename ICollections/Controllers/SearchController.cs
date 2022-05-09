@@ -1,18 +1,19 @@
 using HigLabo.Core;
-using ICollections.Data;
+using ICollections.Data.Interfaces;
 using ICollections.ViewModels;
-using Korzh.EasyQuery.Linq;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ICollections.Controllers;
 
 public class SearchController : Controller
 {
-    private readonly ApplicationDbContext _db;
+    private readonly ICollectionRepository _collectionRepository;
+    private readonly IItemRepository _itemRepository;
 
-    public SearchController(ApplicationDbContext db)
+    public SearchController(IItemRepository itemRepository, ICollectionRepository collectionRepository)
     {
-        _db = db;
+        _itemRepository = itemRepository;
+        _collectionRepository = collectionRepository;
     }
     
     [Route("/Home/Search/{searchString}")]
@@ -20,12 +21,13 @@ public class SearchController : Controller
     {
         if (!searchString.IsNullOrEmpty())
         {
-            searchViewModel.resultItems = _db.Items.FullTextSearchQuery(searchString).ToList();
-            var itemsInCollection = _db.Collections.FullTextSearchQuery(searchString);
+            searchViewModel.resultItems = _itemRepository.FullTextSearch(searchString).ToList();
+            
+            var itemsInCollection = _collectionRepository.FullTextSearch(searchString);
 
             foreach (var collection in itemsInCollection)
             {
-                collection.CollectionItems = _db.Items.Where(c => c.CollectionId == collection.Id).ToList();
+                collection.CollectionItems = _itemRepository.FindBy(c => c.CollectionId == collection.Id).ToList();
 
                 foreach (var item in collection!.CollectionItems!.Where(item => !searchViewModel.resultItems.Contains(item)))
                 {
@@ -35,7 +37,7 @@ public class SearchController : Controller
         }
         else
         {
-            searchViewModel.resultItems = _db.Items.ToList();
+            searchViewModel.resultItems = _itemRepository.GetAll().ToList();
         }
 
         return await Task.Run(() => View("Search", searchViewModel));

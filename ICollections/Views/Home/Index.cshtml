@@ -1,11 +1,10 @@
-﻿@using ICollections.Data
-@using Microsoft.EntityFrameworkCore
-@model ICollections.Models.User
+﻿@model ICollections.Models.User
 
 @{
-    var data = ViewBag.db as ApplicationDbContext;
+    var userData = ViewBag.userData as IUserRepository;
+    var collectionData = ViewBag.collectionData as ICollectionRepository;
 
-    var userCollections = data!.Collections.ToListAsync().Result;
+    var userCollections = collectionData!.GetAll().ToList();
 }
 
 @functions
@@ -54,7 +53,7 @@
                     <p class="card-header">@collection.Theme</p>
                     <p class="card-text">@GetContentPart(collection.Description!)</p>
                     <p class="card-text">Author:</p>
-                    <p class="card-text">@data!.Users.FindAsync(collection.AuthorId).Result!.NickName</p>
+                    <p class="card-text">@userData!.FindAsync(collection!.AuthorId!).Result!.NickName</p>
                     <p class="card-text text-muted">@collection.LastEditDate</p>
                 </div>
             </div>

@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using ICollections.Data;
+using ICollections.Data.Interfaces;
+using ICollections.Data.Repositories;
 using ICollections.Models;
 using ICollections.Services;
 using ICollections.Services.Classes;
@@ -10,12 +12,17 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
+builder.Services.AddDbContext<ICollectionDbContext>(options =>
     options.UseSqlite(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddSingleton<ISaveFileAsync, SaveFileToCloudService>();
 builder.Services.AddSingleton<IDeleteBlob, DeleteBlobService>();
+
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<ICollectionRepository, CollectionRepository>();
+builder.Services.AddScoped<ILikeRepository, LikeRepository>();
+builder.Services.AddScoped<IItemRepository, ItemRepository>();
 
 builder.Services.AddIdentity<User, IdentityRole>(options =>
     {
@@ -25,7 +32,7 @@ builder.Services.AddIdentity<User, IdentityRole>(options =>
         options.User.RequireUniqueEmail = true;
     })
     .AddRoles<IdentityRole>()
-    .AddEntityFrameworkStores<ApplicationDbContext>();
+    .AddEntityFrameworkStores<ICollectionDbContext>();
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();

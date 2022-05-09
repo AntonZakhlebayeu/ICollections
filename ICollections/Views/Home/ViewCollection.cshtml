@@ -1,26 +1,23 @@
 @model ICollections.Models.Collection
-@using ICollections.Data
-@using Microsoft.EntityFrameworkCore
 
 @functions 
 {
-
     string GetUserRole()
     {
         if (!User.Identity!.IsAuthenticated) return "user";
         
-        var data = ViewBag.db as ApplicationDbContext;
+        var data = ViewBag.userData as IUserRepository;
 
-        var userRole = data!.Users.FirstOrDefaultAsync(u => u.Email == User.Identity!.Name).Result!.Role;
+        var userRole = data!.GetSingleAsync(u => u.Email == User.Identity!.Name).Result!.Role;
 
         return userRole!;
     }
 
     string GetTheUserId(string userId)
     {
-        var data = ViewBag.db as ApplicationDbContext;
+        var data = ViewBag.userData as IUserRepository;
 
-        var userEmail = data!.Users.FindAsync(userId).Result!.Email;
+        var userEmail = data!.FindAsync(userId).Result!.Email;
 
         return userEmail;
     }
@@ -28,12 +25,11 @@
 
     static string GetContentPart(string content) 
     {
-
         const int contentPartSize = 500;
 
         if (content.Length <= contentPartSize) return content;
         
-        content = content.Substring(0, contentPartSize);
+        content = content[..contentPartSize];
         content += "...";
 
         return content;

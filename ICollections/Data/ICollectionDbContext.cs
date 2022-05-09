@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ICollections.Data;
 
-public class ApplicationDbContext : IdentityDbContext<User>
+public sealed class ICollectionDbContext : IdentityDbContext<User>
 {
     public DbSet<Collection> Collections { get; set; }
     public DbSet<Item> Items { get; set; } 
-    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+    public ICollectionDbContext(DbContextOptions<ICollectionDbContext> options)
         : base(options)
     {
         Database.EnsureCreated();
@@ -17,13 +17,26 @@ public class ApplicationDbContext : IdentityDbContext<User>
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        ConfigureCollectionModel(modelBuilder);
+        ConfigureItemModel(modelBuilder);
+        ConfigureIdentityRoles(modelBuilder);
+        ConfigureLikeModel(modelBuilder);
+
+        base.OnModelCreating(modelBuilder);
+    }
+
+    private void ConfigureIdentityRoles(ModelBuilder modelBuilder)
+    {
         var adminRole = new IdentityRole("admin");
         var userRole = new IdentityRole("user");
         var superAdminRole = new IdentityRole("super admin");
 
         modelBuilder.Entity<IdentityRole>()
             .HasData(new IdentityRole[] {superAdminRole, adminRole, userRole});
-        
+    }
+    
+    private void ConfigureCollectionModel(ModelBuilder modelBuilder)
+    {
         modelBuilder.Entity<Collection>(b =>
         {
             b.ToTable("Collections");
@@ -37,7 +50,10 @@ public class ApplicationDbContext : IdentityDbContext<User>
             b.Property(p => p.AddBrands).HasColumnName("AddBrands");
             b.Property(p => p.AddComments).HasColumnName("AddComments");
         });
+    }
 
+    private void ConfigureItemModel(ModelBuilder modelBuilder)
+    {
         modelBuilder.Entity<Item>(b =>
         {
             b.ToTable("Items");
@@ -49,7 +65,11 @@ public class ApplicationDbContext : IdentityDbContext<User>
             b.Property(p => p.Date).HasColumnName("Date");
             b.Property(p => p.Brand).HasColumnName("Brand");
         });
-
-        base.OnModelCreating(modelBuilder);
+    }
+    
+    private void ConfigureLikeModel(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<Like>().ToTable("Like");
+        modelBuilder.Entity<Like>().HasKey(l => new { l.ItemId, l.UserId });
     }
 }
