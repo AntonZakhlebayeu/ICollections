@@ -1,11 +1,12 @@
-@model ICollections.Models.Collection
-@using ICollections.Data.Interfaces
+@model ICollections.Models.Collection;
+@using ICollections.Data.Interfaces;
 
 @functions 
 {
     string GetUserRole()
     {
-        if (!User.Identity!.IsAuthenticated) return "user";
+        if (!User.Identity!.IsAuthenticated) 
+            return "user";
         
         var data = ViewBag.userData as IUserRepository;
 
@@ -17,7 +18,7 @@
     string GetTheUserId(string userId)
     {
         var data = ViewBag.userData as IUserRepository;
-
+        
         var userEmail = data!.FindAsync(userId).Result!.Email;
 
         return userEmail;

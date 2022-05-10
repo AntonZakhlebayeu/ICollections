@@ -1,6 +1,7 @@
 ﻿using ICollections.Data;
 using ICollections.Data.Interfaces;
 using ICollections.Models;
+using ICollections.Services.Interfaces;
 using ICollections.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -13,12 +14,14 @@ public class AccountController : Controller
     private readonly UserManager<User> _userManager;
     private readonly SignInManager<User> _signInManager;
     private readonly IUserRepository _userRepository;
+    private readonly IUserValidation _userValidation;
     
-    public AccountController(SignInManager<User> signInManager, IUserRepository userRepository, UserManager<User> userManager)
+    public AccountController(SignInManager<User> signInManager, IUserRepository userRepository, UserManager<User> userManager, IUserValidation userValidation)
     {
         _signInManager = signInManager;
         _userRepository = userRepository;
         _userManager = userManager;
+        _userValidation = userValidation;
     }
     
     [HttpGet]
@@ -30,7 +33,8 @@ public class AccountController : Controller
     [HttpPost]
     public async Task<IActionResult> Register(RegisterViewModel model)
     {
-        if (!ModelState.IsValid) return await Task.Run(() => View(model));
+        if (!ModelState.IsValid) 
+            return await Task.Run(() => View(model));
 
         var user = new User { Email = model.Email, Password = model.Password, FirstName = model.FirstName, LastName = model.LastName, NickName = model.NickName, Age = model.Age, UserName = model.Email, RegisterDate = DateTime.Now, LastLoginDate = DateTime.Now, Role = model.Role, Status = "Active User"};
 
@@ -63,9 +67,7 @@ public class AccountController : Controller
     {
         if (!ModelState.IsValid) return await Task.Run(() => View(model));
 
-        var user = _userRepository.GetSingleAsync(u => u.UserName == model.Email).Result;
-
-        if (user == null || user.Status == "Blocked User")
+        if (_userValidation.IsUserNullOrBlocked(model.Email!)) 
             return RedirectToAction("Index", "Home");
 
         var result = 
@@ -73,7 +75,10 @@ public class AccountController : Controller
 
         if (result.Succeeded)
         {
+            var user = _userRepository.GetSingleAsync(u => u.UserName == model.Email).Result;
+            
             user!.LastLoginDate = DateTime.Now;
+            
             await _userRepository.CommitAsync();
             
             return RedirectToAction("Index", "Home");
@@ -90,15 +95,18 @@ public class AccountController : Controller
     [Route("/Account/Logout")]
     public async Task<IActionResult> Logout()
     {
-        var user = _userRepository.GetSingleAsync(u => u.UserName == User.Identity!.Name).Result;
-
-        if (user != null)
+        if (_userValidation.IsUserNull(User!.Identity!.Name!))
         {
-            user!.LastLoginDate = DateTime.Now;
-            await _userRepository.CommitAsync();
+            await _signInManager.SignOutAsync();
+            return await Task.Run(() => RedirectToAction("Index", "Home"));
         }
-
+            
+        var user = _userRepository.GetSingleAsync(u => u.UserName == User.Identity!.Name).Result;
+        user!.LastLoginDate = DateTime.Now;
+        
+        await _userRepository.CommitAsync();
         await _signInManager.SignOutAsync();
+        
         return await Task.Run(() => RedirectToAction("Index", "Home"));
     }
 }

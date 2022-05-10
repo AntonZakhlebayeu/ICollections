@@ -1,6 +1,7 @@
 using ICollections.Data;
 using ICollections.Data.Interfaces;
 using ICollections.Models;
+using ICollections.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -15,27 +16,29 @@ public class AdminPanelController : Controller
     private readonly IUserRepository _userRepository;
     private readonly ICollectionRepository _collectionRepository;
     private readonly IItemRepository _itemRepository;
+    private readonly IUserValidation _userValidation;
 
-    public AdminPanelController(UserManager<User> userManager, IUserRepository userRepository, IItemRepository itemRepository, ICollectionRepository collectionRepository)
+    public AdminPanelController(UserManager<User> userManager, IUserRepository userRepository, IItemRepository itemRepository, ICollectionRepository collectionRepository, IUserValidation userValidation)
     {
         _userManager = userManager;
         _userRepository = userRepository;
         _itemRepository = itemRepository;
         _collectionRepository = collectionRepository;
+        _userValidation = userValidation;
     }
     
     [Authorize]
     public async Task<IActionResult> AdminPanel()
     {
-        var user = _userRepository.GetSingleAsync(u => u.Email == User.Identity!.Name).Result;
+        if (_userValidation.IsUserNull(User!.Identity!.Name!))
+        {
+            return await Task.Run(() => RedirectToAction("Logout", "Account"));   
+        }
 
-        if (user == null)
-            return await Task.Run(() => RedirectToAction("Register", "Account"));
+        if(!_userValidation.IsUserAdminOrSuperAdmin(User!.Identity!.Name!))
+            return await Task.Run(() => RedirectToAction("Index", "Home"));
 
-        if (user!.Role is "admin" or "super admin")
-            return await Task.Run(() => View(_userRepository.GetAll()));
-
-        return await Task.Run(() => RedirectToAction("Index", "Home"));
+        return await Task.Run(() => View(_userRepository.GetAll()));
     }
     
     [Authorize]

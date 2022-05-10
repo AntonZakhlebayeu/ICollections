@@ -93,7 +93,7 @@ public class EditController : Controller
         var resultingString = "";
         if (Request.Form.Files.Count != 0)
         {
-            var file = Request.Form.Files.First();
+            var file = Request.Form.Files[0];
             resultingString = _saveFileAsync.SaveFileAsync(file).Result;
         }
 

@@ -18,13 +18,21 @@ public class SearchController : Controller
     }
     
     [Route("/Home/Search/")]
-    public async Task<IActionResult> SearchResultView(SearchViewModel searchViewModel)
+    public async Task<IActionResult> SearchResultViewEmpty(string searchString, SearchViewModel searchViewModel)
     {
-        if (!searchViewModel.Text.IsNullOrEmpty())
+        searchViewModel.resultItems = new List<Item>();
+
+        return await Task.Run(() => View("Search", searchViewModel));
+    }
+    
+    [Route("/Home/Search/{searchString}")]
+    public async Task<IActionResult> SearchResultView(string searchString, SearchViewModel searchViewModel)
+    {
+        if (!searchString.IsNullOrEmpty())
         {
-            searchViewModel.resultItems = _itemRepository.FullTextSearch(searchViewModel.Text).ToList();
+            searchViewModel.resultItems = _itemRepository.FullTextSearch(searchString).ToList();
             
-            var itemsInCollection = _collectionRepository.FullTextSearch(searchViewModel.Text);
+            var itemsInCollection = _collectionRepository.FullTextSearch(searchString);
 
             foreach (var collection in itemsInCollection)
             {

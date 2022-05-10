@@ -34,15 +34,18 @@ public class CreateController : Controller
     [HttpPost]
     public async Task<IActionResult> CreateCollection(CollectionViewModel collectionViewModel)
     {
-        if (!ModelState.IsValid || collectionViewModel.Theme == "null") return await Task.Run(() => View(collectionViewModel));
+        if (!ModelState.IsValid || collectionViewModel.Theme == "null") 
+            return await Task.Run(() => View(collectionViewModel));
 
         var resultingString = "";
 
         if (Request.Form.Files.Count != 0)
         {
-            var file = Request.Form.Files.First();
+            var file = Request.Form.Files[0];
             resultingString = _saveFileAsync.SaveFileAsync(file).Result;
         }
+        
+        Console.WriteLine(collectionViewModel.AuthorId);
 
         var newCollection = new Collection
         {
@@ -53,7 +56,7 @@ public class CreateController : Controller
             FileName = resultingString,
         };
 
-        await _collectionRepository.AddAsync(newCollection);
+        _collectionRepository.Add(newCollection);
 
         await _collectionRepository.CommitAsync();
 
@@ -76,13 +79,14 @@ public class CreateController : Controller
     {
         ViewBag.collectionId = collectionId;
         
-        if (!ModelState.IsValid) return await Task.Run(() => View(itemViewModel));
+        if (!ModelState.IsValid) 
+            return await Task.Run(() => View(itemViewModel));
 
         var resultingStrings = ""; 
 
         if (Request.Form.Files.Count != 0)
         {
-            var file = Request.Form.Files.First();
+            var file = Request.Form.Files[0];
             resultingStrings = _saveFileAsync.SaveFileAsync(file).Result;
         }
 
