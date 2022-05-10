@@ -1,7 +1,5 @@
 using ICollections.Data.Interfaces;
-using ICollections.Models;
 using ICollections.Services.Interfaces;
-using Microsoft.AspNetCore.Identity;
 
 namespace ICollections.Services.Classes;
 

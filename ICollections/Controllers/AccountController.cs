@@ -1,11 +1,9 @@
-﻿using ICollections.Data;
-using ICollections.Data.Interfaces;
+﻿using ICollections.Data.Interfaces;
 using ICollections.Models;
 using ICollections.Services.Interfaces;
 using ICollections.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace ICollections.Controllers;
 

@@ -1,12 +1,9 @@
 ﻿using System.Diagnostics;
-using ICollections.Data;
 using ICollections.Data.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using ICollections.Models;
 using ICollections.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 
 namespace ICollections.Controllers;
 

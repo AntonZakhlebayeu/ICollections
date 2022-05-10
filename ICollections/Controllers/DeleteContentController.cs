@@ -1,8 +1,4 @@
-using Azure.Storage.Blobs;
-using Dropbox.Api;
-using ICollections.Data;
 using ICollections.Data.Interfaces;
-using ICollections.Services;
 using ICollections.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 

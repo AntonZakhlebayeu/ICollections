@@ -1,12 +1,9 @@
-using Azure.Storage.Blobs;
-using ICollections.Data;
 using ICollections.Data.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using ICollections.Models;
 using ICollections.Services;
 using ICollections.ViewModels;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.EntityFrameworkCore;
 
 namespace ICollections.Controllers;
 
