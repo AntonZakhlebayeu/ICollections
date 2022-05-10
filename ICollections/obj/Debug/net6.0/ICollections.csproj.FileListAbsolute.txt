@@ -380,3 +380,5 @@ C:/Users/hanny/RiderProjects/ICollections/ICollections/obj/Debug/net6.0/ref/ICol
 /Users/antonzakhlebayeu/ITransition Internship/ICollections/ICollections/bin/Debug/net6.0/EasyData.Core.dll
 /Users/antonzakhlebayeu/ITransition Internship/ICollections/ICollections/bin/Debug/net6.0/Korzh.EasyQuery.dll
 /Users/antonzakhlebayeu/ITransition Internship/ICollections/ICollections/bin/Debug/net6.0/Korzh.EasyQuery.Linq.dll
+/Users/antonzakhlebayeu/ITransition Internship/ICollections/ICollections/bin/Debug/net6.0/MySqlConnector.dll
+/Users/antonzakhlebayeu/ITransition Internship/ICollections/ICollections/bin/Debug/net6.0/Pomelo.EntityFrameworkCore.MySql.dll

@@ -12,6 +12,7 @@ public sealed class ICollectionDbContext : IdentityDbContext<User>
     public ICollectionDbContext(DbContextOptions<ICollectionDbContext> options)
         : base(options)
     {
+        Database.EnsureCreated();
     }
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
