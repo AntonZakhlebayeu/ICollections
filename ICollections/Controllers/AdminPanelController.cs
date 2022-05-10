@@ -17,14 +17,16 @@ public class AdminPanelController : Controller
     private readonly ICollectionRepository _collectionRepository;
     private readonly IItemRepository _itemRepository;
     private readonly IUserValidation _userValidation;
+    private readonly IDeleteBlob _deleteBlob;
 
-    public AdminPanelController(UserManager<User> userManager, IUserRepository userRepository, IItemRepository itemRepository, ICollectionRepository collectionRepository, IUserValidation userValidation)
+    public AdminPanelController(UserManager<User> userManager, IUserRepository userRepository, IItemRepository itemRepository, ICollectionRepository collectionRepository, IUserValidation userValidation, IDeleteBlob deleteBlob)
     {
         _userManager = userManager;
         _userRepository = userRepository;
         _itemRepository = itemRepository;
         _collectionRepository = collectionRepository;
         _userValidation = userValidation;
+        _deleteBlob = deleteBlob;
     }
     
     [Authorize]
@@ -55,8 +57,19 @@ public class AdminPanelController : Controller
                 var itemsToDelete = _itemRepository.FindBy(i => i.CollectionId == collection!.Id);
                 foreach (var item in itemsToDelete)
                 {
+                    if (item!.FileName != "")
+                    {
+                        _deleteBlob.DeleteBlob(item.FileName);
+                    }
+                    
                     _itemRepository.Delete(item);
                 }
+                
+                if (collection.FileName != "")
+                {
+                    _deleteBlob.DeleteBlob(collection.FileName);
+                }
+                
                 _collectionRepository.Delete(collection);
             }
 
