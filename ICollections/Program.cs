@@ -26,6 +26,7 @@ builder.Services.AddScoped<IItemRepository, ItemRepository>();
 builder.Services.AddScoped<IUserValidation, UserValidationService>();
 builder.Services.AddScoped<ICollectionValidation, CollectionValidationService>();
 builder.Services.AddScoped<IItemValidation, ItemValidationService>();
+builder.Services.AddScoped<ILikeValidation, LikeValidationService>();
 
 builder.Services.AddIdentity<User, IdentityRole>(options =>
     {

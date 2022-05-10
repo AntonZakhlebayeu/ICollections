@@ -36,9 +36,12 @@
 }
 
 @{
-    var data = ViewBag.collectionData as ICollectionRepository;
+    var collectionData = ViewBag.collectionData as ICollectionRepository;
+    var userData = ViewBag.userData as IUserRepository;
 
-    var currentCollection = data!.FindAsync(Model.CollectionId).Result;
+    var currentUser = userData!.GetSingleAsync(u => u.UserName == User!.Identity!.Name).Result;
+
+    var currentCollection = collectionData!.FindAsync(Model.CollectionId).Result;
 }
 
 <link rel="stylesheet" title="theme" href="#">
@@ -66,9 +69,14 @@
     <h2 class="lng-ParentCollection">Collection:</h2>
     <ul>
         <li>
-            <a href="/Home/ViewCollection/@Model.CollectionId">@data!.FindAsync(Model.CollectionId).Result!.Title</a>
+            <a href="/Home/ViewCollection/@Model.CollectionId">@collectionData!.FindAsync(Model.CollectionId).Result!.Title</a>
         </li>
     </ul>
+</div>
+
+<div id="footer-text" style="margin-bottom: 12px">
+    <h2 class="lng-Likes">Likes:</h2>
+    <h3 id="LikeValue">@Model.Likes.Count</h3>
 </div>
 
 <div style="margin-bottom: 12px" id="text">
@@ -89,6 +97,14 @@
     }
 </div>
 
+@if (User!.Identity!.IsAuthenticated)
+{
+    <div id="LikeArea" align="right" style="margin-bottom: 12px">
+        <form method="post" action="/Home/@Model.CollectionId/@Model.Id/ToggleLike" onsubmit="GetAmountOfLikes()">
+            <button id="LikeButton" for="LikeButton" class="btn btn-outline-danger">Like!</button>
+        </form>
+    </div>
+}
 
 <div align="right" style="margin-bottom: 12px">
     <h5 id="footer-text"><i>@Model.LastEditDate</i></h5>
@@ -117,3 +133,17 @@
          
     document.querySelector('title').innerHTML = pageTitle;
 </script>
+
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script>  
+function GetAmountOfLikes() {
+    setTimeout(() => { Get(); }, 500)
+    function Get() {
+    let url = "/Home/GetAmountOfLikes/@Model.Id"; 
+    let $j = jQuery.noConflict();
+    $.get(url, null, function (data) {
+        $("#LikeValue").html(data);  
+    });  
+    }
+}
+</script>  

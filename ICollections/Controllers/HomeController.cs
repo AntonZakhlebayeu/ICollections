@@ -18,8 +18,10 @@ public class HomeController : Controller
     private readonly IUserValidation _userValidation;
     private readonly ICollectionValidation _collectionValidation;
     private readonly IItemValidation _itemValidation;
+    private readonly ILikeRepository _likeRepository;
+    private readonly ILikeValidation _likeValidation;
     
-    public HomeController(IUserRepository userRepository, ICollectionRepository collectionRepository, IItemRepository itemRepository, IUserValidation userValidation, ICollectionValidation collectionValidation, IItemValidation itemValidation)
+    public HomeController(IUserRepository userRepository, ICollectionRepository collectionRepository, IItemRepository itemRepository, IUserValidation userValidation, ICollectionValidation collectionValidation, IItemValidation itemValidation, ILikeRepository likeRepository, ILikeValidation likeValidation)
     {
         _userRepository = userRepository;
         _collectionRepository = collectionRepository;
@@ -27,6 +29,8 @@ public class HomeController : Controller
         _userValidation = userValidation;
         _collectionValidation = collectionValidation;
         _itemValidation = itemValidation;
+        _likeRepository = likeRepository;
+        _likeValidation = likeValidation;
     }
     
     public async Task<IActionResult> Index()
@@ -71,7 +75,45 @@ public class HomeController : Controller
 
         var item = _itemRepository.GetSingleAsync(i => i.Id == itemId).Result;
 
+        item!.Likes = _likeRepository.FindBy(l => l.ItemId == item.Id).ToList();
+
         return await Task.Run(() => View(item));
+    }
+    
+    [HttpPost]
+    [Route("/Home/{collectionId::int}/{itemId::int}/ToggleLike")]
+    public async Task<IActionResult> ToggleLike(int collectionId, int itemId)
+    {
+        if (!User!.Identity!.IsAuthenticated)
+            return await Task.Run(() => BadRequest("You must to be authorized to place likes!"));       
+                
+        if (_likeValidation.IsUserOwner(User!.Identity!.Name!, collectionId)) 
+            return await Task.Run(() => BadRequest("You can't like your own item"));
+        
+        var item = _itemRepository.GetSingleAsync(s => s!.Id == itemId, s => s.Likes).Result;
+
+        var userId = _userRepository.GetSingleAsync(u => u.UserName == User!.Identity.Name).Result!.Id;
+        var existingLike = item!.Likes.Find(l => l.UserId == userId);
+        
+        if (existingLike == null)
+        {
+            _likeRepository.Add(new Like { UserId = userId, ItemId = itemId });
+        }
+        else 
+        {
+            _likeRepository.Delete(existingLike);
+            
+        }
+        
+        await _likeRepository.CommitAsync();
+        
+        return await Task.Run(NoContent);
+    }
+    
+    [Route("/Home/GetAmountOfLikes/{itemId:int}")]
+    public int GetAmountOfLikes(int itemId)
+    {
+        return _likeRepository.FindBy(l => l.ItemId == itemId).Count();
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

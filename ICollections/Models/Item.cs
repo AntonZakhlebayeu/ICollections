@@ -5,6 +5,11 @@ namespace ICollections.Models;
 
 public class Item
 {
+    public Item()
+    {
+        Likes = new List<Like>();
+    }
+    
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int Id { get; set; }
@@ -24,4 +29,6 @@ public class Item
     //Add comments
     
     public int CollectionId { get; set; }
+
+    public List<Like> Likes { get; set; }
 }

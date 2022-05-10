@@ -12,7 +12,6 @@ public sealed class ICollectionDbContext : IdentityDbContext<User>
     public ICollectionDbContext(DbContextOptions<ICollectionDbContext> options)
         : base(options)
     {
-        Database.EnsureCreated();
     }
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -69,7 +68,10 @@ public sealed class ICollectionDbContext : IdentityDbContext<User>
     
     private void ConfigureLikeModel(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Like>().ToTable("Like");
-        modelBuilder.Entity<Like>().HasKey(l => new { l.ItemId, l.UserId });
+        modelBuilder.Entity<Like>(b =>
+        {
+            b.ToTable("Like");
+            b.HasKey(l => new { l.ItemId, l.UserId });
+        });
     }
 }

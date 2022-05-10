@@ -5,6 +5,11 @@ namespace ICollections.Models;
 
 public class Collection
 {
+    public Collection()
+    {
+        CollectionItems = new List<Item>();
+    }
+    
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int? Id { get; set; }
@@ -25,5 +30,5 @@ public class Collection
     public string? AddBrands { get; set; }
     public string? AddComments { get; set; }
 
-    public List<Item>? CollectionItems { get; set; } = new List<Item>();
+    public List<Item>? CollectionItems { get; set; }
 }
