@@ -23,6 +23,7 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ICollectionRepository, CollectionRepository>();
 builder.Services.AddScoped<ILikeRepository, LikeRepository>();
 builder.Services.AddScoped<IItemRepository, ItemRepository>();
+
 builder.Services.AddScoped<IUserValidation, UserValidationService>();
 builder.Services.AddScoped<ICollectionValidation, CollectionValidationService>();
 builder.Services.AddScoped<IItemValidation, ItemValidationService>();
