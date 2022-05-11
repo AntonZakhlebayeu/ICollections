@@ -121,16 +121,16 @@ else
                     <div class="card-body">
                         <h5 class="card-title"><a class="link" href="/Home/ViewItem/@item.CollectionId/@item.Id">@item.Title</a></h5>
                         @{
-                            var collectionId = "description" + item.Id;
+                            var itemId = "description" + item.Id;
                         }
-                        <div id=@collectionId></div>
+                        <div id=@itemId></div>
                         <script>
                             function GetConvertedString() {
                                 let converter = new showdown.Converter();
                                 let md = "@Html.Raw(HttpUtility.JavaScriptStringEncode(@GetContentPart(item.Description!)))";
                                 let html = converter.makeHtml(md);
                                 
-                                document.getElementById("@Html.Raw(HttpUtility.JavaScriptStringEncode(@collectionId))").insertAdjacentHTML("afterend", html);
+                                document.getElementById("@Html.Raw(HttpUtility.JavaScriptStringEncode(itemId))").insertAdjacentHTML("afterend", html);
                             }                  
                         GetConvertedString();
                         </script>

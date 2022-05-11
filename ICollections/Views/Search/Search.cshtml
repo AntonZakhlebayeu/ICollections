@@ -1,9 +1,12 @@
 @model ICollections.ViewModels.SearchViewModel
 @using ICollections.Data.Interfaces
+@using System.Web
 
 <link rel="stylesheet" title="theme" href="#">
 <link rel="stylesheet" type="text/css" href="~/css/CreateCollection/CreateCollection.css"/>
 <link rel="stylesheet" type="text/css" href="~/css/Collections/Collection.css"/>
+
+<script src="https://unpkg.com/showdown/dist/showdown.min.js"></script>
 
 @{
     var data = ViewBag.itemData as IItemRepository;
@@ -40,12 +43,22 @@
                 <div class="card h-100">
                     @if (item.FileName != "")
                     {
-                        <img style="display: block; margin: 0 auto" src="https://nikminerstorage.blob.core.windows.net/images/@(item.FileName)" class="rounded-start" alt="Collection photo" width="140px" height="80px">
+                        <img style="display: block; margin: 0 auto" src="https://nikminerstorage.blob.core.windows.net/images/@(item.FileName)" class="rounded-start" alt="Collection photo" width="130px" height="80px">
                     }
-                    <div class="card-body">
-                        <h5 class="card-title"><a class="link" href="/Home/ViewItem/@item.CollectionId/@item.Id">@item.Title</a></h5>
-                        <p class="card-text">@GetContentPart(item.Description!)</p>
-                    </div>
+                    @{
+                        var itemId = "description" + item.Id;
+                    }
+                    <div id=@itemId></div>
+                    <script>
+                        function GetConvertedString() {
+                            let converter = new showdown.Converter();
+                            let md = "@Html.Raw(HttpUtility.JavaScriptStringEncode(@GetContentPart(item.Description!)))";
+                            let html = converter.makeHtml(md);
+                            
+                            document.getElementById("@Html.Raw(HttpUtility.JavaScriptStringEncode(itemId))").insertAdjacentHTML("afterend", html);
+                        }                  
+                    GetConvertedString();
+                    </script>
                     <div class="card-footer">
                         <p class="card-text text-muted">@item.LastEditDate</p>
                     </div>
@@ -67,11 +80,24 @@ else
                 <div class="card h-100">
                     @if (item.FileName != "")
                     {
-                        <img style="display: block; margin: 0 auto" src="https://nikminerstorage.blob.core.windows.net/images/@(item.FileName)" class="rounded-start" alt="Collection photo" width="140px" height="80px">
+                        <img style="display: block; margin: 0 auto" src="https://nikminerstorage.blob.core.windows.net/images/@(item.FileName)" class="rounded-start" alt="Collection photo" width="130px" height="80px">
                     }
                     <div class="card-body">
                         <h5 class="card-title"><a class="link" href="/Home/ViewItem/@item.CollectionId/@item.Id">@item.Title</a></h5>
-                        <p class="card-text">@GetContentPart(item.Description!)</p>
+                        @{
+                            var itemId = "description" + item.Id;
+                        }
+                        <div id=@itemId></div>
+                        <script>
+                            function GetConvertedString() {
+                                let converter = new showdown.Converter();
+                                let md = "@Html.Raw(HttpUtility.JavaScriptStringEncode(@GetContentPart(item.Description!)))";
+                                let html = converter.makeHtml(md);
+                                
+                                document.getElementById("@Html.Raw(HttpUtility.JavaScriptStringEncode(itemId))").insertAdjacentHTML("afterend", html);
+                            }                  
+                        GetConvertedString();
+                        </script>
                     </div>
                     <div class="card-footer">
                         <p class="card-text text-muted">@item.LastEditDate</p>
