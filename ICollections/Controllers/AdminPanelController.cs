@@ -30,12 +30,12 @@ public class AdminPanelController : Controller
     [Authorize]
     public async Task<IActionResult> AdminPanel()
     {
-        if (_userValidation.IsUserNull(User!.Identity!.Name!))
+        if (_userValidation.IsUserNull(User.Identity!.Name!))
         {
             return await Task.Run(() => RedirectToAction("Logout", "Account"));   
         }
 
-        if(!_userValidation.IsUserAdminOrSuperAdmin(User!.Identity!.Name!))
+        if(!_userValidation.IsUserAdminOrSuperAdmin(User.Identity!.Name!))
             return await Task.Run(() => RedirectToAction("Index", "Home"));
 
         return await Task.Run(() => View(_userRepository.GetAll()));
@@ -52,10 +52,10 @@ public class AdminPanelController : Controller
 
             foreach (var collection in userCollections)
             {
-                var itemsToDelete = _itemRepository.FindBy(i => i.CollectionId == collection!.Id);
+                var itemsToDelete = _itemRepository.FindBy(i => i.CollectionId == collection.Id);
                 foreach (var item in itemsToDelete)
                 {
-                    if (item!.FileName != "")
+                    if (item.FileName != "")
                     {
                         _deleteBlob.DeleteBlob(item.FileName);
                     }
@@ -71,7 +71,7 @@ public class AdminPanelController : Controller
                 _collectionRepository.Delete(collection);
             }
 
-            var result = await _userManager.DeleteAsync(objectToDelete!);
+            await _userManager.DeleteAsync(objectToDelete!);
             
             await _collectionRepository.CommitAsync();
             await _itemRepository.CommitAsync();
@@ -90,7 +90,7 @@ public class AdminPanelController : Controller
             
             await _userRepository.CommitAsync();
 
-            if(objectToBlock!.Email == User.Identity!.Name)
+            if(objectToBlock.Email == User.Identity!.Name)
                 return await Task.Run(() => RedirectToAction("Logout", "Account"));
         }
 
@@ -121,7 +121,7 @@ public class AdminPanelController : Controller
             
             await _userRepository.CommitAsync();
 
-            if(objectToDemote!.Email == User.Identity!.Name && objectToDemote!.Role == "user")
+            if(objectToDemote.Email == User.Identity!.Name && objectToDemote.Role == "user")
                 return await Task.Run(() => RedirectToAction("Index", "Home"));
         }
 

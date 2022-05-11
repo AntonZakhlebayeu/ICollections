@@ -32,10 +32,10 @@ public class HomeController : Controller
     
     public async Task<IActionResult> Index()
     {
-        if (_userValidation.IsUserIsAuthenticatedAndNull(User!.Identity!.Name!, User.Identity.IsAuthenticated))
+        if (_userValidation.IsUserIsAuthenticatedAndNull(User.Identity!.Name!, User.Identity.IsAuthenticated))
             return await Task.Run(() => RedirectToAction("Logout", "Account"));
 
-        var user = _userRepository.GetSingleAsync(user => user.UserName == User!.Identity!.Name).Result;
+        var user = _userRepository.GetSingleAsync(user => user.UserName == User.Identity!.Name).Result;
         
         return await Task.Run(() => View(user));
     }
@@ -43,7 +43,7 @@ public class HomeController : Controller
     [Authorize]
     public async Task<IActionResult> Profile()
     {
-        if (_userValidation.IsUserNullOrBlocked(User!.Identity!.Name!))
+        if (_userValidation.IsUserNullOrBlocked(User.Identity!.Name!))
             return await Task.Run(() => RedirectToAction("Register", "Account"));
 
         var user = _userRepository.GetSingleAsync(user => user.UserName == User.Identity!.Name).Result;
@@ -81,15 +81,15 @@ public class HomeController : Controller
     [Route("/Home/{collectionId::int}/{itemId::int}/ToggleLike")]
     public async Task<IActionResult> ToggleLike(int collectionId, int itemId)
     {
-        if (!User!.Identity!.IsAuthenticated)
+        if (!User.Identity!.IsAuthenticated)
             return await Task.Run(() => BadRequest("You must to be authorized to place likes!"));       
                 
-        if (_likeValidation.IsUserOwner(User!.Identity!.Name!, collectionId)) 
+        if (_likeValidation.IsUserOwner(User.Identity!.Name!, collectionId)) 
             return await Task.Run(() => BadRequest("You can't like your own item"));
         
         var item = _itemRepository.GetSingleAsync(s => s!.Id == itemId, s => s.Likes).Result;
 
-        var userId = _userRepository.GetSingleAsync(u => u.UserName == User!.Identity.Name).Result!.Id;
+        var userId = _userRepository.GetSingleAsync(u => u.UserName == User.Identity.Name).Result!.Id;
         var existingLike = item!.Likes.Find(l => l.UserId == userId);
         
         if (existingLike == null)

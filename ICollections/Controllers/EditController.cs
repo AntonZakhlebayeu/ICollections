@@ -50,17 +50,17 @@ public class EditController : Controller
         }
 
         editingCollection!.Title = editCollectionViewModel.Title;
-        editingCollection!.Description = editCollectionViewModel.Description;
+        editingCollection.Description = editCollectionViewModel.Description;
         
-        if (Request.Form.Files.Count != 0 && editingCollection!.FileName != "" || 
-            Request.Form.Files.Count == 0 && editingCollection!.FileName != "" && editCollectionViewModel.DeleteImage == "true")
+        if (Request.Form.Files.Count != 0 && editingCollection.FileName != "" || 
+            Request.Form.Files.Count == 0 && editingCollection.FileName != "" && editCollectionViewModel.DeleteImage == "true")
         {
-            _deleteBlob.DeleteBlob(editingCollection!.FileName);
-            editingCollection!.FileName = resultingString;
+            _deleteBlob.DeleteBlob(editingCollection.FileName);
+            editingCollection.FileName = resultingString;
         }
-        else if (Request.Form.Files.Count != 0 && editingCollection!.FileName == "")
+        else if (Request.Form.Files.Count != 0 && editingCollection.FileName == "")
         {
-            editingCollection!.FileName = resultingString;
+            editingCollection.FileName = resultingString;
         }
         
         await _collectionRepository.CommitAsync();
@@ -97,19 +97,19 @@ public class EditController : Controller
         }
 
         editingItem!.Title = editItemViewModel.Title;
-        editingItem!.Description = editItemViewModel.Description;
-        editingItem!.Date = editItemViewModel.Date;
-        editingItem!.Brand = editItemViewModel.Brand;
+        editingItem.Description = editItemViewModel.Description;
+        editingItem.Date = editItemViewModel.Date;
+        editingItem.Brand = editItemViewModel.Brand;
 
-        if (Request.Form.Files.Count != 0 && editingItem!.FileName != "" || 
-            Request.Form.Files.Count == 0 && editingItem!.FileName != "" && editItemViewModel.DeleteImage == "true")
+        if (Request.Form.Files.Count != 0 && editingItem.FileName != "" || 
+            Request.Form.Files.Count == 0 && editingItem.FileName != "" && editItemViewModel.DeleteImage == "true")
         {
             _deleteBlob.DeleteBlob(editingItem.FileName);
-            editingItem!.FileName = resultingString;
+            editingItem.FileName = resultingString;
         }
-        else if (Request.Form.Files.Count != 0 && editingItem!.FileName == "")
+        else if (Request.Form.Files.Count != 0 && editingItem.FileName == "")
         {
-            editingItem!.FileName = resultingString;
+            editingItem.FileName = resultingString;
         }
 
         await _itemRepository.CommitAsync();

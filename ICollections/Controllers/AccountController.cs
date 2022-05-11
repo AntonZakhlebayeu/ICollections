@@ -11,6 +11,7 @@ public class AccountController : Controller
 {
     private readonly UserManager<User> _userManager;
     private readonly SignInManager<User> _signInManager;
+    
     private readonly IUserRepository _userRepository;
     private readonly IUserValidation _userValidation;
     
@@ -81,10 +82,8 @@ public class AccountController : Controller
             
             return RedirectToAction("Index", "Home");
         }
-        else
-        {
-            ModelState.AddModelError("", "Incorrect email and (or) password!");
-        }
+
+        ModelState.AddModelError("", "Incorrect email and (or) password!");
 
         return await Task.Run(() => View(model));
     }
@@ -93,7 +92,7 @@ public class AccountController : Controller
     [Route("/Account/Logout")]
     public async Task<IActionResult> Logout()
     {
-        if (_userValidation.IsUserNull(User!.Identity!.Name!))
+        if (_userValidation.IsUserNull(User.Identity!.Name!))
         {
             await _signInManager.SignOutAsync();
             return await Task.Run(() => RedirectToAction("Index", "Home"));

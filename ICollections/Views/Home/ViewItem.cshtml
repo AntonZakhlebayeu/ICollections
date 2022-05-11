@@ -1,6 +1,6 @@
-@using Microsoft.EntityFrameworkCore
 @model ICollections.Models.Item
 @using ICollections.Data.Interfaces
+@using System.Web
 
 @functions 
 {
@@ -62,7 +62,7 @@
 
 <div id="footer-text" style="margin-bottom: 12px">
     <h3 class="lng-CollectionSmallDescription">Description:</h3>
-    <h4>@Model.Description</h4>
+    <div id="description"></div>
 </div>
 
 <div id="footer-text" style="margin-bottom: 12px">
@@ -134,6 +134,8 @@
     document.querySelector('title').innerHTML = pageTitle;
 </script>
 
+
+
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <script>  
 function GetAmountOfLikes() {
@@ -147,3 +149,16 @@ function GetAmountOfLikes() {
     }
 }
 </script>  
+
+<script src="https://unpkg.com/showdown/dist/showdown.min.js"></script>
+<script>
+    function GetConvertedString() {
+        let converter = new showdown.Converter();
+        let md = "@Html.Raw(HttpUtility.JavaScriptStringEncode(@Model.Description))";
+        let html = converter.makeHtml(md);
+        
+        document.getElementById("description").insertAdjacentHTML("afterend", html);
+    }
+
+GetConvertedString();
+</script>

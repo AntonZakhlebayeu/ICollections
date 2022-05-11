@@ -5,16 +5,26 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ICollections.Data;
 
-public sealed class ICollectionDbContext : IdentityDbContext<User>
+public sealed class CollectionDbContext : IdentityDbContext<User>
 {
-    public DbSet<Collection> Collections { get; set; }
-    public DbSet<Item> Items { get; set; } 
-    public ICollectionDbContext(DbContextOptions<ICollectionDbContext> options)
+    private readonly IConfiguration _configuration;
+    
+    public DbSet<Collection> Collections { get; set; } = null!;
+    public DbSet<Item> Items { get; set; } = null!;
+
+    public CollectionDbContext(DbContextOptions<CollectionDbContext> options, IConfiguration configuration)
         : base(options)
     {
+        _configuration = configuration;
+        
         Database.EnsureCreated();
     }
-    
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        optionsBuilder.UseSqlServer(_configuration.GetConnectionString("DatabaseConnection"));
+    }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         ConfigureCollectionModel(modelBuilder);
@@ -25,7 +35,7 @@ public sealed class ICollectionDbContext : IdentityDbContext<User>
         base.OnModelCreating(modelBuilder);
     }
 
-    private void ConfigureIdentityRoles(ModelBuilder modelBuilder)
+    private static void ConfigureIdentityRoles(ModelBuilder modelBuilder)
     {
         var adminRole = new IdentityRole("admin");
         var userRole = new IdentityRole("user");
@@ -35,7 +45,7 @@ public sealed class ICollectionDbContext : IdentityDbContext<User>
             .HasData(new IdentityRole[] {superAdminRole, adminRole, userRole});
     }
     
-    private void ConfigureCollectionModel(ModelBuilder modelBuilder)
+    private static void ConfigureCollectionModel(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Collection>(b =>
         {
@@ -52,7 +62,7 @@ public sealed class ICollectionDbContext : IdentityDbContext<User>
         });
     }
 
-    private void ConfigureItemModel(ModelBuilder modelBuilder)
+    private static void ConfigureItemModel(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Item>(b =>
         {
@@ -67,7 +77,7 @@ public sealed class ICollectionDbContext : IdentityDbContext<User>
         });
     }
     
-    private void ConfigureLikeModel(ModelBuilder modelBuilder)
+    private static void ConfigureLikeModel(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Like>(b =>
         {

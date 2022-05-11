@@ -1,5 +1,6 @@
 ﻿@model ICollections.Models.User
 @using ICollections.Data.Interfaces
+@using System.Web
 
 @{
     var userData = ViewBag.userData as IUserRepository;
@@ -38,6 +39,8 @@
     </div>
 }
 
+<script src="https://unpkg.com/showdown/dist/showdown.min.js"></script>
+
 @foreach (var collection in userCollections.OrderByDescending(n => n.Id))
 {
     <div class="card mb-3" style="max-width: 1400px;">
@@ -52,7 +55,20 @@
                 <div class="card-body">
                     <h5 class="card-title"><a class="link" href="/Home/ViewCollection/@collection.Id">@collection.Title</a></h5>
                     <p class="card-header">@collection.Theme</p>
-                    <p class="card-text">@GetContentPart(collection.Description!)</p>
+                    @{
+                        var collectionId = "description" + collection.Id;
+                    }
+                    <div id=@collectionId></div>
+                    <script>
+                        function GetConvertedString() {
+                            let converter = new showdown.Converter();
+                            let md = "@Html.Raw(HttpUtility.JavaScriptStringEncode(GetContentPart(collection.Description!)))";
+                            let html = converter.makeHtml(md);
+                            
+                            document.getElementById("@Html.Raw(HttpUtility.JavaScriptStringEncode(@collectionId))").insertAdjacentHTML("afterend", html);
+                        }                  
+                    GetConvertedString();
+                    </script>
                     <p class="card-text">Author:</p>
                     <p class="card-text">@userData!.FindAsync(collection!.AuthorId!).Result!.NickName</p>
                     <p class="card-text text-muted">@collection.LastEditDate</p>

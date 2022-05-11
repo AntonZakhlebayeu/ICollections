@@ -8,28 +8,26 @@ namespace ICollections.Data.Repositories;
 
 public class EntityBaseRepository<T> : IEntityBaseRepository<T> where T : class
 {
-    private readonly ICollectionDbContext _context;
+    private readonly CollectionDbContext _context;
 
-    protected EntityBaseRepository(ICollectionDbContext context)
+    protected EntityBaseRepository(CollectionDbContext context)
     {
         _context = context;
     }
 
     public virtual void Add(T entity)
     {
-        EntityEntry dbEntityEntry = _context.Entry<T>(entity);
         _context.Set<T>().Add(entity);
     }
     
     public virtual async Task<ValueTask<EntityEntry<T>>> AddAsync(T entity)
     {
-        EntityEntry dbEntityEntry = _context.Entry<T>(entity);
         return await Task.Run(() => _context.Set<T>().AddAsync(entity));
     }
     
     public virtual void Delete(T entity)
     {
-        EntityEntry dbEntityEntry = _context.Entry<T>(entity);
+        EntityEntry dbEntityEntry = _context.Entry(entity);
         dbEntityEntry.State = EntityState.Deleted;
     }
 
@@ -39,7 +37,7 @@ public class EntityBaseRepository<T> : IEntityBaseRepository<T> where T : class
 
         foreach(var entity in entities)
         {
-            _context.Entry<T>(entity).State = EntityState.Deleted;
+            _context.Entry(entity).State = EntityState.Deleted;
         }
     }
 
@@ -86,10 +84,7 @@ public class EntityBaseRepository<T> : IEntityBaseRepository<T> where T : class
     public T? GetSingle(Expression<Func<T?, bool>> predicate, params Expression<Func<T, object>>[] includeProperties)
     {
         IQueryable<T?> query = _context.Set<T>();
-        foreach (var includeProperty in includeProperties)
-        {
-            query = query.Include(includeProperty!);
-        }
+        query = includeProperties.Aggregate(query, (current, includeProperty) => current.Include(includeProperty!));
 
         return query.Where(predicate).FirstOrDefault();
     }
@@ -97,10 +92,7 @@ public class EntityBaseRepository<T> : IEntityBaseRepository<T> where T : class
     public async Task<T?> GetSingleAsync(Expression<Func<T?, bool>> predicate, params Expression<Func<T, object>>[] includeProperties)
     {
         IQueryable<T?> query = _context.Set<T>();
-        foreach (var includeProperty in includeProperties)
-        {
-            query = query.Include(includeProperty!);
-        }
+        query = includeProperties.Aggregate(query, (current, includeProperty) => current.Include(includeProperty!));
 
         return await query.Where(predicate).FirstOrDefaultAsync();
     }
@@ -132,7 +124,7 @@ public class EntityBaseRepository<T> : IEntityBaseRepository<T> where T : class
 
     public virtual void Update(T entity)
     {
-        EntityEntry dbEntityEntry = _context.Entry<T>(entity);
+        EntityEntry dbEntityEntry = _context.Entry(entity);
         dbEntityEntry.State = EntityState.Modified;
     }
 

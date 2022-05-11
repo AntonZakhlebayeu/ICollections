@@ -5,7 +5,7 @@ namespace ICollections.Data.Repositories;
 
 public class LikeRepository : EntityBaseRepository<Like>, ILikeRepository
 {
-    public LikeRepository(ICollectionDbContext context) : base(context)
+    public LikeRepository(CollectionDbContext context) : base(context)
     {
     }
 }

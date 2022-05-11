@@ -5,7 +5,7 @@ namespace ICollections.Data.Repositories;
 
 public class CollectionRepository : EntityBaseRepository<Collection>, ICollectionRepository
 {
-    public CollectionRepository(ICollectionDbContext context) : base(context)
+    public CollectionRepository(CollectionDbContext context) : base(context)
     {
     }
 }

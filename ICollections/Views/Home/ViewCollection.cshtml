@@ -1,5 +1,7 @@
 @model ICollections.Models.Collection;
 @using ICollections.Data.Interfaces;
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using System.Web
 
 @functions 
 {
@@ -27,7 +29,7 @@
 
     static string GetContentPart(string content) 
     {
-        const int contentPartSize = 500;
+        const int contentPartSize = 35;
 
         if (content.Length <= contentPartSize) return content;
         
@@ -58,7 +60,9 @@
 
 <div class="col-md-auto" id="footer-text">
     <h3 class="lng-CollectionSmallDescription">Description:</h3>
-    <h4>@Model.Description</h4>
+    <div id="description">
+        
+    </div>
 </div>
 
 <br/>
@@ -89,6 +93,8 @@
     </form>
 }
 
+<script src="https://unpkg.com/showdown/dist/showdown.min.js"></script>
+
 @if(Model.CollectionItems!.Count() == 0 && (GetTheUserId(Model.AuthorId!) == User.Identity!.Name || GetUserRole() != "user"))
 {
     <div class="text-center col-md-auto">
@@ -114,7 +120,20 @@ else
                     }
                     <div class="card-body">
                         <h5 class="card-title"><a class="link" href="/Home/ViewItem/@item.CollectionId/@item.Id">@item.Title</a></h5>
-                        <p class="card-text">@GetContentPart(item.Description!)</p>
+                        @{
+                            var collectionId = "description" + item.Id;
+                        }
+                        <div id=@collectionId></div>
+                        <script>
+                            function GetConvertedString() {
+                                let converter = new showdown.Converter();
+                                let md = "@Html.Raw(HttpUtility.JavaScriptStringEncode(@GetContentPart(item.Description!)))";
+                                let html = converter.makeHtml(md);
+                                
+                                document.getElementById("@Html.Raw(HttpUtility.JavaScriptStringEncode(@collectionId))").insertAdjacentHTML("afterend", html);
+                            }                  
+                        GetConvertedString();
+                        </script>
                     </div>
                     <div class="card-footer">
                         <p class="card-text text-muted">@item.LastEditDate</p>
@@ -143,4 +162,16 @@ else
     let pageTitle = (getCurrentLanguage() === 'en') ? 'View Collection - ICollections' : 'Просмотр коллекции - ICollections';
          
     document.querySelector('title').innerHTML = pageTitle;
+</script>
+
+<script>
+    function GetConvertedString() {
+        let converter = new showdown.Converter();
+        let md = "@Html.Raw(HttpUtility.JavaScriptStringEncode(@Model.Description))";
+        let html = converter.makeHtml(md);
+        
+        document.getElementById("description").insertAdjacentHTML("afterend", html);
+    }
+
+GetConvertedString();
 </script>

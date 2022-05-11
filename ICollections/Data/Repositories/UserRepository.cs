@@ -5,7 +5,7 @@ namespace ICollections.Data.Repositories;
 
 public class UserRepository : EntityBaseRepository<User>, IUserRepository
 {
-    public UserRepository(ICollectionDbContext context) : base(context)
+    public UserRepository(CollectionDbContext context) : base(context)
     {
     }
 }

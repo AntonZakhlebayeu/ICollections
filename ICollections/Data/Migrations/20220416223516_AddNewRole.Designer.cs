@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ICollections.Data.Migrations
 {
-    [DbContext(typeof(ICollectionDbContext))]
+    [DbContext(typeof(CollectionDbContext))]
     [Migration("20220416223516_AddNewRole")]
     partial class AddNewRole
     {

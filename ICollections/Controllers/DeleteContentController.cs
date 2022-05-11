@@ -26,7 +26,7 @@ public class DeleteContentController : Controller
 
         foreach (var item in itemsToDelete)
         {
-            if (item!.FileName != "")
+            if (item.FileName != "")
             {
                 _deleteBlob.DeleteBlob(item.FileName);
             }
