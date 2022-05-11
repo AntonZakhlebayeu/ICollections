@@ -1,5 +1,12 @@
 html {
+  position: relative;
+  min-height: 100%;
   font-size: 14px;
+}
+
+header {
+  font-family: "Comic Sans MS";
+  background-color: #adb5bd;
 }
 
 @media (min-width: 768px) {
@@ -8,23 +15,13 @@ html {
   }
 }
 
-#footer-text {
+.theme-main-text {
+  color: black;
+}
+
+.theme-other-text {
   color: black;
   opacity: 0.5;
-}
-
-#text {
-  color: black;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
-}
-
-header {
-  font-family: "Comic Sans MS";
-  background-color: #adb5bd;
 }
 
 body {

@@ -18,24 +18,24 @@
     <div asp-validation-summary="ModelOnly"></div>
     <input type="hidden" name="CollectionId" value="@collection!.Id" asp-for="CollectionId"/>
     <div class="drop-zone col-4">
-        <span class="drop-zone__prompt lng-DropImage lng-DropImageCollection" id="text">Drop file here or click to upload</span>
+        <span class="drop-zone__prompt lng-DropImage lng-DropImageCollection theme-main-text">Drop file here or click to upload</span>
         <input type="file" name="myFile" class="drop-zone__input" accept="image/*"/>
     </div>
     <br/>
     
     <div class="input-group mb-3">
         <div class="input-group-prepend">
-            <span class="input-group-text lng-CollectionTitle" id="basic-addon1">Title:</span>
+            <span class="input-group-text lng-CollectionTitle">Title:</span>
         </div>
-        <input type="text" class="form-control" name="Title" aria-label="Title" aria-describedby="basic-addon1" asp-for="Title">
+        <input type="text" class="form-control" name="Title" aria-label="Title" asp-for="Title">
         <span asp-validation-for="Title"></span>
     </div>
 
     <div class="input-group mb-3">
         <div class="input-group-prepend">
-            <span class="input-group-text lng-CollectionSmallDescription" id="basic-addon1">Description:</span>
+            <span class="input-group-text lng-CollectionSmallDescription">Description:</span>
         </div>
-        <input type="text" class="form-control" name="Description" aria-label="Description" aria-describedby="basic-addon1" asp-for="Description">
+        <input type="text" class="form-control" name="Description" aria-label="Description" asp-for="Description">
         <span asp-validation-for="Description"></span>
     </div>
 
@@ -47,9 +47,9 @@
 
         <div class="input-group mb-3">
             <div class="input-group-prepend">
-                <span class="input-group-text @className" id="basic-addon1"></span>
+                <span class="input-group-text @className"></span>
             </div>
-            <input type="date" class="form-control" name="Date" aria-label="Date" aria-describedby="basic-addon1" asp-for="Date">
+            <input type="date" class="form-control" name="Date" aria-label="Date" asp-for="Date">
         </div>
 
         <br/>
@@ -61,15 +61,15 @@
 
         <div class="input-group mb-3">
             <div class="input-group-prepend">
-                <span class="input-group-text @className" id="basic-addon1"></span>
+                <span class="input-group-text @className"></span>
             </div>
-            <input type="text" class="form-control" name="Brand" aria-label="Date" aria-describedby="basic-addon1" asp-for="Brand">
+            <input type="text" class="form-control" name="Brand" aria-label="Date" asp-for="Brand">
         </div>
 
         <br/>
     }
     
-    <button type="submit" class="btn btn-success lng-CreateCollectionButton" id="text">Create</button>
+    <button type="submit" class="btn btn-success lng-CreateCollectionButton theme-main-text">Create</button>
 </form>
 
 <script src="/js/ChangeLanguage.js"></script>

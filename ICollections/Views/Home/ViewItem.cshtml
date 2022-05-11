@@ -50,22 +50,22 @@
 
 @if (Model.FileName != "")
 {
-    <div style="margin-bottom: 12px" align="center">
-        <img src="https://nikminerstorage.blob.core.windows.net/images/@(Model.FileName)" width="640px" height="360px" alt="User Photo">
+    <div class="wrapper" align="center">
+        <img src="https://nikminerstorage.blob.core.windows.net/images/@(Model.FileName)" alt="User Photo">
     </div>   
 }
 
-<div id="text" style="margin-bottom: 12px">
+<div class="theme-main-text" style="margin-bottom: 12px">
     <h2 class="lng-CollectionTitle">Title:</h2>
     <h3>@Model.Title</h3>
 </div>
 
-<div id="footer-text" style="margin-bottom: 12px">
+<div class="theme-other-text" style="margin-bottom: 12px">
     <h3 class="lng-CollectionSmallDescription">Description:</h3>
     <h4>@Model.Description</h4>
 </div>
 
-<div id="footer-text" style="margin-bottom: 12px">
+<div class="theme-other-text" style="margin-bottom: 12px">
     <h2 class="lng-ParentCollection">Collection:</h2>
     <ul>
         <li>
@@ -74,12 +74,12 @@
     </ul>
 </div>
 
-<div id="footer-text" style="margin-bottom: 12px">
+<div class="theme-other-text" style="margin-bottom: 12px">
     <h2 class="lng-Likes">Likes:</h2>
     <h3 id="LikeValue">@Model.Likes.Count</h3>
 </div>
 
-<div style="margin-bottom: 12px" id="text">
+<div class="theme-main-text" style="margin-bottom: 12px">
     @if (currentCollection!.AddDates == "true")
     {
         var itemClassNameDate = "lng-" + currentCollection.Theme + "ItemDate";
@@ -88,7 +88,7 @@
     }
 </div>
 
-<div style="margin-bottom: 12px" id="text">
+<div class="theme-main-text" style="margin-bottom: 12px">
     @if (currentCollection!.AddBrands == "true")
     {
         var itemClassNameDate = "lng-" + currentCollection.Theme + "ItemBrand";
@@ -107,7 +107,7 @@
 }
 
 <div align="right" style="margin-bottom: 12px">
-    <h5 id="footer-text"><i>@Model.LastEditDate</i></h5>
+    <h5 class="theme-other-text"><i>@Model.LastEditDate</i></h5>
 </div>
 
 @if (GetTheUserId(GetAuthorId(Model.CollectionId)) == User.Identity!.Name || GetUserRole() != "user")

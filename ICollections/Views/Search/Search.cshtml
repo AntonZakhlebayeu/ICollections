@@ -28,19 +28,19 @@
 
 @if (!Model.resultItems.Any())
 {
-    <div id="text" style="margin-bottom: 12px">
+    <div class="theme-main-text" style="margin-bottom: 12px">
         <h3 class="lng-SearchResultFalse">Nothing found: </h3>
         <h5>All items: </h5>
     </div>
     
-    <div class="row row-cols-1 row-cols-md-4 g-4" id="text">
+    <div class="row row-cols-1 row-cols-md-4 g-4 theme-main-text">
         @foreach (var item in data!.GetAll().OrderByDescending(n => n.Id))
         {
             <div class="col">
                 <div class="card h-100">
                     @if (item.FileName != "")
                     {
-                        <img style="display: block; margin: 0 auto" src="https://nikminerstorage.blob.core.windows.net/images/@(item.FileName)" class="rounded-start" alt="Collection photo" width="140px" height="80px">
+                        <img style="display: block; margin: 0 auto" src="https://nikminerstorage.blob.core.windows.net/images/@(item.FileName)" class="rounded-start" alt="Collection photo">
                     }
                     <div class="card-body">
                         <h5 class="card-title"><a class="link" href="/Home/ViewItem/@item.CollectionId/@item.Id">@item.Title</a></h5>
@@ -56,18 +56,18 @@
 }
 else
 {
-    <div id="text" style="margin-bottom: 12px">
+    <div class="theme-main-text" style="margin-bottom: 12px">
         <h3 class="lng-SearchResult">Search results: </h3>
     </div>
 
     <div class="row row-cols-1 row-cols-md-4 g-4">
         @foreach (var item in Model.resultItems.OrderByDescending(n => n.Id))
         {
-            <div class="col" id="text">
+            <div class="col theme-main-text">
                 <div class="card h-100">
                     @if (item.FileName != "")
                     {
-                        <img style="display: block; margin: 0 auto" src="https://nikminerstorage.blob.core.windows.net/images/@(item.FileName)" class="rounded-start" alt="Collection photo" width="140px" height="80px">
+                        <img style="display: block; margin: 0 auto" src="https://nikminerstorage.blob.core.windows.net/images/@(item.FileName)" class="rounded-start" alt="Collection photo">
                     }
                     <div class="card-body">
                         <h5 class="card-title"><a class="link" href="/Home/ViewItem/@item.CollectionId/@item.Id">@item.Title</a></h5>

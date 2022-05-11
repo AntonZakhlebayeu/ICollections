@@ -32,7 +32,7 @@
 <header>
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3">
         <div class="container-fluid">
-            <a class="navbar-brand" id = "text" asp-area="" asp-controller="Home" asp-action="Index">ICollections</a>
+            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ICollections</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -40,14 +40,14 @@
             <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link lng-HomeLayout" id="text" asp-controller="Home" asp-action="Index">Home</a>
+                        <a class="nav-link lng-HomeLayout" asp-controller="Home" asp-action="Index">Home</a>
                     </li>
 
                     @if (User.Identity!.IsAuthenticated)
                     {
                         <li class="nav-item">
                             <form class="d-flex">
-                                <button type="submit" class="nav-link btn btn-sm btn-outline-success lng-CreateCollection" id="text" asp-controller="Create" asp-action="CreateView">Create Collection</button>
+                                <button type="submit" class="nav-link btn btn-sm btn-outline-success lng-CreateCollection theme-main-text" asp-controller="Create" asp-action="CreateView">Create Collection</button>
                             </form>
                         </li>
                             
@@ -73,10 +73,10 @@
                     else
                     {
                         <li class="nav-item">
-                            <a class="nav-link lng-RegisterLayout" asp-controller="Account" asp-action="Register" id="text">Register</a>
+                            <a class="nav-link lng-RegisterLayout" asp-controller="Account" asp-action="Register">Register</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link lng-LoginLayout" asp-controller="Account" asp-action="Login" id="text">Login</a>
+                            <a class="nav-link lng-LoginLayout" asp-controller="Account" asp-action="Login">Login</a>
                         </li>
                     }
                 </ul>
@@ -114,7 +114,7 @@
 </div>
 
 <footer class="border-top footer text-muted" style="display: flex; align-items: center">
-    <div class="container" id = "footer-text">
+    <div class="container theme-other-text">
         &copy; 2022 - ICollections - 
     </div>
 </footer>
