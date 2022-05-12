@@ -16,7 +16,7 @@ public class DeleteContentController : Controller
         _itemDatabase = itemDatabase;
     }
     
-    [Route("/Home/ViewItem/{collectionId}/DeleteCollection")]
+    [Route("/Home/ViewItem/{collectionId:int}/DeleteCollection")]
     public async Task<IActionResult> DeleteCollection(int collectionId)
     {
         var objectToDelete = _collectionDatabase.GetCollectionById(collectionId);
@@ -43,7 +43,7 @@ public class DeleteContentController : Controller
         return await Task.Run(() => RedirectToAction("Profile", "Home"));
     }
     
-    [Route("/Home/ViewItem/{collectionId}/{itemId:int}/DeleteItem")]
+    [Route("/Home/ViewItem/{collectionId:int}/{itemId:int}/DeleteItem")]
     public async Task<IActionResult> DeleteItem(int itemId, int collectionId)
     {
         var objectToDelete = _itemDatabase.GetItemById(itemId);

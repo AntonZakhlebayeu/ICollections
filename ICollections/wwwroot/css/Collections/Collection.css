@@ -1,15 +1,39 @@
+
+.wrapper img {
+    margin: 8px 0;
+    height: auto;
+    width: 100%;
+    max-width: 350px;
+}
+
+.col-md-100, .col-md-auto {
+    margin-bottom: 12px;
+}
+
+.rounded-start {
+    display: block;
+    margin: 0 auto;
+    height: auto;
+    width: 100%;
+    max-width: 140px;
+}
+
 .card {
     width: 45%;
     display: inline-block;
     background-color: transparent;
-
-
 }
+
 .CollectionArea {
     width: 100%;
-
 }
+
 .card-title {
     font-size: 20px;
+}
 
+@media (max-width: 768px) {
+    .col-md-100, .col-md-auto {
+        text-align: center;
+    }
 }

@@ -29,14 +29,14 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4 lng-WelcomeText" id="text">Welcome to ICollections!</h1>
+    <h1 class="display-4 lng-WelcomeText theme-main-text">Welcome to ICollections!</h1>
 </div>
 
 @if(!User.Identity!.IsAuthenticated || Model == null)
 {
     <div class="text-center">
-        <h3 class="lng-TextInUnregisteredIndex" id="text"><b>Register or Login to post your own collections or write comments.</b></h3>
-    </div>
+            <h3 class="lng-TextInUnregisteredIndex theme-main-text"><b>Register or Login to post your own collections or write comments.</b></h3>
+        </div>
 }
 
 <script src="https://unpkg.com/showdown/dist/showdown.min.js"></script>

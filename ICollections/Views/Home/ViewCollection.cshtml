@@ -51,31 +51,23 @@
     </div>   
 }
 
-<div class="col-md-100" id="text">
+<div class="col-md-100 theme-main-text">
     <h2 class="lng-CollectionTitle">Title:</h2>
     <h3>@Model.Title</h3>
 </div>
 
-<br/>
-
-<div class="col-md-auto" id="footer-text">
+<div class="col-md-auto theme-other-text">
     <h3 class="lng-CollectionSmallDescription">Description:</h3>
-    <div id="description">
-        
-    </div>
+    <div id="description"></div>
 </div>
 
-<br/>
-
-<div class="col-md-auto" id="footer-text">
+<div class="col-md-auto theme-other-text">
     <h4 class="lng-CollectionTheme">Theme:</h4>
     <h5>@Model.Theme</h5>
 </div>
 
-<br/>
-
 <div align="right" style="margin-bottom: 24px">
-    <h5 id="footer-text"><i>@Model.LastEditDate</i></h5>
+    <h5 class="theme-other-text"><i>@Model.LastEditDate</i></h5>
 </div>
 
 @if (GetTheUserId(Model.AuthorId!) == User.Identity!.Name || GetUserRole() != "user")
@@ -95,21 +87,21 @@
 
 <script src="https://unpkg.com/showdown/dist/showdown.min.js"></script>
 
-@if(Model.CollectionItems!.Count() == 0 && (GetTheUserId(Model.AuthorId!) == User.Identity!.Name || GetUserRole() != "user"))
+@if(!Model.CollectionItems!.Any() && (GetTheUserId(Model.AuthorId!) == User.Identity!.Name || GetUserRole() != "user"))
 {
     <div class="text-center col-md-auto">
-        <h3 class="lng-CollectionEmpty" id="text"><b>Your collection is empty, expand it by adding new item in collection.</b></h3>
+        <h3 class="lng-CollectionEmpty theme-main-text"><b>Your collection is empty, expand it by adding new item in collection.</b></h3>
     </div>
 }
-else if (Model.CollectionItems!.Count() == 0 && GetTheUserId(Model.AuthorId!) != User.Identity!.Name)
+else if (!Model.CollectionItems!.Any() && GetTheUserId(Model.AuthorId!) != User.Identity!.Name)
 {
     <div class="text-center col-md-auto">
-        <h3 class="lng-CollectionEmptyNotUser" id="text"><b>This is collection is empty, author will expand id by adding new items.</b></h3>
+        <h3 class="lng-CollectionEmptyNotUser theme-main-text"><b>This is collection is empty, author will expand id by adding new items.</b></h3>
     </div>
 }
 else
 {
-    <div class="row row-cols-1 row-cols-md-3 g-4" id="text">
+    <div class="row row-cols-1 row-cols-md-3 g-4 theme-main-text">
         @foreach (var item in Model.CollectionItems!.ToList().OrderByDescending(n => n.Id))
         {
             <div class="col">

@@ -14,30 +14,30 @@
     <div asp-validation-summary="ModelOnly"></div>
     <input type="hidden" name="AuthorId" value="@data!.GetSingleAsync(u => u.UserName == User.Identity!.Name).Result!.Id" asp-for="AuthorId"/>
     <div class="drop-zone col-4">
-        <span class="drop-zone__prompt lng-DropImage lng-DropImageCollection" id="text">Drop file here or click to upload</span>
+        <span class="drop-zone__prompt lng-DropImage lng-DropImageCollection theme-main-text">Drop file here or click to upload</span>
         <input type="file" name="myFile" class="drop-zone__input" accept="image/*"/>
     </div>
     <br/>
 
     <div class="input-group mb-3">
         <div class="input-group-prepend">
-            <span class="input-group-text lng-CollectionTitle" id="basic-addon1">Title:</span>
+            <span class="input-group-text lng-CollectionTitle">Title:</span>
         </div>
-        <input type="text" class="form-control" name="Title" aria-label="Title" aria-describedby="basic-addon1" asp-for="Title">
+        <input type="text" class="form-control" name="Title" aria-label="Title" asp-for="Title">
         <span asp-validation-for="Title"></span>
     </div>
     
     <div class="input-group mb-3">
       <div class="input-group-prepend">
-        <span class="input-group-text lng-CollectionSmallDescription" id="basic-addon1">Description:</span>
+        <span class="input-group-text lng-CollectionSmallDescription">Description:</span>
       </div>
-      <textarea type="text" class="form-control" name="Description" aria-label="Description" aria-describedby="basic-addon1" asp-for="Description"></textarea>
+      <input type="text" class="form-control" name="Description" aria-label="Description" asp-for="Description">
       <span asp-validation-for="Description"></span>
     </div>
     
     <div class="input-group mb-3">
         <div class="input-group-prepend">
-            <span class="input-group-text lng-CollectionTheme" id="basic-addon1">Theme:</span>
+            <span class="input-group-text lng-CollectionTheme">Theme:</span>
         </div>
         <select class="form-select" id="themeSelector" asp-for="Theme">
             <option value="null" class="lng-SelectTheme" selected>Select theme of your Collection</option>
@@ -51,21 +51,21 @@
     <div id="checkBoxAdditional" style="display: none">
         <div class="form-check">
             <input class="form-check-input" type="checkbox" asp-for="IncludeDate">
-            <label class="form-check-label" for="flexCheckDefault" id="text">
+            <label class="form-check-label theme-main-text">
                 Default checkbox
             </label>
         </div>
         
         <div class="form-check">
             <input class="form-check-input" type="checkbox" asp-for="IncludeBrand">
-            <label class="form-check-label" for="flexCheckDefault" id="text">
+            <label class="form-check-label theme-main-text">
                 Default checkbox
             </label>
         </div>
         
         <div class="form-check">
           <input class="form-check-input" type="checkbox" asp-for="IncludeComments">
-          <label class="form-check-label" for="flexCheckDefault" id="text">
+          <label class="form-check-label theme-main-text">
             Default checkbox
           </label>
         </div>
@@ -73,7 +73,7 @@
     
 
     <br/>
-    <button type="submit" class="btn btn-success lng-CreateCollectionButton" id="text">Create</button>
+    <button type="submit" class="btn btn-success lng-CreateCollectionButton theme-main-text">Create</button>
 </form>
 
 <script src="/js/ChangeLanguage.js"></script>

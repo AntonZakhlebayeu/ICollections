@@ -33,17 +33,17 @@
             <tr>
             </tr>
             <tr>
-                <th id="text">Id</th>
-                <th class="col-md-3 col-xs-3 lng-FirstNameRegister" id="text">First Name</th>
-                <th class="col-md-3 col-xs-3 lng-LastNameRegister" id="text">Last Name</th>
-                <th class="col-md-3 col-xs-3 lng-EnterEmailLogin" id="text">E-mail</th>
-                <th class="col-md-3 col-xs-3 lng-NickNameRegister" id="text">Nickname</th>
-                <th class="col-md-3 col-xs-3 lng-ProfileRole" id="text">Role:</th>
-                <th class="col-md-3 col-xs-3 lng-ProfileRegistrationDate" id="text">Registration</th>
-                <th class="col-md-3 col-xs-3 lng-UserStatus" id="text">Status</th>
+                <th class="theme-main-text">Id</th>
+                <th class="col-md-3 col-xs-3 lng-FirstNameRegister theme-main-text">First Name</th>
+                <th class="col-md-3 col-xs-3 lng-LastNameRegister theme-main-text">Last Name</th>
+                <th class="col-md-3 col-xs-3 lng-EnterEmailLogin theme-main-text">E-mail</th>
+                <th class="col-md-3 col-xs-3 lng-NickNameRegister theme-main-text">Nickname</th>
+                <th class="col-md-3 col-xs-3 lng-ProfileRole theme-main-text">Role:</th>
+                <th class="col-md-3 col-xs-3 lng-ProfileRegistrationDate theme-main-text">Registration</th>
+                <th class="col-md-3 col-xs-3 lng-UserStatus theme-main-text">Status</th>
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" value="" id="flexCheckIndeterminate">
-                    <label class="form-check-label" for="flexCheckIndeterminate" id="text">
+                    <label class="form-check-label theme-main-text" for="flexCheckIndeterminate">
                         <b>Select all / Unselect all</b>
                     </label>
                 </div>
@@ -54,14 +54,14 @@
             @foreach (var user in Model)
             {
                 <tr>
-                    <th scope="row" id="text">@user.Id</th>
-                    <td id="text">@user.FirstName</td>
-                    <td id="text">@user.LastName</td>
-                    <td id="text">@user.Email</td>
-                    <td id="text">@user.NickName</td>
-                    <td id="text">@user.Role</td>
-                    <td id="text">@user.RegisterDate.ToString("d")</td>
-                    <td id="text">@user.Status</td>
+                    <th scope="row" class="theme-main-text">@user.Id</th>
+                    <td class="theme-main-text">@user.FirstName</td>
+                    <td class="theme-main-text">@user.LastName</td>
+                    <td class="theme-main-text">@user.Email</td>
+                    <td class="theme-main-text">@user.NickName</td>
+                    <td class="theme-main-text">@user.Role</td>
+                    <td class="theme-main-text">@user.RegisterDate.ToString("d")</td>
+                    <td class="theme-main-text">@user.Status</td>
                     @if(@user.Role == "user" || @currentUser!.Role == "super admin")
                     {
                         <td><input class="user-checkbox" type="checkbox" name="@user.Id"></td>   

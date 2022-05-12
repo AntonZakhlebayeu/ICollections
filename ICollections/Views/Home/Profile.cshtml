@@ -2,6 +2,8 @@
 @using Microsoft.EntityFrameworkCore
 @model ICollections.Models.User
 @using ICollections.Data.Interfaces
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using System.Web
 
 @{
     var userData = ViewBag.userData as IUserRepository;
@@ -35,13 +37,13 @@
 <div class="d-flex align-items-center">
     <div class="row">
         <div class="">     
-            <h3 class = "display-2 lng-ProfileText" id="text">Your profile:</h3>      
+            <h3 class = "display-2 lng-ProfileText theme-main-text">Your profile:</h3>      
             <br/>
-            <h3 class="display-2" id="text">@Model.FirstName @Model.LastName</h3>
-            <h4 class="lng-NickNameRegister" id="text">Nickname:</h4><h4 id="text">@Model.NickName</h4><br/>
-            <h4 class="lng-AgeRegister" id="text">Age:</h4><h4 id="text">@Model.Age</h4><br/>
-            <h5 class="lng-ProfileRegistrationDate" id="text">Registration date:</h5><h5 id="text">@Model.RegisterDate</h5><br/>   
-            <h5 class="lng-ProfileRole" id="text">Role:</h5><h5 id="text"><b>@Model.Role</b></h5>
+            <h3 class="display-2 theme-main-text">@Model.FirstName @Model.LastName</h3>
+            <h4 class="lng-NickNameRegister theme-main-text">Nickname:</h4><h4 class="theme-main-text">@Model.NickName</h4><br/>
+            <h4 class="lng-AgeRegister theme-main-text">Age:</h4><h4 class="theme-main-text">@Model.Age</h4><br/>
+            <h5 class="lng-ProfileRegistrationDate theme-main-text">Registration date:</h5><h5 class="theme-main-text">@Model.RegisterDate</h5><br/>   
+            <h5 class="lng-ProfileRole theme-main-text">Role:</h5><h5 class="theme-main-text"><b>@Model.Role</b></h5>
             @if (@Model.Role is "admin" or "super admin")
             {
                 <br/><br/>
@@ -55,12 +57,14 @@
 
 <br/>
 
+
+<script src="https://unpkg.com/showdown/dist/showdown.min.js"></script>
 <div class="CollectionsArea">
     
     <h4 class = "lng-YourCollections" id="text">Your collections:</h4>
     <br/>
 
-    <div class="row row-cols-1 row-cols-md-3 g-4" id="text">
+    <div class="row row-cols-1 row-cols-md-3 g-4 theme-main-text">
         @foreach (var collection in userCollections.OrderByDescending(n => n.Id))
         {
             <div class="col">
@@ -72,7 +76,20 @@
                     <div class="card-body">
                         <h5 class="card-title"><a class="link" href="/Home/ViewCollection/@collection.Id">@collection.Title</a></h5>
                         <p class="card-header">@collection.Theme</p>
-                        <p class="card-text">@GetContentPart(collection.Description!)</p>
+                        @{
+                            var collectionId = "description" + collection.Id;
+                        }
+                        <div id=@collectionId></div>
+                        <script>
+                            function GetConvertedString() {
+                                let converter = new showdown.Converter();
+                                let md = "@Html.Raw(HttpUtility.JavaScriptStringEncode(@GetContentPart(collection.Description!)))";
+                                let html = converter.makeHtml(md);
+                                
+                                document.getElementById("@Html.Raw(HttpUtility.JavaScriptStringEncode(collectionId))").insertAdjacentHTML("afterend", html);
+                            }                  
+                        GetConvertedString();
+                        </script>
                     </div>
                     <div class="card-footer">
                          <p class="card-text"><small class="text-muted">@collection.LastEditDate</small></p>

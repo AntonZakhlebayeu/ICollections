@@ -18,15 +18,15 @@
     @if (editingCollection!.FileName != "")
     {
         <div class="drop-zone col-4" style="margin-bottom: 20px">
-            <div class="drop-zone__thumb" style="background-image: url('https://nikminerstorage.blob.core.windows.net/images/@(editingCollection.FileName)');">
+            <div class="drop-zone__thumb" style="background-image: url('https://nikminerstorage.blob.core.windows.net/images/@(editingCollection!.FileName)');">
             </div>
-            <span class="drop-zone__prompt" id="text"></span>
+            <span class="drop-zone__prompt theme-main-text"></span>
             <input type="file" name="myFile" class="drop-zone__input" accept="image/*">
         </div>
 
         <div class="form-check">
             <input class="form-check-input" type="checkbox" asp-for="DeleteImage">
-            <label class="form-check-label lng-DeleteImage" id="text">
+            <label class="form-check-label lng-DeleteImage theme-main-text">
                 Default checkbox
             </label>
         </div>
@@ -34,7 +34,7 @@
     else
     {
         <div class="drop-zone col-4">
-            <span class="drop-zone__prompt lng-DropImage lng-DropImageCollection" id="text">Drop file here or click to upload</span>
+            <span class="drop-zone__prompt lng-DropImage lng-DropImageCollection theme-main-text">Drop file here or click to upload</span>
             <input type="file" name="myFile" class="drop-zone__input" accept="image/*"/>
         </div>
     }
@@ -45,20 +45,20 @@
         <div class="input-group-prepend">
             <span class="input-group-text lng-CollectionTitle">Title:</span>
         </div>
-        <input type="text" class="form-control" name="Title" aria-label="Title" aria-describedby="basic-addon1" value="@editingCollection.Title" asp-for="Title">
+        <input type="text" class="form-control" name="Title" aria-label="Title" value="@editingCollection!.Title" asp-for="Title">
         <span asp-validation-for="Title"></span>
     </div>
     
     <div class="input-group mb-3">
       <div class="input-group-prepend">
-        <span class="input-group-text lng-CollectionSmallDescription" id="basic-addon1">Description:</span>
+        <span class="input-group-text lng-CollectionSmallDescription">Description:</span>
       </div>
-      <textarea type="text" class="form-control" name="Description" aria-label="Description" aria-describedby="basic-addon1" asp-for="Description"></textarea>
+      <input type="text" class="form-control" name="Description" aria-label="Description" value="@editingCollection!.Description" asp-for="Description">
       <span asp-validation-for="Description"></span>
     </div>
 
     <br/>
-    <button type="submit" class="btn btn-success lng-Edit" id="text">Create</button>
+    <button type="submit" class="btn btn-success lng-Edit theme-main-text">Create</button>
 </form>
 
 <script src="/js/ChangeLanguage.js"></script>
