@@ -26,6 +26,17 @@
         return content;
     }
 }
+<script src="https://unpkg.com/showdown/dist/showdown.min.js"></script>
+<script>
+    var md, context;
+
+    function GetConvertedString(md, context) {
+        let converter = new showdown.Converter();
+        let html = converter.makeHtml(md);
+        
+        document.getElementById(context).insertAdjacentHTML("afterend", html);
+    }                  
+</script>
 
 
 
@@ -50,14 +61,10 @@
                     }
                     <div id=@itemId></div>
                     <script>
-                        function GetConvertedString() {
-                            let converter = new showdown.Converter();
-                            let md = "@Html.Raw(HttpUtility.JavaScriptStringEncode(@GetContentPart(item.Description!)))";
-                            let html = converter.makeHtml(md);
-                            
-                            document.getElementById("@Html.Raw(HttpUtility.JavaScriptStringEncode(itemId))").insertAdjacentHTML("afterend", html);
-                        }                  
-                    GetConvertedString();
+                        md = "@Html.Raw(HttpUtility.JavaScriptStringEncode(GetContentPart(item.Description!)))";
+                        context = "@Html.Raw(HttpUtility.JavaScriptStringEncode(GetContentPart(itemId)))";
+                        
+                        GetConvertedString(md,  context);
                     </script>
                     <div class="card-footer">
                         <p class="card-text text-muted">@item.LastEditDate</p>
@@ -89,14 +96,10 @@ else
                         }
                         <div id=@itemId></div>
                         <script>
-                            function GetConvertedString() {
-                                let converter = new showdown.Converter();
-                                let md = "@Html.Raw(HttpUtility.JavaScriptStringEncode(@GetContentPart(item.Description!)))";
-                                let html = converter.makeHtml(md);
-                                
-                                document.getElementById("@Html.Raw(HttpUtility.JavaScriptStringEncode(itemId))").insertAdjacentHTML("afterend", html);
-                            }                  
-                        GetConvertedString();
+                            md = "@Html.Raw(HttpUtility.JavaScriptStringEncode(@GetContentPart(item.Description!)))";
+                            context = "@Html.Raw(HttpUtility.JavaScriptStringEncode(@GetContentPart(itemId)))";
+                                     
+                        GetConvertedString(md,  context);
                         </script>
                     </div>
                     <div class="card-footer">

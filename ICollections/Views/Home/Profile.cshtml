@@ -31,6 +31,17 @@
     }
 
 }
+<script src="https://unpkg.com/showdown/dist/showdown.min.js"></script>
+<script>
+        var md, context; 
+        function GetConvertedString(md, context) {
+            let converter = new showdown.Converter();
+            let html = converter.makeHtml(md);
+            
+            document.getElementById(context).insertAdjacentHTML("afterend", html);
+        }                  
+    GetConvertedString();
+</script>
 
 <link rel="stylesheet" type="text/css" href="~/css/Collections/Collection.css"/>
 
@@ -57,8 +68,6 @@
 
 <br/>
 
-
-<script src="https://unpkg.com/showdown/dist/showdown.min.js"></script>
 <div class="CollectionsArea">
     
     <h4 class = "lng-YourCollections" id="text">Your collections:</h4>
@@ -81,14 +90,10 @@
                         }
                         <div id=@collectionId></div>
                         <script>
-                            function GetConvertedString() {
-                                let converter = new showdown.Converter();
-                                let md = "@Html.Raw(HttpUtility.JavaScriptStringEncode(@GetContentPart(collection.Description!)))";
-                                let html = converter.makeHtml(md);
-                                
-                                document.getElementById("@Html.Raw(HttpUtility.JavaScriptStringEncode(collectionId))").insertAdjacentHTML("afterend", html);
-                            }                  
-                        GetConvertedString();
+                            md = "@Html.Raw(HttpUtility.JavaScriptStringEncode(GetContentPart(collection.Description!)))";
+                            context = "@Html.Raw(HttpUtility.JavaScriptStringEncode(GetContentPart(collectionId)))";
+                            
+                            GetConvertedString(md,  context);
                         </script>
                     </div>
                     <div class="card-footer">

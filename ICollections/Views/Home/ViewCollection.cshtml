@@ -44,6 +44,18 @@
 <link rel="stylesheet" type="text/css" href="~/css/CreateCollection/CreateCollection.css"/>
 <link rel="stylesheet" type="text/css" href="~/css/Collections/Collection.css"/>
 
+<script src="https://unpkg.com/showdown/dist/showdown.min.js"></script>
+<script>
+    var md, context;
+
+    function GetConvertedString(md, context) {
+        let converter = new showdown.Converter();
+        let html = converter.makeHtml(md);
+        
+        document.getElementById(context).insertAdjacentHTML("afterend", html);
+    }                  
+</script>
+
 @if (Model.FileName != "")
 {
     <div style="margin-bottom: 12px" align="center">
@@ -85,55 +97,52 @@
     </form>
 }
 
-<script src="https://unpkg.com/showdown/dist/showdown.min.js"></script>
 
-@if(!Model.CollectionItems!.Any() && (GetTheUserId(Model.AuthorId!) == User.Identity!.Name || GetUserRole() != "user"))
+@switch (Model.CollectionItems!.Any())
 {
-    <div class="text-center col-md-auto">
-        <h3 class="lng-CollectionEmpty theme-main-text"><b>Your collection is empty, expand it by adding new item in collection.</b></h3>
-    </div>
-}
-else if (!Model.CollectionItems!.Any() && GetTheUserId(Model.AuthorId!) != User.Identity!.Name)
-{
-    <div class="text-center col-md-auto">
-        <h3 class="lng-CollectionEmptyNotUser theme-main-text"><b>This is collection is empty, author will expand id by adding new items.</b></h3>
-    </div>
-}
-else
-{
-    <div class="row row-cols-1 row-cols-md-3 g-4 theme-main-text">
-        @foreach (var item in Model.CollectionItems!.ToList().OrderByDescending(n => n.Id))
-        {
-            <div class="col">
-                <div class="card h-100">
-                    @if (item.FileName != "")
-                    {
-                        <img style="display: block; margin: 0 auto" src="https://nikminerstorage.blob.core.windows.net/images/@(item.FileName)" class="rounded-start" alt="Collection photo" width="140px" height="80px">
-                    }
-                    <div class="card-body">
-                        <h5 class="card-title"><a class="link" href="/Home/ViewItem/@item.CollectionId/@item.Id">@item.Title</a></h5>
-                        @{
-                            var itemId = "description" + item.Id;
+    case false when (GetTheUserId(Model.AuthorId!) == User.Identity!.Name || GetUserRole() != "user"):
+        <div class="text-center col-md-auto">
+            <h3 class="lng-CollectionEmpty theme-main-text"><b>Your collection is empty, expand it by adding new item in collection.</b></h3>
+        </div>
+        break;
+    case false when GetTheUserId(Model.AuthorId!) != User.Identity!.Name:
+        <div class="text-center col-md-auto">
+            <h3 class="lng-CollectionEmptyNotUser theme-main-text"><b>This is collection is empty, author will expand id by adding new items.</b></h3>
+        </div>
+        break;
+    default:
+    {
+        <div class="row row-cols-1 row-cols-md-3 g-4 theme-main-text">
+            @foreach (var item in Model.CollectionItems!.ToList().OrderByDescending(n => n.Id))
+            {
+                <div class="col">
+                    <div class="card h-100">
+                        @if (item.FileName != "")
+                        {
+                            @:<img style="display: block; margin: 0 auto" src="https://nikminerstorage.blob.core.windows.net/images/@item.FileName" class="rounded-start" alt="Collection photo" width="140px" height="80px">
                         }
-                        <div id=@itemId></div>
-                        <script>
-                            function GetConvertedString() {
-                                let converter = new showdown.Converter();
-                                let md = "@Html.Raw(HttpUtility.JavaScriptStringEncode(@GetContentPart(item.Description!)))";
-                                let html = converter.makeHtml(md);
-                                
-                                document.getElementById("@Html.Raw(HttpUtility.JavaScriptStringEncode(itemId))").insertAdjacentHTML("afterend", html);
-                            }                  
-                        GetConvertedString();
+                        <div class="card-body">
+                            <h5 class="card-title"><a class="link" href="/Home/ViewItem/@item.CollectionId/@item.Id">@item.Title</a></h5>
+                            @{
+                                var itemId = "description" + item.Id;
+                            } 
+                            <div id=@itemId></div>
+                            <script>
+                            md = "@Html.Raw(HttpUtility.JavaScriptStringEncode(GetContentPart(item.Description!)))";
+                            context = "@Html.Raw(HttpUtility.JavaScriptStringEncode(GetContentPart(itemId)))";
+                            
+                            GetConvertedString(md,  context);
                         </script>
-                    </div>
-                    <div class="card-footer">
-                        <p class="card-text text-muted">@item.LastEditDate</p>
+                        </div>
+                        <div class="card-footer">
+                            <p class="card-text text-muted">@item.LastEditDate</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-        }
-    </div>
+            }
+        </div>
+        break;
+    }
 }
 
 <br/>

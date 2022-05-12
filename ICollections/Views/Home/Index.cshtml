@@ -27,6 +27,17 @@
     }
 
 }
+<script src="https://unpkg.com/showdown/dist/showdown.min.js"></script>
+<script>
+        var md, context; 
+        function GetConvertedString(md, context) {
+            let converter = new showdown.Converter();
+            let html = converter.makeHtml(md);
+            
+            document.getElementById(context).insertAdjacentHTML("afterend", html);
+        }                  
+    GetConvertedString();
+</script>
 
 <div class="text-center">
     <h1 class="display-4 lng-WelcomeText theme-main-text">Welcome to ICollections!</h1>
@@ -38,8 +49,6 @@
             <h3 class="lng-TextInUnregisteredIndex theme-main-text"><b>Register or Login to post your own collections or write comments.</b></h3>
         </div>
 }
-
-<script src="https://unpkg.com/showdown/dist/showdown.min.js"></script>
 
 @foreach (var collection in userCollections.OrderByDescending(n => n.Id))
 {
@@ -60,14 +69,10 @@
                     }
                     <div id=@collectionId></div>
                     <script>
-                        function GetConvertedString() {
-                            let converter = new showdown.Converter();
-                            let md = "@Html.Raw(HttpUtility.JavaScriptStringEncode(GetContentPart(collection.Description!)))";
-                            let html = converter.makeHtml(md);
-                            
-                            document.getElementById("@Html.Raw(HttpUtility.JavaScriptStringEncode(@collectionId))").insertAdjacentHTML("afterend", html);
-                        }                  
-                    GetConvertedString();
+                        md = "@Html.Raw(HttpUtility.JavaScriptStringEncode(GetContentPart(collection.Description!)))";
+                        context = "@Html.Raw(HttpUtility.JavaScriptStringEncode(GetContentPart(collectionId)))";
+                        
+                        GetConvertedString(md,  context);
                     </script>
                     <p class="card-text">Author:</p>
                     <p class="card-text">@userData!.FindAsync(collection!.AuthorId!).Result!.NickName</p>
