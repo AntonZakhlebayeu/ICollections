@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using ICollections.Data;
 using ICollections.Models;
-using ICollections.ServiceAdditing;
+using ICollections.ServiceAdding;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);

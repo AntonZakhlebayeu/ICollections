@@ -1,6 +1,6 @@
 using ICollections.Data;
 
-namespace ICollections.ServiceAdditing;
+namespace ICollections.ServiceAdding;
 
 public static class DbContext
 {

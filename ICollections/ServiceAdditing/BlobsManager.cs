@@ -2,7 +2,7 @@ using ICollections.Services;
 using ICollections.Services.Classes;
 using ICollections.Services.Interfaces;
 
-namespace ICollections.ServiceAdditing;
+namespace ICollections.ServiceAdding;
 
 public static class BlobsManager
 {

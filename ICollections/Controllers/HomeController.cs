@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics;
-using ICollections.Data.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using ICollections.Models;
 using ICollections.Services.Interfaces;
@@ -13,21 +12,21 @@ public class HomeController : Controller
     private readonly IUserValidation _userValidation;
     private readonly ICollectionDatabase _collectionDatabase;
     private readonly IItemDatabase _itemDatabase;
+    private readonly ILikeDatabase _likeDatabase;
     private readonly ICollectionValidation _collectionValidation;
     private readonly IItemValidation _itemValidation;
-    private readonly ILikeRepository _likeRepository;
     private readonly ILikeValidation _likeValidation;
     
-    public HomeController(IUserValidation userValidation, ICollectionValidation collectionValidation, IItemValidation itemValidation, ILikeRepository likeRepository, ILikeValidation likeValidation, IUserDatabase userDatabase, ICollectionDatabase collectionDatabase, IItemDatabase itemDatabase)
+    public HomeController(IUserValidation userValidation, ICollectionValidation collectionValidation, IItemValidation itemValidation, ILikeValidation likeValidation, IUserDatabase userDatabase, ICollectionDatabase collectionDatabase, IItemDatabase itemDatabase, ILikeDatabase likeDatabase)
     {
         _userValidation = userValidation;
         _collectionValidation = collectionValidation;
         _itemValidation = itemValidation;
-        _likeRepository = likeRepository;
         _likeValidation = likeValidation;
         _userDatabase = userDatabase;
         _collectionDatabase = collectionDatabase;
         _itemDatabase = itemDatabase;
+        _likeDatabase = likeDatabase;
     }
     
     public async Task<IActionResult> Index()
@@ -72,7 +71,9 @@ public class HomeController : Controller
 
         var item = _itemDatabase.GetItemById(itemId);
 
-        item.Likes = _likeRepository.FindBy(l => l.ItemId == item.Id).ToList();
+        item.Likes = _likeDatabase.GetLikesByItemId(item.Id);
+        
+        Console.WriteLine("Count: " + item.Likes.Count);
 
         return await Task.Run(() => View(item));
     }
@@ -90,27 +91,24 @@ public class HomeController : Controller
         var item = _itemDatabase.GetItemById(itemId);
 
         var userId = _userDatabase.GetUserByEmail(User.Identity.Name!).GetAwaiter().GetResult().Id;
-        var existingLike = item.Likes.Find(l => l.UserId == userId);
+        var existingLike = _likeDatabase.IsLikeExists(userId, item.Id);
         
         if (existingLike == null)
         {
-            _likeRepository.Add(new Like { UserId = userId, ItemId = itemId });
+            _likeDatabase.AddLike(new Like { UserId = userId, ItemId = itemId });
         }
-        else 
+        else
         {
-            _likeRepository.Delete(existingLike);
-            
+            _likeDatabase.DeleteLike(existingLike);
         }
-        
-        await _likeRepository.CommitAsync();
-        
+
         return await Task.Run(NoContent);
     }
     
     [Route("/Home/GetAmountOfLikes/{itemId:int}")]
     public int GetAmountOfLikes(int itemId)
     {
-        return _likeRepository.FindBy(l => l.ItemId == itemId).Count();
+        return _likeDatabase.GetLikesByItemId(itemId).Count;
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

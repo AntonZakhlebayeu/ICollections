@@ -1,7 +1,7 @@
 using ICollections.Data.Interfaces;
 using ICollections.Data.Repositories;
 
-namespace ICollections.ServiceAdditing;
+namespace ICollections.ServiceAdding;
 
 public static class Repositories
 {

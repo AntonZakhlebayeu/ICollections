@@ -23,7 +23,7 @@ public class ItemDatabaseService : IItemDatabase
         return _itemRepository.FindAsync(id).GetAwaiter().GetResult()!;
     }
 
-    public async void DeleteItem(Item item)
+    public void DeleteItem(Item item)
     {
         _itemRepository.Delete(item);
         _itemRepository.Commit();

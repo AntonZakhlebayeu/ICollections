@@ -18,7 +18,7 @@ public class CollectionDatabaseService : ICollectionDatabase
         return _collectionRepository.FindBy(i => i.AuthorId == userId).ToList();
     }
 
-    public async void DeleteCollection(Collection objectToDelete)
+    public void DeleteCollection(Collection objectToDelete)
     {
         _collectionRepository.Delete(objectToDelete);
         _collectionRepository.Commit();
@@ -34,7 +34,7 @@ public class CollectionDatabaseService : ICollectionDatabase
         return _collectionRepository.GetSingleAsync(c => c.Id == id).GetAwaiter().GetResult()!;
     }
 
-    public async void AddCollection(Collection collection)
+    public void AddCollection(Collection collection)
     {
         _collectionRepository.Add(collection);
         _collectionRepository.Commit();

@@ -1,8 +1,7 @@
-using ICollections.Data;
 using ICollections.Services.Classes;
 using ICollections.Services.Interfaces;
 
-namespace ICollections.ServiceAdditing;
+namespace ICollections.ServiceAdding;
 
 public static class EntitiesDatabase
 {
@@ -10,6 +9,7 @@ public static class EntitiesDatabase
     {
         serviceCollection.AddScoped<IUserDatabase, UserDatabaseService>()
             .AddScoped<ICollectionDatabase, CollectionDatabaseService>()
-            .AddScoped<IItemDatabase, ItemDatabaseService>();
+            .AddScoped<IItemDatabase, ItemDatabaseService>()
+            .AddScoped<ILikeDatabase, LikeDatabaseService>();
     }
 }
