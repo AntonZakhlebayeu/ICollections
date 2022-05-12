@@ -35,7 +35,7 @@ public class HomeController : Controller
         if (_userValidation.IsUserIsAuthenticatedAndNull(User.Identity!.Name!, User.Identity.IsAuthenticated))
             return await Task.Run(() => RedirectToAction("Logout", "Account"));
 
-        var user = _userDatabase.GetUserByEmail(User.Identity.Name!).GetAwaiter().GetResult();
+        var user = await _userDatabase.GetUserByEmail(User.Identity.Name!);
         
         return await Task.Run(() => View(user));
     }
@@ -46,7 +46,7 @@ public class HomeController : Controller
         if (_userValidation.IsUserNullOrBlocked(User.Identity!.Name!))
             return await Task.Run(() => RedirectToAction("Register", "Account"));
 
-        var user = _userDatabase.GetUserByEmail(User.Identity.Name!).GetAwaiter().GetResult();
+        var user = await _userDatabase.GetUserByEmail(User.Identity.Name!);
 
         return await Task.Run(() => View(user));
     }

@@ -46,7 +46,7 @@ public class AdminPanelController : Controller
     {
         foreach (var id in ids)
         {
-            var objectToDelete = _userDatabase.GetUserById(id).GetAwaiter().GetResult();
+            var objectToDelete = await _userDatabase.GetUserById(id);
 
             var userCollections = _collectionDatabase.GetCollectionsByUserId(objectToDelete!.Id);
 
@@ -82,7 +82,7 @@ public class AdminPanelController : Controller
     {
         foreach (var id in ids)
         {
-            var objectToBlock = _userDatabase.GetUserById(id).GetAwaiter().GetResult();
+            var objectToBlock = await _userDatabase.GetUserById(id);
             objectToBlock!.Status = "Blocked User";
             
             await _userDatabase.Save();
@@ -99,7 +99,7 @@ public class AdminPanelController : Controller
     {
         foreach (var id in ids)
         {
-            var objectToPromote = _userDatabase.GetUserById(id).GetAwaiter().GetResult();
+            var objectToPromote = await _userDatabase.GetUserById(id);
             objectToPromote!.Role = "admin";
 
             await _userDatabase.Save();
@@ -113,7 +113,7 @@ public class AdminPanelController : Controller
     {
         foreach (var id in ids)
         {
-            var objectToDemote = _userDatabase.GetUserById(id).GetAwaiter().GetResult();
+            var objectToDemote = await _userDatabase.GetUserById(id);
             objectToDemote!.Role = "user";
 
             await _userDatabase.Save();
@@ -130,7 +130,7 @@ public class AdminPanelController : Controller
     {
         foreach (var id in ids)
         {
-            var objectToUnBlock = _userDatabase.GetUserById(id).GetAwaiter().GetResult();
+            var objectToUnBlock = await _userDatabase.GetUserById(id);
             objectToUnBlock!.Status = "Active User";
         }
 

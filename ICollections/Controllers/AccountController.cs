@@ -34,16 +34,16 @@ public class AccountController : Controller
         
         var user = new User { Email = model.Email, FirstName = model.FirstName, LastName = model.LastName, NickName = model.NickName, Age = model.Age, UserName = model.Email, RegisterDate = DateTime.Now, LastLoginDate = DateTime.Now, Role = model.Role, Status = "Active User"};
         
-        var result = _userDatabase.SaveNewUser(user, model.Password!);
+        var result = await _userDatabase.SaveNewUser(user, model.Password!);
         
-        if (result.GetAwaiter().GetResult().Succeeded)
+        if (result.Succeeded)
         {
             await _signInManager.SignInAsync(user, false);
             return RedirectToAction("Index", "Home");
         }
         else
         {
-            foreach (var error in result.GetAwaiter().GetResult().Errors)
+            foreach (var error in result.Errors)
             {
                 ModelState.AddModelError(string.Empty, error.Description);
             }
@@ -96,7 +96,7 @@ public class AccountController : Controller
             return await Task.Run(() => RedirectToAction("Index", "Home"));
         }
         
-        var user = _userDatabase.GetUserByEmail(User.Identity.Name!).GetAwaiter().GetResult();
+        var user = await _userDatabase.GetUserByEmail(User.Identity.Name!);
         user.LastLoginDate = DateTime.Now;
 
         await _userDatabase.Save();
