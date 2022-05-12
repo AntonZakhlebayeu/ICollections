@@ -1,4 +1,3 @@
-using ICollections.Data.Interfaces;
 using ICollections.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,23 +5,23 @@ namespace ICollections.Controllers;
 
 public class DeleteContentController : Controller
 {
-    private readonly ICollectionRepository _collectionRepository;
-    private readonly IItemRepository _itemRepository;
     private readonly IDeleteBlob _deleteBlob;
+    private readonly ICollectionDatabase _collectionDatabase;
+    private readonly IItemDatabase _itemDatabase;
 
-    public DeleteContentController(IDeleteBlob deleteBlob, IItemRepository itemRepository, ICollectionRepository collectionRepository)
+    public DeleteContentController(IDeleteBlob deleteBlob, ICollectionDatabase collectionDatabase, IItemDatabase itemDatabase)
     {
         _deleteBlob = deleteBlob;
-        _itemRepository = itemRepository;
-        _collectionRepository = collectionRepository;
+        _collectionDatabase = collectionDatabase;
+        _itemDatabase = itemDatabase;
     }
     
     [Route("/Home/ViewItem/{collectionId}/DeleteCollection")]
     public async Task<IActionResult> DeleteCollection(int collectionId)
     {
-        var objectToDelete = _collectionRepository.FindAsync(collectionId).Result;
-        
-        var itemsToDelete = _itemRepository.FindBy(i => i.CollectionId == objectToDelete!.Id);
+        var objectToDelete = _collectionDatabase.GetCollectionById(collectionId);
+
+        var itemsToDelete = _itemDatabase.GetItemsByCollectionId(collectionId);
 
         foreach (var item in itemsToDelete)
         {
@@ -31,18 +30,15 @@ public class DeleteContentController : Controller
                 _deleteBlob.DeleteBlob(item.FileName);
             }
             
-            _itemRepository.Delete(item);
+            _itemDatabase.DeleteItem(item);
         }
 
-        if (objectToDelete!.FileName != "")
+        if (objectToDelete.FileName != "")
         {
             _deleteBlob.DeleteBlob(objectToDelete.FileName);
         }
         
-        _collectionRepository.Delete(objectToDelete);
-        
-        await _collectionRepository.CommitAsync();
-        await _itemRepository.CommitAsync();
+        _collectionDatabase.DeleteCollection(objectToDelete);
 
         return await Task.Run(() => RedirectToAction("Profile", "Home"));
     }
@@ -50,16 +46,14 @@ public class DeleteContentController : Controller
     [Route("/Home/ViewItem/{collectionId}/{itemId:int}/DeleteItem")]
     public async Task<IActionResult> DeleteItem(int itemId, int collectionId)
     {
-        var objectToDelete = _itemRepository.FindAsync(itemId).Result;
+        var objectToDelete = _itemDatabase.GetItemById(itemId);
         
-        if (objectToDelete!.FileName != "")
+        if (objectToDelete.FileName != "")
         {
             _deleteBlob.DeleteBlob(objectToDelete.FileName);
         }
         
-        _itemRepository.Delete(objectToDelete);
-        
-        await _itemRepository.CommitAsync();
+        _itemDatabase.DeleteItem(objectToDelete);
 
         return await Task.Run(() => Redirect($"/Home/ViewCollection/{collectionId}"));
     }

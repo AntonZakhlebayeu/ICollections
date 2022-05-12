@@ -3,28 +3,20 @@ using ICollections.Data;
 using ICollections.Data.Interfaces;
 using ICollections.Data.Repositories;
 using ICollections.Models;
+using ICollections.ServiceAdditing;
 using ICollections.Services;
 using ICollections.Services.Classes;
 using ICollections.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.Extensions.Azure;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddDbContext<CollectionDbContext>();
-builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-
-builder.Services.AddSingleton<ISaveFileAsync, SaveFileToCloudService>();
-builder.Services.AddSingleton<IDeleteBlob, DeleteBlobService>();
-
-builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<ICollectionRepository, CollectionRepository>();
-builder.Services.AddScoped<ILikeRepository, LikeRepository>();
-builder.Services.AddScoped<IItemRepository, ItemRepository>();
-
-builder.Services.AddScoped<IUserValidation, UserValidationService>();
-builder.Services.AddScoped<ICollectionValidation, CollectionValidationService>();
-builder.Services.AddScoped<IItemValidation, ItemValidationService>();
-builder.Services.AddScoped<ILikeValidation, LikeValidationService>();
+builder.Services.AddDbContext();
+builder.Services.AddRepositories();
+builder.Services.AddDatabaseServices();
+builder.Services.AddValidation();
+builder.Services.AddBlobs();
 
 builder.Services.AddIdentity<User, IdentityRole>(options =>
     {

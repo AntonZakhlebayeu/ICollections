@@ -1,5 +1,4 @@
-﻿using ICollections.Data.Interfaces;
-using ICollections.Models;
+﻿using ICollections.Models;
 using ICollections.Services.Interfaces;
 using ICollections.ViewModels;
 using Microsoft.AspNetCore.Identity;
@@ -9,18 +8,16 @@ namespace ICollections.Controllers;
 
 public class AccountController : Controller
 {
-    private readonly UserManager<User> _userManager;
     private readonly SignInManager<User> _signInManager;
-    
-    private readonly IUserRepository _userRepository;
+
+    private readonly IUserDatabase _userDatabase;
     private readonly IUserValidation _userValidation;
-    
-    public AccountController(SignInManager<User> signInManager, IUserRepository userRepository, UserManager<User> userManager, IUserValidation userValidation)
+
+    public AccountController(SignInManager<User> signInManager, IUserValidation userValidation, IUserDatabase userDatabase)
     {
         _signInManager = signInManager;
-        _userRepository = userRepository;
-        _userManager = userManager;
         _userValidation = userValidation;
+        _userDatabase = userDatabase;
     }
     
     [HttpGet]
@@ -34,18 +31,19 @@ public class AccountController : Controller
     {
         if (!ModelState.IsValid) 
             return await Task.Run(() => View(model));
-
-        var user = new User { Email = model.Email, Password = model.Password, FirstName = model.FirstName, LastName = model.LastName, NickName = model.NickName, Age = model.Age, UserName = model.Email, RegisterDate = DateTime.Now, LastLoginDate = DateTime.Now, Role = model.Role, Status = "Active User"};
-
-        var result = await _userManager.CreateAsync(user, model.Password);
-        if (result.Succeeded)
+        
+        var user = new User { Email = model.Email, FirstName = model.FirstName, LastName = model.LastName, NickName = model.NickName, Age = model.Age, UserName = model.Email, RegisterDate = DateTime.Now, LastLoginDate = DateTime.Now, Role = model.Role, Status = "Active User"};
+        
+        var result = _userDatabase.SaveNewUser(user, model.Password!);
+        
+        if (result.GetAwaiter().GetResult().Succeeded)
         {
             await _signInManager.SignInAsync(user, false);
             return RedirectToAction("Index", "Home");
         }
         else
         {
-            foreach (var error in result.Errors)
+            foreach (var error in result.GetAwaiter().GetResult().Errors)
             {
                 ModelState.AddModelError(string.Empty, error.Description);
             }
@@ -70,15 +68,15 @@ public class AccountController : Controller
             return RedirectToAction("Index", "Home");
 
         var result = 
-            await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
+            await _signInManager.PasswordSignInAsync(model.Email, model.Password!, model.RememberMe, false);
 
         if (result.Succeeded)
         {
-            var user = _userRepository.GetSingleAsync(u => u.UserName == model.Email).Result;
+            var user = await _userDatabase.GetUserByEmail(model.Email!);
             
-            user!.LastLoginDate = DateTime.Now;
-            
-            await _userRepository.CommitAsync();
+            user.LastLoginDate = DateTime.Now;
+
+            await _userDatabase.Save();
             
             return RedirectToAction("Index", "Home");
         }
@@ -97,11 +95,11 @@ public class AccountController : Controller
             await _signInManager.SignOutAsync();
             return await Task.Run(() => RedirectToAction("Index", "Home"));
         }
-            
-        var user = _userRepository.GetSingleAsync(u => u.UserName == User.Identity!.Name).Result;
-        user!.LastLoginDate = DateTime.Now;
         
-        await _userRepository.CommitAsync();
+        var user = _userDatabase.GetUserByEmail(User.Identity.Name!).GetAwaiter().GetResult();
+        user.LastLoginDate = DateTime.Now;
+
+        await _userDatabase.Save();
         await _signInManager.SignOutAsync();
         
         return await Task.Run(() => RedirectToAction("Index", "Home"));

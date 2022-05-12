@@ -12,7 +12,7 @@ public class Collection
     
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public int? Id { get; set; }
+    public int Id { get; set; }
     
     public string? AuthorId { get; set; }
     

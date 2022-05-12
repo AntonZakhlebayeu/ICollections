@@ -1,7 +1,7 @@
-using ICollections.Data.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using ICollections.Models;
 using ICollections.Services;
+using ICollections.Services.Interfaces;
 using ICollections.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 
@@ -10,14 +10,15 @@ namespace ICollections.Controllers;
 public class CreateController : Controller
 {
     private readonly ISaveFileAsync _saveFileAsync;
-    private readonly ICollectionRepository _collectionRepository;
-    private readonly IItemRepository _itemRepository;
+    private readonly ICollectionDatabase _collectionDatabase;
+    private readonly IItemDatabase _itemDatabase;
+    
 
-    public CreateController(ISaveFileAsync saveFileAsync, ICollectionRepository collectionRepository, IItemRepository itemRepository)
+    public CreateController(ISaveFileAsync saveFileAsync, IItemDatabase itemDatabase, ICollectionDatabase collectionDatabase)
     {
         _saveFileAsync = saveFileAsync;
-        _collectionRepository = collectionRepository;
-        _itemRepository = itemRepository;
+        _itemDatabase = itemDatabase;
+        _collectionDatabase = collectionDatabase;
     }
     
     [Authorize]
@@ -41,8 +42,6 @@ public class CreateController : Controller
             var file = Request.Form.Files[0];
             resultingString = _saveFileAsync.SaveFileAsync(file).Result;
         }
-        
-        Console.WriteLine(collectionViewModel.AuthorId);
 
         var newCollection = new Collection
         {
@@ -53,11 +52,9 @@ public class CreateController : Controller
             FileName = resultingString,
         };
 
-        _collectionRepository.Add(newCollection);
+        _collectionDatabase.AddCollection(newCollection);
 
-        await _collectionRepository.CommitAsync();
-
-        return await Task.Run(() => RedirectToAction("ViewCollection", "Home", newCollection));
+        return await Task.Run(() => RedirectToAction("ViewCollection", "Home", _collectionDatabase.GetCollectionById(newCollection.Id)));
     }
 
     [HttpGet]
@@ -95,13 +92,11 @@ public class CreateController : Controller
             Date = itemViewModel.Date, Brand = itemViewModel.Brand, FileName = resultingStrings,
         };
 
-        var currentCollection = _collectionRepository.GetSingleAsync(c => c.Id == newItem.CollectionId).Result;
+        var currentCollection = _collectionDatabase.GetCollectionByItemId(newItem.CollectionId);
 
-        currentCollection!.CollectionItems!.Add(newItem);
+        currentCollection.CollectionItems!.Add(newItem);
 
-        await _itemRepository.AddAsync(newItem);
-        
-        await _itemRepository.CommitAsync();
+        await _itemDatabase.AddItem(newItem);
 
         return await Task.Run(() => RedirectToAction("ViewCollection", "Home", currentCollection));
     }   

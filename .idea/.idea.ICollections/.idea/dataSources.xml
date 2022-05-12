@@ -20,11 +20,11 @@
       <jdbc-url>jdbc:mysql://db-mysql-icollections-do-user-11369363-0.b.db.ondigitalocean.com:25060/defaultdb</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="icollectiondb" uuid="0b43fb85-798f-413a-9619-1d4690964c64">
-      <driver-ref>sqlserver.jb</driver-ref>
+    <data-source source="LOCAL" name="icollectionsdb.mssql" uuid="d22636ed-076d-46b5-ac05-d2257aab01b9">
+      <driver-ref>sqlserver.ms</driver-ref>
       <synchronize>true</synchronize>
-      <jdbc-driver>com.jetbrains.jdbc.sqlserver.SqlServerDriver</jdbc-driver>
-      <jdbc-url>Server=icollectiondb.mssql.somee.com;;Database=icollectiondb</jdbc-url>
+      <jdbc-driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</jdbc-driver>
+      <jdbc-url>jdbc:sqlserver://icollectionsdb.mssql.somee.com;database=icollectionsdb</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>

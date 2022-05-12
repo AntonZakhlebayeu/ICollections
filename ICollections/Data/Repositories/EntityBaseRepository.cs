@@ -20,9 +20,9 @@ public class EntityBaseRepository<T> : IEntityBaseRepository<T> where T : class
         _context.Set<T>().Add(entity);
     }
     
-    public virtual async Task<ValueTask<EntityEntry<T>>> AddAsync(T entity)
+    public virtual async ValueTask<EntityEntry<T>> AddAsync(T entity)
     {
-        return await Task.Run(() => _context.Set<T>().AddAsync(entity));
+        return await _context.Set<T>().AddAsync(entity);
     }
     
     public virtual void Delete(T entity)
@@ -46,9 +46,9 @@ public class EntityBaseRepository<T> : IEntityBaseRepository<T> where T : class
         _context.SaveChanges();
     }
 
-    public virtual async Task<int> CommitAsync()
+    public virtual async ValueTask CommitAsync()
     {
-        return await Task.Run(() => _context.SaveChangesAsync());
+        await _context.SaveChangesAsync();
     }
 
     public virtual IEnumerable<T> GetAll()
@@ -64,10 +64,8 @@ public class EntityBaseRepository<T> : IEntityBaseRepository<T> where T : class
     public virtual IEnumerable<T> AllIncluding(params Expression<Func<T, object>>[] includeProperties)
     {
         IQueryable<T> query = _context.Set<T>();
-        foreach (var includeProperty in includeProperties)
-        {
-            query = query.Include(includeProperty);
-        }
+        query = includeProperties.Aggregate(query, (current, includeProperty) => current.Include(includeProperty));
+        
         return query.AsEnumerable();
     }
 
@@ -76,7 +74,7 @@ public class EntityBaseRepository<T> : IEntityBaseRepository<T> where T : class
         return _context.Set<T>().FirstOrDefault(predicate);
     }
     
-    public async Task<T?> GetSingleAsync(Expression<Func<T, bool>> predicate)
+    public async ValueTask<T?> GetSingleAsync(Expression<Func<T, bool>> predicate)
     {
         return await _context.Set<T>().FirstOrDefaultAsync(predicate);
     }

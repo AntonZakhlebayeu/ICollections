@@ -16,8 +16,6 @@ public sealed class CollectionDbContext : IdentityDbContext<User>
         : base(options)
     {
         _configuration = configuration;
-        
-        Database.EnsureCreated();
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

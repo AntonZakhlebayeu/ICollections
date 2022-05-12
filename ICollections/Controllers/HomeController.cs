@@ -9,25 +9,25 @@ namespace ICollections.Controllers;
 
 public class HomeController : Controller
 {
-    private readonly IUserRepository _userRepository;
-    private readonly ICollectionRepository _collectionRepository;
-    private readonly IItemRepository _itemRepository;
+    private readonly IUserDatabase _userDatabase;
     private readonly IUserValidation _userValidation;
+    private readonly ICollectionDatabase _collectionDatabase;
+    private readonly IItemDatabase _itemDatabase;
     private readonly ICollectionValidation _collectionValidation;
     private readonly IItemValidation _itemValidation;
     private readonly ILikeRepository _likeRepository;
     private readonly ILikeValidation _likeValidation;
     
-    public HomeController(IUserRepository userRepository, ICollectionRepository collectionRepository, IItemRepository itemRepository, IUserValidation userValidation, ICollectionValidation collectionValidation, IItemValidation itemValidation, ILikeRepository likeRepository, ILikeValidation likeValidation)
+    public HomeController(IUserValidation userValidation, ICollectionValidation collectionValidation, IItemValidation itemValidation, ILikeRepository likeRepository, ILikeValidation likeValidation, IUserDatabase userDatabase, ICollectionDatabase collectionDatabase, IItemDatabase itemDatabase)
     {
-        _userRepository = userRepository;
-        _collectionRepository = collectionRepository;
-        _itemRepository = itemRepository;
         _userValidation = userValidation;
         _collectionValidation = collectionValidation;
         _itemValidation = itemValidation;
         _likeRepository = likeRepository;
         _likeValidation = likeValidation;
+        _userDatabase = userDatabase;
+        _collectionDatabase = collectionDatabase;
+        _itemDatabase = itemDatabase;
     }
     
     public async Task<IActionResult> Index()
@@ -35,7 +35,7 @@ public class HomeController : Controller
         if (_userValidation.IsUserIsAuthenticatedAndNull(User.Identity!.Name!, User.Identity.IsAuthenticated))
             return await Task.Run(() => RedirectToAction("Logout", "Account"));
 
-        var user = _userRepository.GetSingleAsync(user => user.UserName == User.Identity!.Name).Result;
+        var user = _userDatabase.GetUserByEmail(User.Identity.Name!).GetAwaiter().GetResult();
         
         return await Task.Run(() => View(user));
     }
@@ -46,7 +46,7 @@ public class HomeController : Controller
         if (_userValidation.IsUserNullOrBlocked(User.Identity!.Name!))
             return await Task.Run(() => RedirectToAction("Register", "Account"));
 
-        var user = _userRepository.GetSingleAsync(user => user.UserName == User.Identity!.Name).Result;
+        var user = _userDatabase.GetUserByEmail(User.Identity.Name!).GetAwaiter().GetResult();
 
         return await Task.Run(() => View(user));
     }
@@ -57,8 +57,8 @@ public class HomeController : Controller
         if (_collectionValidation.IsCollectionNull(collectionId)) 
             return await Task.Run(() => RedirectToAction("Profile", "Home"));
         
-        var userCollection = _collectionRepository.GetSingleAsync(c => c.Id == collectionId).Result;
-        userCollection!.CollectionItems = _itemRepository.FindBy(i => i.CollectionId == userCollection.Id).ToList();
+        var userCollection = _collectionDatabase.GetCollectionById(collectionId);
+        userCollection!.CollectionItems = _itemDatabase.GetItemsByCollectionId(collectionId);
 
         return await Task.Run(() => View(userCollection));
     }
@@ -70,7 +70,7 @@ public class HomeController : Controller
         if (_itemValidation.IsItemNull(itemId)) 
             return await Task.Run(() => RedirectToAction("Profile", "Home"));
 
-        var item = _itemRepository.GetSingleAsync(i => i.Id == itemId).Result;
+        var item = _itemDatabase.GetItemById(itemId);
 
         item!.Likes = _likeRepository.FindBy(l => l.ItemId == item.Id).ToList();
 
@@ -86,10 +86,10 @@ public class HomeController : Controller
                 
         if (_likeValidation.IsUserOwner(User.Identity!.Name!, collectionId)) 
             return await Task.Run(() => BadRequest("You can't like your own item"));
-        
-        var item = _itemRepository.GetSingleAsync(s => s!.Id == itemId, s => s.Likes).Result;
 
-        var userId = _userRepository.GetSingleAsync(u => u.UserName == User.Identity.Name).Result!.Id;
+        var item = _itemDatabase.GetItemById(itemId);
+
+        var userId = _userDatabase.GetUserByEmail(User.Identity.Name!).GetAwaiter().GetResult().Id;
         var existingLike = item!.Likes.Find(l => l.UserId == userId);
         
         if (existingLike == null)
