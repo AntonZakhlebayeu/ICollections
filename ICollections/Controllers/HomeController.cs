@@ -58,7 +58,7 @@ public class HomeController : Controller
             return await Task.Run(() => RedirectToAction("Profile", "Home"));
         
         var userCollection = _collectionDatabase.GetCollectionById(collectionId);
-        userCollection!.CollectionItems = _itemDatabase.GetItemsByCollectionId(collectionId);
+        userCollection.CollectionItems = _itemDatabase.GetItemsByCollectionId(collectionId);
 
         return await Task.Run(() => View(userCollection));
     }
@@ -72,7 +72,7 @@ public class HomeController : Controller
 
         var item = _itemDatabase.GetItemById(itemId);
 
-        item!.Likes = _likeRepository.FindBy(l => l.ItemId == item.Id).ToList();
+        item.Likes = _likeRepository.FindBy(l => l.ItemId == item.Id).ToList();
 
         return await Task.Run(() => View(item));
     }
@@ -90,7 +90,7 @@ public class HomeController : Controller
         var item = _itemDatabase.GetItemById(itemId);
 
         var userId = _userDatabase.GetUserByEmail(User.Identity.Name!).GetAwaiter().GetResult().Id;
-        var existingLike = item!.Likes.Find(l => l.UserId == userId);
+        var existingLike = item.Likes.Find(l => l.UserId == userId);
         
         if (existingLike == null)
         {

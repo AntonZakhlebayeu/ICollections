@@ -1,14 +1,8 @@
 using Microsoft.AspNetCore.Identity;
 using ICollections.Data;
-using ICollections.Data.Interfaces;
-using ICollections.Data.Repositories;
 using ICollections.Models;
 using ICollections.ServiceAdditing;
-using ICollections.Services;
-using ICollections.Services.Classes;
-using ICollections.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.Extensions.Azure;
 
 var builder = WebApplication.CreateBuilder(args);
 

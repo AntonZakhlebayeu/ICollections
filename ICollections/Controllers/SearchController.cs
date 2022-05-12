@@ -38,7 +38,7 @@ public class SearchController : Controller
             {
                 collection.CollectionItems = _itemRepository.FindBy(c => c.CollectionId == collection.Id).ToList();
 
-                foreach (var item in collection!.CollectionItems!.Where(item => !searchViewModel.resultItems.Contains(item)))
+                foreach (var item in collection.CollectionItems!.Where(item => !searchViewModel.resultItems.Contains(item)))
                 {
                     searchViewModel.resultItems.Add(item);
                 }
