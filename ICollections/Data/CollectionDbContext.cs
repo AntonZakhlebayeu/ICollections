@@ -16,6 +16,8 @@ public sealed class CollectionDbContext : IdentityDbContext<User>
         : base(options)
     {
         _configuration = configuration;
+
+        Database.EnsureCreated();
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -29,6 +31,7 @@ public sealed class CollectionDbContext : IdentityDbContext<User>
         ConfigureItemModel(modelBuilder);
         ConfigureIdentityRoles(modelBuilder);
         ConfigureLikeModel(modelBuilder);
+        ConfigureCommentModel(modelBuilder);
 
         base.OnModelCreating(modelBuilder);
     }
@@ -81,6 +84,19 @@ public sealed class CollectionDbContext : IdentityDbContext<User>
         {
             b.ToTable("Like");
             b.HasKey(l => new { l.ItemId, l.UserId });
+        });
+    }
+
+    private static void ConfigureCommentModel(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<Comment>(b =>
+        {
+            b.ToTable("Comment");
+            b.HasKey(c => c.Id);
+            b.Property(c => c.UserNickName).HasColumnName("UserNickName");
+            b.Property(c => c.ItemId).HasColumnName("ItemId");
+            b.Property(c => c.CommentText).HasColumnName("CommentText").IsRequired();
+            b.Property(c => c.CommentWhen).HasColumnName("CommentWhen").IsRequired();
         });
     }
 }

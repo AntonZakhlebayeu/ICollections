@@ -258,6 +258,22 @@ const langArr = {
         "en": "Nothing found: ",
         "ru": "Ничего не найдено:",
     },
+    "CommentsLogo": {
+        "en": "Leave the comment!",
+        "ru": "Оставьте комментарий!",
+    },
+    "CommentsTitle": {
+        "en": "Comments: ",
+        "ru": "Комментарии:",
+    },
+    "CommentLabel": {
+        "en": "Comment: ",
+        "ru": "Комментарий:",
+    },
+    "Leave": {
+        "en": "Send!",
+        "ru": "Оставить!",
+    },
 }
 
 select.addEventListener('change',changeURLLanguage);

@@ -50,6 +50,10 @@
               "target": "Package",
               "version": "[6.1.0, )"
             },
+            "Korzh.EasyQuery": {
+              "target": "Package",
+              "version": "[7.2.1, )"
+            },
             "Korzh.EasyQuery.Linq": {
               "target": "Package",
               "version": "[7.2.1, )"

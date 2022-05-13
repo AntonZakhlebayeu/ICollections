@@ -10,15 +10,15 @@ public class EditController : Controller
 {
     private readonly ISaveFileAsync _saveFileAsync;
     private readonly IDeleteBlob _deleteBlob;
-    private readonly ICollectionDatabase _collectionDatabase;
-    private readonly IItemDatabase _itemDatabase;
+    private readonly ICollectionService _collectionService;
+    private readonly IItemManager _itemManager;
 
-    public EditController(ISaveFileAsync saveFileAsync, IDeleteBlob deleteBlob, ICollectionDatabase collectionDatabase, IItemDatabase itemDatabase)
+    public EditController(ISaveFileAsync saveFileAsync, IDeleteBlob deleteBlob, ICollectionService collectionService, IItemManager itemManager)
     {
         _saveFileAsync = saveFileAsync;
         _deleteBlob = deleteBlob;
-        _collectionDatabase = collectionDatabase;
-        _itemDatabase = itemDatabase;
+        _collectionService = collectionService;
+        _itemManager = itemManager;
     }
     
     [Authorize]
@@ -38,7 +38,7 @@ public class EditController : Controller
     {
         if (!ModelState.IsValid) return await Task.Run(() => View(editCollectionViewModel));
         
-        var editingCollection = _collectionDatabase.GetCollectionById(collectionId);
+        var editingCollection = _collectionService.GetCollectionById(collectionId);
 
         var resultingString = "";
 
@@ -62,7 +62,7 @@ public class EditController : Controller
             editingCollection.FileName = resultingString;
         }
         
-        await _collectionDatabase.Save();
+        await _collectionService.Save();
 
         return await Task.Run(() => RedirectToAction("ViewCollection", "Home", editCollectionViewModel));
     }
@@ -86,7 +86,7 @@ public class EditController : Controller
         
         if (!ModelState.IsValid) return await Task.Run(() => View(editItemViewModel));
 
-        var editingItem = _itemDatabase.GetItemById(itemId);
+        var editingItem = _itemManager.GetItemById(itemId);
         
         var resultingString = "";
         if (Request.Form.Files.Count != 0)
@@ -111,7 +111,7 @@ public class EditController : Controller
             editingItem.FileName = resultingString;
         }
 
-        await _itemDatabase.Save();
+        await _itemManager.Save();
 
         return await Task.Run(() => Redirect($"/Home/ViewItem/{collectionId}/{itemId}"));
     }

@@ -4,11 +4,11 @@ using ICollections.Services.Interfaces;
 
 namespace ICollections.Services.Classes;
 
-public class LikeDatabaseService : ILikeDatabase
+public class LikeService : ILikeService
 {
     private readonly ILikeRepository _likeRepository;
 
-    public LikeDatabaseService(ILikeRepository likeRepository)
+    public LikeService(ILikeRepository likeRepository)
     {
         _likeRepository = likeRepository;
     }

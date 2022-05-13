@@ -2,7 +2,7 @@ using ICollections.Models;
 
 namespace ICollections.Services.Interfaces;
 
-public interface ICollectionDatabase
+public interface ICollectionService
 {
     List<Collection> GetCollectionsByUserId(string userId);
     void DeleteCollection(Collection objectToDelete);

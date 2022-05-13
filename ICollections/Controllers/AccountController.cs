@@ -10,14 +10,14 @@ public class AccountController : Controller
 {
     private readonly SignInManager<User> _signInManager;
 
-    private readonly IUserDatabase _userDatabase;
+    private readonly IUserService _userService;
     private readonly IUserValidation _userValidation;
 
-    public AccountController(SignInManager<User> signInManager, IUserValidation userValidation, IUserDatabase userDatabase)
+    public AccountController(SignInManager<User> signInManager, IUserValidation userValidation, IUserService userService)
     {
         _signInManager = signInManager;
         _userValidation = userValidation;
-        _userDatabase = userDatabase;
+        _userService = userService;
     }
     
     [HttpGet]
@@ -34,7 +34,7 @@ public class AccountController : Controller
         
         var user = new User { Email = model.Email, FirstName = model.FirstName, LastName = model.LastName, NickName = model.NickName, Age = model.Age, UserName = model.Email, RegisterDate = DateTime.Now, LastLoginDate = DateTime.Now, Role = model.Role, Status = "Active User"};
         
-        var result = await _userDatabase.SaveNewUser(user, model.Password!);
+        var result = await _userService.SaveNewUser(user, model.Password!);
         
         if (result.Succeeded)
         {
@@ -72,11 +72,11 @@ public class AccountController : Controller
 
         if (result.Succeeded)
         {
-            var user = await _userDatabase.GetUserByEmail(model.Email!);
+            var user = await _userService.GetUserByEmail(model.Email!);
             
             user.LastLoginDate = DateTime.Now;
 
-            await _userDatabase.Save();
+            await _userService.Save();
             
             return RedirectToAction("Index", "Home");
         }
@@ -96,10 +96,10 @@ public class AccountController : Controller
             return await Task.Run(() => RedirectToAction("Index", "Home"));
         }
         
-        var user = await _userDatabase.GetUserByEmail(User.Identity.Name!);
+        var user = await _userService.GetUserByEmail(User.Identity.Name!);
         user.LastLoginDate = DateTime.Now;
 
-        await _userDatabase.Save();
+        await _userService.Save();
         await _signInManager.SignOutAsync();
         
         return await Task.Run(() => RedirectToAction("Index", "Home"));

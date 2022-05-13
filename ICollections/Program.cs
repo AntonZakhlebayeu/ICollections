@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using ICollections.Data;
+using ICollections.Hub;
 using ICollections.Models;
 using ICollections.ServiceAdding;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -56,6 +57,11 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseCors();
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapHub<CommentsHub>("/chat");
+});
 
 app.MapControllerRoute(
     name: "default",

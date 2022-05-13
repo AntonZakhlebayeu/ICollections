@@ -1,29 +1,25 @@
-using ICollections.Models;
 using ICollections.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 
 
 namespace ICollections.Controllers;
 
 public class AdminPanelController : Controller
 {
-    private readonly UserManager<User> _userManager;
     private readonly IUserValidation _userValidation;
     private readonly IDeleteBlob _deleteBlob;
-    private readonly IUserDatabase _userDatabase;
-    private readonly ICollectionDatabase _collectionDatabase;
-    private readonly IItemDatabase _itemDatabase;
+    private readonly IUserService _userService;
+    private readonly ICollectionService _collectionService;
+    private readonly IItemManager _itemManager;
 
-    public AdminPanelController(UserManager<User> userManager, IUserValidation userValidation, IDeleteBlob deleteBlob, IUserDatabase userDatabase, ICollectionDatabase collectionDatabase, IItemDatabase itemDatabase)
+    public AdminPanelController(IUserValidation userValidation, IDeleteBlob deleteBlob, IUserService userService, ICollectionService collectionService, IItemManager itemManager)
     {
-        _userManager = userManager;
+        _userService = userService;
         _userValidation = userValidation;
         _deleteBlob = deleteBlob;
-        _userDatabase = userDatabase;
-        _collectionDatabase = collectionDatabase;
-        _itemDatabase = itemDatabase;
+        _collectionService = collectionService;
+        _itemManager = itemManager;
     }
     
     [Authorize]
@@ -37,7 +33,7 @@ public class AdminPanelController : Controller
         if(!_userValidation.IsUserAdminOrSuperAdmin(User.Identity!.Name!))
             return await Task.Run(() => RedirectToAction("Index", "Home"));
 
-        return await Task.Run(() => View(_userDatabase.GetAllUsers()));
+        return await Task.Run(() => View(_userService.GetAllUsers()));
     }
     
     [Authorize]
@@ -45,13 +41,13 @@ public class AdminPanelController : Controller
     {
         foreach (var id in ids)
         {
-            var objectToDelete = await _userDatabase.GetUserById(id);
+            var objectToDelete = await _userService.GetUserById(id);
 
-            var userCollections = _collectionDatabase.GetCollectionsByUserId(objectToDelete!.Id);
+            var userCollections = _collectionService.GetCollectionsByUserId(objectToDelete!.Id);
 
             foreach (var collection in userCollections)
             {
-                var itemsToDelete = _itemDatabase.GetItemsByCollectionId(collection.Id);
+                var itemsToDelete = _itemManager.GetItemsByCollectionId(collection.Id);
                 foreach (var item in itemsToDelete)
                 {
                     if (item.FileName != "")
@@ -59,7 +55,7 @@ public class AdminPanelController : Controller
                         _deleteBlob.DeleteBlob(item.FileName);
                     }
                     
-                    _itemDatabase.DeleteItem(item);
+                    _itemManager.DeleteItem(item);
                 }
                 
                 if (collection.FileName != "")
@@ -67,10 +63,10 @@ public class AdminPanelController : Controller
                     _deleteBlob.DeleteBlob(collection.FileName);
                 }
                 
-                _collectionDatabase.DeleteCollection(collection);
+                _collectionService.DeleteCollection(collection);
             }
 
-            await _userManager.DeleteAsync(objectToDelete);
+            _userService.Delete(objectToDelete);
         }
 
         return await Task.Run(() => RedirectToAction("AdminPanel"));
@@ -81,10 +77,10 @@ public class AdminPanelController : Controller
     {
         foreach (var id in ids)
         {
-            var objectToBlock = await _userDatabase.GetUserById(id);
+            var objectToBlock = await _userService.GetUserById(id);
             objectToBlock!.Status = "Blocked User";
             
-            await _userDatabase.Save();
+            await _userService.Save();
 
             if(objectToBlock.Email == User.Identity!.Name)
                 return await Task.Run(() => RedirectToAction("Logout", "Account"));
@@ -98,10 +94,10 @@ public class AdminPanelController : Controller
     {
         foreach (var id in ids)
         {
-            var objectToPromote = await _userDatabase.GetUserById(id);
+            var objectToPromote = await _userService.GetUserById(id);
             objectToPromote!.Role = "admin";
 
-            await _userDatabase.Save();
+            await _userService.Save();
         }
 
         return await Task.Run(() => RedirectToAction("AdminPanel"));
@@ -112,10 +108,10 @@ public class AdminPanelController : Controller
     {
         foreach (var id in ids)
         {
-            var objectToDemote = await _userDatabase.GetUserById(id);
+            var objectToDemote = await _userService.GetUserById(id);
             objectToDemote!.Role = "user";
 
-            await _userDatabase.Save();
+            await _userService.Save();
 
             if(objectToDemote.Email == User.Identity!.Name && objectToDemote.Role == "user")
                 return await Task.Run(() => RedirectToAction("Index", "Home"));
@@ -129,11 +125,11 @@ public class AdminPanelController : Controller
     {
         foreach (var id in ids)
         {
-            var objectToUnBlock = await _userDatabase.GetUserById(id);
+            var objectToUnBlock = await _userService.GetUserById(id);
             objectToUnBlock!.Status = "Active User";
         }
 
-        await _userDatabase.Save();
+        await _userService.Save();
 
         return await Task.Run(() => RedirectToAction("AdminPanel"));
     }

@@ -1,13 +1,16 @@
 @using ICollections.Data.Interfaces
 @using ICollections.Models
+@using ICollections.Services.Interfaces
 @inject IUserRepository UserRepository;
 @inject ICollectionRepository CollectionRepository;
 @inject IItemRepository ItemRepository;
 @inject ILikeRepository LikeRepository;
+@inject ICommentService CommentService
 @{
     Layout = "_Layout";
     ViewBag.userData = UserRepository;
     ViewBag.collectionData = CollectionRepository;
     ViewBag.itemData = ItemRepository;
     ViewBag.likeData = LikeRepository;
+    ViewBag.commentService = CommentService;
 }

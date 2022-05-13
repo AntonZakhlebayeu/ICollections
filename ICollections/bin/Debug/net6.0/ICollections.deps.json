@@ -11,6 +11,7 @@
           "Azure.Storage.Blobs": "12.12.0",
           "Dropbox.Api": "6.27.0",
           "HigLabo.Net": "6.1.0",
+          "Korzh.EasyQuery": "7.2.1",
           "Korzh.EasyQuery.Linq": "7.2.1",
           "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": "6.0.3",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "6.0.3",

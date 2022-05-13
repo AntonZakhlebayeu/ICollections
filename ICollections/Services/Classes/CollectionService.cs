@@ -4,11 +4,11 @@ using ICollections.Services.Interfaces;
 
 namespace ICollections.Services.Classes;
 
-public class CollectionDatabaseService : ICollectionDatabase
+public class CollectionService : ICollectionService
 {
     private readonly ICollectionRepository _collectionRepository;
 
-    public CollectionDatabaseService(ICollectionRepository collectionRepository)
+    public CollectionService(ICollectionRepository collectionRepository)
     {
         _collectionRepository = collectionRepository;
     }

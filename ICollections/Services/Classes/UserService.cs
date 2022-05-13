@@ -5,12 +5,12 @@ using Microsoft.AspNetCore.Identity;
 
 namespace ICollections.Services.Classes;
 
-public class UserDatabaseService : IUserDatabase
+public class UserService : IUserService
 {
     private readonly IUserRepository _userRepository;
     private readonly UserManager<User> _userManager;
 
-    public UserDatabaseService(IUserRepository userRepository, UserManager<User> userManager)
+    public UserService(IUserRepository userRepository, UserManager<User> userManager)
     {
         _userRepository = userRepository;
         _userManager = userManager;
@@ -43,5 +43,10 @@ public class UserDatabaseService : IUserDatabase
     public async Task<User?> GetUserById(string id)
     {
         return await _userRepository.FindAsync(id);
+    }
+
+    public void Delete(User user)
+    {
+        _userRepository.Delete(user);
     }
 }

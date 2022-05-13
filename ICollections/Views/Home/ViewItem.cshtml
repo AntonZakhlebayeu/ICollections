@@ -1,10 +1,9 @@
-
-   
 @using Microsoft.EntityFrameworkCore
 @model ICollections.Models.Item
 @using ICollections.Data.Interfaces
 @using Microsoft.AspNetCore.Mvc.TagHelpers
 @using System.Web
+@using ICollections.Services.Interfaces
 
 @functions 
 {
@@ -41,11 +40,10 @@
 
 @{
     var collectionData = ViewBag.collectionData as ICollectionRepository;
-    var userData = ViewBag.userData as IUserRepository;
-
-    var currentUser = userData!.GetSingleAsync(u => u.UserName == User!.Identity!.Name).Result;
 
     var currentCollection = collectionData!.FindAsync(Model.CollectionId).Result;
+
+    var commentService = ViewBag.commentService as ICommentService;
 }
 
 <link rel="stylesheet" title="theme" href="#">
@@ -128,6 +126,37 @@
         </div>
     </form>
 }
+
+@if (User.Identity.IsAuthenticated)
+{
+    <div class="text-center theme-main-text">
+        <h3 class="display-4 lng-CommentsLogo">Leave the comment!</h3><br/>
+        <div class="input-group flex-nowrap">
+            <span class="input-group-text text-black lng-CommentLabel">Comment:</span>
+            <textarea type="text" class="form-control" id="commentToSend" aria-label="Username" aria-describedby="addon-wrapping" 
+             style = "resize: none; overflow: hidden;min-height: 50px;max-height: 100px;"></textarea>
+            <input type="hidden" id="itemId" value="@Model.Id"/>
+        </div><br/>
+
+        <button type="button" class="btn btn-primary lng-Leave" id="sendButton"><b>Leave a comment!</b></button>
+    </div>
+}
+
+<h3 class="theme-main-text lng-CommentsTitle">Comments: </h3>
+
+<div class="card theme-main-text" id="newComment" style="width: 36rem;">
+    @foreach (var comment in commentService!.GetCommentsInItem(@Model.Id).OrderByDescending(n => n.Id))
+    {
+        <ul class="list-group list-group-flush" style="margin-bottom: 12px;">
+            <li class="list-group-item">@comment.UserNickName</li>
+            <li class="list-group-item">@comment.CommentText</li>
+            <li class="list-group-item">@comment.CommentWhen</li>
+        </ul>
+    }
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.0-preview.2.22153.2/signalr.min.js"></script>
+<script src="/js/comments.js"></script>
 
 <script src="/js/ChangeLanguage.js"></script>
 <script src="/js/ChangeTheme.js"></script>

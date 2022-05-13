@@ -3,7 +3,7 @@ using ICollections.Services.Classes;
 
 namespace ICollections.Services.Interfaces;
 
-public interface IItemDatabase
+public interface IItemManager
 {
     List<Item> GetItemsByCollectionId(int id);
     Item GetItemById(int id);

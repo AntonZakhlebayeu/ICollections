@@ -6,22 +6,22 @@ namespace ICollections.Controllers;
 public class DeleteContentController : Controller
 {
     private readonly IDeleteBlob _deleteBlob;
-    private readonly ICollectionDatabase _collectionDatabase;
-    private readonly IItemDatabase _itemDatabase;
+    private readonly ICollectionService _collectionService;
+    private readonly IItemManager _itemManager;
 
-    public DeleteContentController(IDeleteBlob deleteBlob, ICollectionDatabase collectionDatabase, IItemDatabase itemDatabase)
+    public DeleteContentController(IDeleteBlob deleteBlob, ICollectionService collectionService, IItemManager itemManager)
     {
         _deleteBlob = deleteBlob;
-        _collectionDatabase = collectionDatabase;
-        _itemDatabase = itemDatabase;
+        _collectionService = collectionService;
+        _itemManager = itemManager;
     }
     
     [Route("/Home/ViewItem/{collectionId:int}/DeleteCollection")]
     public async Task<IActionResult> DeleteCollection(int collectionId)
     {
-        var objectToDelete = _collectionDatabase.GetCollectionById(collectionId);
+        var objectToDelete = _collectionService.GetCollectionById(collectionId);
 
-        var itemsToDelete = _itemDatabase.GetItemsByCollectionId(collectionId);
+        var itemsToDelete = _itemManager.GetItemsByCollectionId(collectionId);
 
         foreach (var item in itemsToDelete)
         {
@@ -30,7 +30,7 @@ public class DeleteContentController : Controller
                 _deleteBlob.DeleteBlob(item.FileName);
             }
             
-            _itemDatabase.DeleteItem(item);
+            _itemManager.DeleteItem(item);
         }
 
         if (objectToDelete.FileName != "")
@@ -38,7 +38,7 @@ public class DeleteContentController : Controller
             _deleteBlob.DeleteBlob(objectToDelete.FileName);
         }
         
-        _collectionDatabase.DeleteCollection(objectToDelete);
+        _collectionService.DeleteCollection(objectToDelete);
 
         return await Task.Run(() => RedirectToAction("Profile", "Home"));
     }
@@ -46,14 +46,14 @@ public class DeleteContentController : Controller
     [Route("/Home/ViewItem/{collectionId:int}/{itemId:int}/DeleteItem")]
     public async Task<IActionResult> DeleteItem(int itemId, int collectionId)
     {
-        var objectToDelete = _itemDatabase.GetItemById(itemId);
+        var objectToDelete = _itemManager.GetItemById(itemId);
         
         if (objectToDelete.FileName != "")
         {
             _deleteBlob.DeleteBlob(objectToDelete.FileName);
         }
         
-        _itemDatabase.DeleteItem(objectToDelete);
+        _itemManager.DeleteItem(objectToDelete);
 
         return await Task.Run(() => Redirect($"/Home/ViewCollection/{collectionId}"));
     }

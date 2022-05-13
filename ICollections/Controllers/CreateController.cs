@@ -10,15 +10,15 @@ namespace ICollections.Controllers;
 public class CreateController : Controller
 {
     private readonly ISaveFileAsync _saveFileAsync;
-    private readonly ICollectionDatabase _collectionDatabase;
-    private readonly IItemDatabase _itemDatabase;
+    private readonly ICollectionService _collectionService;
+    private readonly IItemManager _itemManager;
     
 
-    public CreateController(ISaveFileAsync saveFileAsync, IItemDatabase itemDatabase, ICollectionDatabase collectionDatabase)
+    public CreateController(ISaveFileAsync saveFileAsync, IItemManager itemManager, ICollectionService collectionService)
     {
         _saveFileAsync = saveFileAsync;
-        _itemDatabase = itemDatabase;
-        _collectionDatabase = collectionDatabase;
+        _itemManager = itemManager;
+        _collectionService = collectionService;
     }
     
     [Authorize]
@@ -52,9 +52,9 @@ public class CreateController : Controller
             FileName = resultingString,
         };
 
-        _collectionDatabase.AddCollection(newCollection);
+        _collectionService.AddCollection(newCollection);
 
-        return await Task.Run(() => RedirectToAction("ViewCollection", "Home", _collectionDatabase.GetCollectionById(newCollection.Id)));
+        return await Task.Run(() => RedirectToAction("ViewCollection", "Home", _collectionService.GetCollectionById(newCollection.Id)));
     }
 
     [HttpGet]
@@ -92,11 +92,11 @@ public class CreateController : Controller
             Date = itemViewModel.Date, Brand = itemViewModel.Brand, FileName = resultingStrings,
         };
 
-        var currentCollection = _collectionDatabase.GetCollectionByItemId(newItem.CollectionId);
+        var currentCollection = _collectionService.GetCollectionByItemId(newItem.CollectionId);
 
         currentCollection.CollectionItems!.Add(newItem);
 
-        await _itemDatabase.AddItem(newItem);
+        await _itemManager.AddItem(newItem);
 
         return await Task.Run(() => RedirectToAction("ViewCollection", "Home", currentCollection));
     }   

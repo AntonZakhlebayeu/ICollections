@@ -4,11 +4,11 @@ using ICollections.Services.Interfaces;
 
 namespace ICollections.Services.Classes;
 
-public class ItemDatabaseService : IItemDatabase
+public class ItemService : IItemManager
 {
     private readonly IItemRepository _itemRepository;
 
-    public ItemDatabaseService(IItemRepository itemRepository)
+    public ItemService(IItemRepository itemRepository)
     {
         _itemRepository = itemRepository;
     }
