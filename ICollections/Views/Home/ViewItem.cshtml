@@ -14,15 +14,19 @@
         return userEmail;
     }
 
-    string GetUserRole()
+    async Task<string> GetUserRole()
     {
-        if (!User.Identity!.IsAuthenticated) return "user";
-        
-        var data = ViewBag.userService as IUserService;
+        if (!User.Identity!.IsAuthenticated) 
+            return "user";
 
-        var userRole = data!.GetUserByEmail(User!.Identity!.Name!).Result!.Role;
+        var userService = ViewBag.userService as IUserService;
+        var roleService = ViewBag.roleService as IRoleService;
 
-        return userRole!;
+        var user = await userService!.GetUserByEmail(User!.Identity!.Name!);
+
+        var userRole = roleService!.GetUserRole(user);
+
+        return userRole;
     }
 
     string GetAuthorId(int collectionId)
@@ -109,7 +113,7 @@
     <h5 class="theme-other-text"><i>@Model.LastEditDate</i></h5>
 </div>
 
-@if (GetTheUserId(GetAuthorId(Model.CollectionId)) == User.Identity!.Name || GetUserRole() != "user")
+@if (GetTheUserId(GetAuthorId(Model.CollectionId)) == User.Identity!.Name || await GetUserRole() != "user")
 {
     <form action="/Home/EditItem/@Model.CollectionId/@Model.Id">
         <div align="right" style="margin-bottom: 20px">

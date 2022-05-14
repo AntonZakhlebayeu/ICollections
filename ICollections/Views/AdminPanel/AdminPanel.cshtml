@@ -5,6 +5,7 @@
 
 @{
     var userService = ViewBag.userService as IUserService;
+    var roleService = ViewBag.roleService as IRoleService;
     
     var currentUser = await userService!.GetUserByEmail(User!.Identity!.Name!);
 }
@@ -21,7 +22,7 @@
             <button type="button" onclick="deleteCheckedContacts()" class="btn btn-danger btn-lg btn-block lng-Delete">Delete</button>
             <button type="button" onclick="blockCheckedContacts()" class="btn btn-dark btn-lg btn-block lng-Block">Block</button>
             <button type="button" onclick="unblockCheckedContacts()" class="btn btn-dark btn-lg btn-block lng-Unblock">Unblock</button>
-            @if (@currentUser!.Role == "super admin")
+            @if (await roleService!.IsRoleSuperAdmin(currentUser))
             {
                 <button type="button" onclick="promoteCheckedContacts()" class="btn btn-danger btn-lg btn-block lng-Promote">Promote to admin</button>
                 <button type="button" onclick="demoteCheckedContacts()" class="btn btn-danger btn-lg btn-block lng-Demote">Demote to user</button>
@@ -59,10 +60,10 @@
                     <td class="theme-main-text">@user.LastName</td>
                     <td class="theme-main-text">@user.Email</td>
                     <td class="theme-main-text">@user.NickName</td>
-                    <td class="theme-main-text">@user.Role</td>
+                    <td class="theme-main-text">@roleService.GetUserRole(user)</td>
                     <td class="theme-main-text">@user.RegisterDate.ToString("d")</td>
                     <td class="theme-main-text">@user.Status</td>
-                    @if(@user.Role == "user" || @currentUser!.Role == "super admin")
+                    @if(await roleService.IsRoleUser(user) || await roleService.IsRoleSuperAdmin(currentUser))
                     {
                         <td><input class="user-checkbox" type="checkbox" name="@user.Id"></td>   
                     }

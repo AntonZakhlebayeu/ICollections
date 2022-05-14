@@ -6,6 +6,7 @@
 @{
     var userService = ViewBag.userService as IUserService;
     var collectionService = ViewBag.collectionService as ICollectionService;
+    var roleService = ViewBag.roleService as IRoleService;
 
     var userId = userService!.GetUserByEmail(User!.Identity!.Name!).Result!.Id;
 
@@ -52,8 +53,8 @@
             <h4 class="lng-NickNameRegister theme-main-text">Nickname:</h4><h4 class="theme-main-text">@Model.NickName</h4><br/>
             <h4 class="lng-AgeRegister theme-main-text">Age:</h4><h4 class="theme-main-text">@Model.Age</h4><br/>
             <h5 class="lng-ProfileRegistrationDate theme-main-text">Registration date:</h5><h5 class="theme-main-text">@Model.RegisterDate</h5><br/>   
-            <h5 class="lng-ProfileRole theme-main-text">Role:</h5><h5 class="theme-main-text"><b>@Model.Role</b></h5>
-            @if (@Model.Role is "admin" or "super admin")
+            <h5 class="lng-ProfileRole theme-main-text">Role:</h5><h5 class="theme-main-text"><b>@roleService!.GetUserRole(Model)</b></h5>
+            @if (roleService.GetUserRole(Model) != "user")
             {
                 <br/><br/>
                 <form class="form-inline" asp-controller="AdminPanel" asp-action="AdminPanel">

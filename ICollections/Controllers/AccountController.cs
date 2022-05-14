@@ -32,9 +32,9 @@ public class AccountController : Controller
         if (!ModelState.IsValid) 
             return await Task.Run(() => View(model));
         
-        var user = new User { Email = model.Email, FirstName = model.FirstName, LastName = model.LastName, NickName = model.NickName, Age = model.Age, UserName = model.Email, RegisterDate = DateTime.Now, LastLoginDate = DateTime.Now, Role = model.Role, Status = "Active User"};
+        var user = new User { Email = model.Email, FirstName = model.FirstName, LastName = model.LastName, NickName = model.NickName, Age = model.Age, UserName = model.Email, RegisterDate = DateTime.Now, LastLoginDate = DateTime.Now, Status = "Active User"};
         
-        var result = await _userService.SaveNewUser(user, model.Password!);
+        var result = await _userService.SaveNewUser(user, model.Password!, model.Role!);
         
         if (result.Succeeded)
         {

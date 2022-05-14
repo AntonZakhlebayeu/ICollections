@@ -9,18 +9,22 @@ public class UserService : IUserService
 {
     private readonly IUserRepository _userRepository;
     private readonly UserManager<User> _userManager;
+    private readonly IRoleService _roleService;
 
-    public UserService(IUserRepository userRepository, UserManager<User> userManager)
+    public UserService(IUserRepository userRepository, UserManager<User> userManager, IRoleService roleService)
     {
         _userRepository = userRepository;
         _userManager = userManager;
+        _roleService = roleService;
     }
 
-    public async Task<IdentityResult> SaveNewUser(User user, string password)
+    public async Task<IdentityResult> SaveNewUser(User user, string password, string role)
     {
         var result = await _userManager.CreateAsync(user, password);
         _userManager.PasswordHasher = new PasswordHasher<User>();
         _userManager.PasswordHasher.HashPassword(user, password);
+        
+        await _roleService.AddUserToRole(user, role);
 
         return result;
     }
@@ -45,8 +49,9 @@ public class UserService : IUserService
         return await _userRepository.FindAsync(id);
     }
 
-    public void Delete(User user)
+    public async Task Delete(User user)
     {
         _userRepository.Delete(user);
+        await _userRepository.CommitAsync();
     }
 }

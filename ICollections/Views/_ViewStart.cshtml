@@ -9,10 +9,12 @@
 @inject ICollectionService CollectionService;
 @inject IItemService ItemService;  
 @inject ICommentService CommentService
+@inject IRoleService RoleService
 @{
     Layout = "_Layout";
     ViewBag.userService = UserService;
     ViewBag.collectionService = CollectionService;
     ViewBag.commentService = CommentService;
     ViewBag.itemService = ItemService;
+    ViewBag.roleService = RoleService;
 }

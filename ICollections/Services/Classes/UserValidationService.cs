@@ -25,14 +25,7 @@ public class UserValidationService : IUserValidation
         
         return user == null;
     }
-
-    public bool IsUserAdminOrSuperAdmin(string email)
-    {
-        var user = _userRepository.GetSingleAsync(u => u.UserName == email).Result;
-
-        return user!.Role is "admin" or "super admin";
-    }
-
+    
     public bool IsUserIsAuthenticatedAndNull(string email, bool isAuthenticated)
     {
         var user = _userRepository.GetSingleAsync(user => user.UserName == email && user.Status != "Blocked User").Result;

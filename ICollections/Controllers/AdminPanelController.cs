@@ -12,17 +12,19 @@ public class AdminPanelController : Controller
     private readonly IUserService _userService;
     private readonly ICollectionService _collectionService;
     private readonly IItemService _itemService;
+    private readonly IRoleService _roleService;
 
-    public AdminPanelController(IUserValidation userValidation, IDeleteBlob deleteBlob, IUserService userService, ICollectionService collectionService, IItemService itemService)
+    public AdminPanelController(IUserValidation userValidation, IDeleteBlob deleteBlob, IUserService userService, ICollectionService collectionService, IItemService itemService, IRoleService roleService)
     {
         _userService = userService;
         _userValidation = userValidation;
         _deleteBlob = deleteBlob;
         _collectionService = collectionService;
         _itemService = itemService;
+        _roleService = roleService;
     }
     
-    [Authorize]
+    [Authorize(Roles = "admin, super admin")]
     public async Task<IActionResult> AdminPanel()
     {
         if (_userValidation.IsUserNull(User.Identity!.Name!))
@@ -30,13 +32,10 @@ public class AdminPanelController : Controller
             return await Task.Run(() => RedirectToAction("Logout", "Account"));   
         }
 
-        if(!_userValidation.IsUserAdminOrSuperAdmin(User.Identity!.Name!))
-            return await Task.Run(() => RedirectToAction("Index", "Home"));
-
         return await Task.Run(() => View(_userService.GetAllUsers()));
     }
     
-    [Authorize]
+    [Authorize(Roles = "admin, super admin")]
     public async Task<IActionResult> Delete(string[] ids)
     {
         foreach (var id in ids)
@@ -66,13 +65,14 @@ public class AdminPanelController : Controller
                 _collectionService.DeleteCollection(collection);
             }
 
-            _userService.Delete(objectToDelete);
+            await _roleService.DeleteUserFromRole(objectToDelete);
+            await _userService.Delete(objectToDelete);
         }
 
         return await Task.Run(() => RedirectToAction("AdminPanel"));
     }
 
-    [Authorize]
+    [Authorize(Roles = "admin, super admin")]
     public async Task<IActionResult> Block(string[] ids)
     {
         foreach (var id in ids)
@@ -89,13 +89,13 @@ public class AdminPanelController : Controller
         return await Task.Run(() => RedirectToAction("AdminPanel"));
     }
     
-    [Authorize]
+    [Authorize(Roles = "admin, super admin")]
     public async Task<IActionResult> Promote(string[] ids)
     {
         foreach (var id in ids)
         {
             var objectToPromote = await _userService.GetUserById(id);
-            objectToPromote!.Role = "admin";
+            await _roleService.Promote(objectToPromote!);
 
             await _userService.Save();
         }
@@ -103,24 +103,21 @@ public class AdminPanelController : Controller
         return await Task.Run(() => RedirectToAction("AdminPanel"));
     }
     
-    [Authorize]
+    [Authorize(Roles = "admin, super admin")]
     public async Task<IActionResult> Demote(string[] ids)
     {
         foreach (var id in ids)
         {
             var objectToDemote = await _userService.GetUserById(id);
-            objectToDemote!.Role = "user";
+            await _roleService.Demote(objectToDemote!);
 
             await _userService.Save();
-
-            if(objectToDemote.Email == User.Identity!.Name && objectToDemote.Role == "user")
-                return await Task.Run(() => RedirectToAction("Index", "Home"));
         }
 
         return await Task.Run(() => RedirectToAction("AdminPanel"));
     }
 
-    [Authorize]
+    [Authorize(Roles = "admin, super admin")]
     public async Task<IActionResult> Unblock(string[] ids)
     {
         foreach (var id in ids)

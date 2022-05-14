@@ -9,7 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext();
 builder.Services.AddRepositories();
-builder.Services.AddDatabaseServices();
+builder.Services.AddEntitiesServices();
 builder.Services.AddValidation();
 builder.Services.AddBlobs();
 

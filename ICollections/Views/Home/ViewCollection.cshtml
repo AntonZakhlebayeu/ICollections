@@ -5,16 +5,19 @@
 
 @functions 
 {
-    string GetUserRole()
+    async Task<string> GetUserRole()
     {
         if (!User.Identity!.IsAuthenticated) 
             return "user";
-        
-        var data = ViewBag.userService as IUserService;
 
-        var userRole = data!.GetUserByEmail(User!.Identity!.Name!).Result!.Role;
+        var userService = ViewBag.userService as IUserService;
+        var roleService = ViewBag.roleService as IRoleService;
 
-        return userRole!;
+        var user = await userService!.GetUserByEmail(User!.Identity!.Name!);
+
+        var userRole = roleService!.GetUserRole(user);
+
+        return userRole;
     }
 
     string GetTheUserId(string userId)
@@ -82,7 +85,7 @@
     <h5 class="theme-other-text"><i>@Model.LastEditDate</i></h5>
 </div>
 
-@if (GetTheUserId(Model.AuthorId!) == User.Identity!.Name || GetUserRole() != "user")
+@if (GetTheUserId(Model.AuthorId!) == User.Identity!.Name || await GetUserRole() != "user")
 {
     <form action="/Home/EditCollection/@Model.Id">
         <div align="right" style="margin-bottom: 20px">
@@ -100,7 +103,7 @@
 
 @switch (Model.CollectionItems!.Any())
 {
-    case false when (GetTheUserId(Model.AuthorId!) == User.Identity!.Name || GetUserRole() != "user"):
+    case false when (GetTheUserId(Model.AuthorId!) == User.Identity!.Name || await GetUserRole() != "user"):
         <div class="text-center col-md-auto">
             <h3 class="lng-CollectionEmpty theme-main-text"><b>Your collection is empty, expand it by adding new item in collection.</b></h3>
         </div>
@@ -147,7 +150,7 @@
 
 <br/>
 
-@if (GetTheUserId(Model.AuthorId!) == User.Identity!.Name || GetUserRole() != "user")
+@if (GetTheUserId(Model.AuthorId!) == User.Identity!.Name || await GetUserRole() != "user")
 {
     <form action="/Home/AddItem/@Model.Id">
         <div class="text-center">
