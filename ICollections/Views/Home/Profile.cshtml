@@ -1,17 +1,15 @@
-@using ICollections.Data
-@using Microsoft.EntityFrameworkCore
 @model ICollections.Models.User
-@using ICollections.Data.Interfaces
+@using ICollections.Services.Interfaces
 @using Microsoft.AspNetCore.Mvc.TagHelpers
 @using System.Web
 
 @{
-    var userData = ViewBag.userData as IUserRepository;
-    var collectionData = ViewBag.collectionData as ICollectionRepository;
+    var userService = ViewBag.userService as IUserService;
+    var collectionService = ViewBag.collectionService as ICollectionService;
 
-    var userId = userData!.GetSingleAsync(u => u.Email == User.Identity!.Name).Result!.Id;
+    var userId = userService!.GetUserByEmail(User!.Identity!.Name!).Result!.Id;
 
-    var userCollections = collectionData!.FindBy(p => p.AuthorId == userId);
+    var userCollections = collectionService!.GetCollectionsByUserId(userId);
 }
 
 @functions
@@ -70,7 +68,7 @@
 
 <div class="CollectionsArea">
     
-    <h4 class = "lng-YourCollections" id="text">Your collections:</h4>
+    <h4 class = "lng-YourCollections theme-main-text">Your collections:</h4>
     <br/>
 
     <div class="row row-cols-1 row-cols-md-3 g-4 theme-main-text">

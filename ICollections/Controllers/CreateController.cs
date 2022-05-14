@@ -11,13 +11,13 @@ public class CreateController : Controller
 {
     private readonly ISaveFileAsync _saveFileAsync;
     private readonly ICollectionService _collectionService;
-    private readonly IItemManager _itemManager;
+    private readonly IItemService _itemService;
     
 
-    public CreateController(ISaveFileAsync saveFileAsync, IItemManager itemManager, ICollectionService collectionService)
+    public CreateController(ISaveFileAsync saveFileAsync, IItemService itemService, ICollectionService collectionService)
     {
         _saveFileAsync = saveFileAsync;
-        _itemManager = itemManager;
+        _itemService = itemService;
         _collectionService = collectionService;
     }
     
@@ -96,7 +96,7 @@ public class CreateController : Controller
 
         currentCollection.CollectionItems!.Add(newItem);
 
-        await _itemManager.AddItem(newItem);
+        await _itemService.AddItem(newItem);
 
         return await Task.Run(() => RedirectToAction("ViewCollection", "Home", currentCollection));
     }   

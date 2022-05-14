@@ -1,5 +1,5 @@
 @model ICollections.ViewModels.SearchViewModel
-@using ICollections.Data.Interfaces
+@using ICollections.Services.Interfaces
 @using System.Web
 
 <link rel="stylesheet" title="theme" href="#">
@@ -9,7 +9,7 @@
 <script src="https://unpkg.com/showdown/dist/showdown.min.js"></script>
 
 @{
-    var data = ViewBag.itemData as IItemRepository;
+    var data = ViewBag.itemService as IItemService;
 }
 
 @functions 
@@ -28,7 +28,7 @@
 }
 <script src="https://unpkg.com/showdown/dist/showdown.min.js"></script>
 <script>
-    var md, context;
+    let md, context;
 
     function GetConvertedString(md, context) {
         let converter = new showdown.Converter();
@@ -56,18 +56,21 @@
                     {
                         <img style="display: block; margin: 0 auto" src="https://nikminerstorage.blob.core.windows.net/images/@(item.FileName)" class="rounded-start" alt="Collection photo" width="130px" height="80px">
                     }
-                    @{
-                        var itemId = "description" + item.Id;
-                    }
-                    <div id=@itemId></div>
-                    <script>
+                    <div class="card-body">
+                        <h5 class="card-title"><a class="link" href="/Home/ViewItem/@item.CollectionId/@item.Id">@item.Title</a></h5>
+                        @{
+                            var itemId = "description" + item.Id;
+                        }
+                        <div id=@itemId></div>
+                        <script>
                         md = "@Html.Raw(HttpUtility.JavaScriptStringEncode(GetContentPart(item.Description!)))";
                         context = "@Html.Raw(HttpUtility.JavaScriptStringEncode(GetContentPart(itemId)))";
                         
                         GetConvertedString(md,  context);
                     </script>
-                    <div class="card-footer">
-                        <p class="card-text text-muted">@item.LastEditDate</p>
+                        <div class="card-footer">
+                            <p class="card-text text-muted">@item.LastEditDate</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -76,7 +79,7 @@
 }
 else
 {
-    <div id="text" style="margin-bottom: 12px">
+    <div class="theme-main-text" style="margin-bottom: 12px">
         <h3 class="lng-SearchResult">Search results: </h3>
     </div>
 

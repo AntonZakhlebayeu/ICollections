@@ -11,14 +11,14 @@ public class EditController : Controller
     private readonly ISaveFileAsync _saveFileAsync;
     private readonly IDeleteBlob _deleteBlob;
     private readonly ICollectionService _collectionService;
-    private readonly IItemManager _itemManager;
+    private readonly IItemService _itemService;
 
-    public EditController(ISaveFileAsync saveFileAsync, IDeleteBlob deleteBlob, ICollectionService collectionService, IItemManager itemManager)
+    public EditController(ISaveFileAsync saveFileAsync, IDeleteBlob deleteBlob, ICollectionService collectionService, IItemService itemService)
     {
         _saveFileAsync = saveFileAsync;
         _deleteBlob = deleteBlob;
         _collectionService = collectionService;
-        _itemManager = itemManager;
+        _itemService = itemService;
     }
     
     [Authorize]
@@ -86,7 +86,7 @@ public class EditController : Controller
         
         if (!ModelState.IsValid) return await Task.Run(() => View(editItemViewModel));
 
-        var editingItem = _itemManager.GetItemById(itemId);
+        var editingItem = _itemService.GetItemById(itemId);
         
         var resultingString = "";
         if (Request.Form.Files.Count != 0)
@@ -111,7 +111,7 @@ public class EditController : Controller
             editingItem.FileName = resultingString;
         }
 
-        await _itemManager.Save();
+        await _itemService.Save();
 
         return await Task.Run(() => Redirect($"/Home/ViewItem/{collectionId}/{itemId}"));
     }

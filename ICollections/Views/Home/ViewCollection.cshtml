@@ -1,5 +1,5 @@
 @model ICollections.Models.Collection;
-@using ICollections.Data.Interfaces;
+@using ICollections.Services.Interfaces;
 @using Microsoft.AspNetCore.Mvc.TagHelpers
 @using System.Web
 
@@ -10,18 +10,18 @@
         if (!User.Identity!.IsAuthenticated) 
             return "user";
         
-        var data = ViewBag.userData as IUserRepository;
+        var data = ViewBag.userService as IUserService;
 
-        var userRole = data!.GetSingleAsync(u => u.Email == User.Identity!.Name).Result!.Role;
+        var userRole = data!.GetUserByEmail(User!.Identity!.Name!).Result!.Role;
 
         return userRole!;
     }
 
     string GetTheUserId(string userId)
     {
-        var data = ViewBag.userData as IUserRepository;
+        var data = ViewBag.userService as IUserService;
         
-        var userEmail = data!.FindAsync(userId).Result!.Email;
+        var userEmail = data!.GetUserById(userId).Result!.Email;
 
         return userEmail;
     }

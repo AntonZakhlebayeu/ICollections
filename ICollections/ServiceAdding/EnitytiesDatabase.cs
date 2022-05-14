@@ -10,7 +10,7 @@ public static class EntitiesDatabase
     {
         serviceCollection.AddScoped<IUserService, UserService>()
             .AddScoped<ICollectionService, CollectionService>()
-            .AddScoped<IItemManager, ItemService>()
+            .AddScoped<IItemService, ItemService>()
             .AddScoped<ILikeService, LikeService>()
             .AddScoped<ICommentService, CommentService>()
             .AddSingleton<IUserIdProvider, CustomUserIdProvider>();;

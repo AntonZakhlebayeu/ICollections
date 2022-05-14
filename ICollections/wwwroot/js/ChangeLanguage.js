@@ -274,6 +274,10 @@ const langArr = {
         "en": "Send!",
         "ru": "Оставить!",
     },
+    "SearchResult": {
+        "en": "Search Results: ",
+        "ru": "Результаты поиска: ",
+    },
 }
 
 select.addEventListener('change',changeURLLanguage);

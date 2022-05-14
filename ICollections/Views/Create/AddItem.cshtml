@@ -1,12 +1,12 @@
 @model ICollections.ViewModels.ItemViewModel
-@using ICollections.Data.Interfaces
+@using ICollections.Services.Interfaces
 
 @{
-    var data = ViewBag.collectionData as ICollectionRepository;
+    var data = ViewBag.collectionService as ICollectionService;
 
     var collectionId = ViewBag.collectionId is int ? (int)ViewBag.collectionId : 0;
 
-    var collection = data!.GetSingleAsync(r => r.Id == collectionId).Result;
+    var collection = data!.GetCollectionById(collectionId);
 }
 
 <link rel="stylesheet" title="theme" href="#">

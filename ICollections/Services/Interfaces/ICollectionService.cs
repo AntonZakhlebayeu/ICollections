@@ -11,4 +11,5 @@ public interface ICollectionService
     void AddCollection(Collection collection);
     Collection GetCollectionById(int id);
     ValueTask Save();
+    List<Collection> GetAll();
 }

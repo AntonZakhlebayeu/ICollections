@@ -1,15 +1,15 @@
 @model ICollections.ViewModels.EditItemViewModel
-@using ICollections.Data.Interfaces
+@using ICollections.Services.Interfaces
 
 @{
-    var collectionData = ViewBag.collectionData as ICollectionRepository;
-    var itemData = ViewBag.itemData as IItemRepository;
+    var collectionService = ViewBag.collectionService as ICollectionService;
+    var itemService = ViewBag.itemService as IItemService;
 
     var collectionId = ViewBag.collectionId is int ? (int)ViewBag.collectionId : 0;
     var itemId = ViewBag.itemId;
 
-    var currentCollection = collectionData!.FindAsync(collectionId).Result;
-    var editingItem = itemData!.FindAsync(itemId is int id ? id : 0).Result;
+    var currentCollection = collectionService!.GetCollectionById(collectionId);
+    var editingItem = itemService!.GetItemById(itemId);
 }
 
 <link rel="stylesheet" title="theme" href="#">

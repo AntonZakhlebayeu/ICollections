@@ -5,12 +5,19 @@
 @inject ICollectionRepository CollectionRepository;
 @inject IItemRepository ItemRepository;
 @inject ILikeRepository LikeRepository;
+@inject IUserService UserService;
+@inject ICollectionService CollectionService;
+@inject IItemService ItemService;  
 @inject ICommentService CommentService
 @{
     Layout = "_Layout";
+    ViewBag.userService = UserService;
+    ViewBag.collectionService = CollectionService;
+    ViewBag.commentService = CommentService;
+    ViewBag.itemService = ItemService;
+    
     ViewBag.userData = UserRepository;
     ViewBag.collectionData = CollectionRepository;
     ViewBag.itemData = ItemRepository;
     ViewBag.likeData = LikeRepository;
-    ViewBag.commentService = CommentService;
 }

@@ -1,23 +1,18 @@
 using HigLabo.Core;
 using ICollections.Data.Interfaces;
 using ICollections.Models;
+using ICollections.Services.Interfaces;
 using ICollections.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ICollections.Controllers;
 
-//TODO
-//Delete repos
-
 public class SearchController : Controller
 {
-    private readonly ICollectionRepository _collectionRepository;
-    private readonly IItemRepository _itemRepository;
-
-    public SearchController(IItemRepository itemRepository, ICollectionRepository collectionRepository)
+    private readonly IItemService _itemService;
+    public SearchController(IItemService itemService)
     {
-        _itemRepository = itemRepository;
-        _collectionRepository = collectionRepository;
+        _itemService = itemService;
     }
     
     [Route("/Home/Search/")]
@@ -31,27 +26,8 @@ public class SearchController : Controller
     [Route("/Home/Search/{searchString}")]
     public async Task<IActionResult> SearchResultView(string searchString, SearchViewModel searchViewModel)
     {
-        if (!searchString.IsNullOrEmpty())
-        {
-            searchViewModel.resultItems = _itemRepository.FullTextSearch(searchString).ToList();
-            
-            var itemsInCollection = _collectionRepository.FullTextSearch(searchString);
-
-            foreach (var collection in itemsInCollection)
-            {
-                collection.CollectionItems = _itemRepository.FindBy(c => c.CollectionId == collection.Id).ToList();
-
-                foreach (var item in collection.CollectionItems!.Where(item => !searchViewModel.resultItems.Contains(item)))
-                {
-                    searchViewModel.resultItems.Add(item);
-                }
-            }
-        }
-        else
-        {
-            searchViewModel.resultItems = new List<Item>();
-        }
-
+        searchViewModel.resultItems = _itemService.FullTextSearch(searchString);
+        
         return await Task.Run(() => View("Search", searchViewModel));
     }
 }

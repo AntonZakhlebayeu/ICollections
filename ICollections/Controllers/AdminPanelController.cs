@@ -11,15 +11,15 @@ public class AdminPanelController : Controller
     private readonly IDeleteBlob _deleteBlob;
     private readonly IUserService _userService;
     private readonly ICollectionService _collectionService;
-    private readonly IItemManager _itemManager;
+    private readonly IItemService _itemService;
 
-    public AdminPanelController(IUserValidation userValidation, IDeleteBlob deleteBlob, IUserService userService, ICollectionService collectionService, IItemManager itemManager)
+    public AdminPanelController(IUserValidation userValidation, IDeleteBlob deleteBlob, IUserService userService, ICollectionService collectionService, IItemService itemService)
     {
         _userService = userService;
         _userValidation = userValidation;
         _deleteBlob = deleteBlob;
         _collectionService = collectionService;
-        _itemManager = itemManager;
+        _itemService = itemService;
     }
     
     [Authorize]
@@ -47,7 +47,7 @@ public class AdminPanelController : Controller
 
             foreach (var collection in userCollections)
             {
-                var itemsToDelete = _itemManager.GetItemsByCollectionId(collection.Id);
+                var itemsToDelete = _itemService.GetItemsByCollectionId(collection.Id);
                 foreach (var item in itemsToDelete)
                 {
                     if (item.FileName != "")
@@ -55,7 +55,7 @@ public class AdminPanelController : Controller
                         _deleteBlob.DeleteBlob(item.FileName);
                     }
                     
-                    _itemManager.DeleteItem(item);
+                    _itemService.DeleteItem(item);
                 }
                 
                 if (collection.FileName != "")

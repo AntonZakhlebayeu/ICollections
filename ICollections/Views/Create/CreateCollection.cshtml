@@ -1,9 +1,9 @@
 @model ICollections.ViewModels.CollectionViewModel
-@using ICollections.Data.Interfaces
+@using ICollections.Services.Interfaces
 @using Microsoft.AspNetCore.Identity;
 
 @{
-    var data = ViewBag.userData as IUserRepository;
+    var data = ViewBag.userService as IUserService;
 }
 
 <link rel="stylesheet" title="theme" href="#">
@@ -12,7 +12,7 @@
 
 <form method="post" asp-action="CreateCollection" enctype="multipart/form-data">
     <div asp-validation-summary="ModelOnly"></div>
-    <input type="hidden" name="AuthorId" value="@data!.GetSingleAsync(u => u.UserName == User.Identity!.Name).Result!.Id" asp-for="AuthorId"/>
+    <input type="hidden" name="AuthorId" value="@data!.GetUserByEmail(User!.Identity!.Name!).GetAwaiter().GetResult().Id" asp-for="AuthorId"/>
     <div class="drop-zone col-4">
         <span class="drop-zone__prompt lng-DropImage lng-DropImageCollection theme-main-text">Drop file here or click to upload</span>
         <input type="file" name="myFile" class="drop-zone__input" accept="image/*"/>

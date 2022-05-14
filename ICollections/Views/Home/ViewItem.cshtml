@@ -1,18 +1,15 @@
-@using Microsoft.EntityFrameworkCore
 @model ICollections.Models.Item
-@using ICollections.Data.Interfaces
 @using Microsoft.AspNetCore.Mvc.TagHelpers
 @using System.Web
 @using ICollections.Services.Interfaces
 
 @functions 
 {
-    
     string GetTheUserId(string userId)
     {
-        var data = ViewBag.userData as IUserRepository;
+        var data = ViewBag.userService as IUserService;
 
-        var userEmail = data!.FindAsync(userId).Result!.Email;
+        var userEmail = data!.GetUserById(userId).Result!.Email;
 
         return userEmail;
     }
@@ -21,27 +18,27 @@
     {
         if (!User.Identity!.IsAuthenticated) return "user";
         
-        var data = ViewBag.userData as IUserRepository;
+        var data = ViewBag.userService as IUserService;
 
-        var userRole = data!.GetSingleAsync(u => u.Email == User.Identity!.Name).Result!.Role;
+        var userRole = data!.GetUserByEmail(User!.Identity!.Name!).Result!.Role;
 
         return userRole!;
     }
 
     string GetAuthorId(int collectionId)
     {
-        var data = ViewBag.collectionData as ICollectionRepository;
+        var data = ViewBag.collectionService as ICollectionService;
 
-        var authorId = data!.FindAsync(collectionId).Result!.AuthorId;
+        var authorId = data!.GetCollectionById(collectionId).AuthorId;
 
         return authorId!;
     }
 }
 
 @{
-    var collectionData = ViewBag.collectionData as ICollectionRepository;
+    var collectionService = ViewBag.collectionService as ICollectionService;
 
-    var currentCollection = collectionData!.FindAsync(Model.CollectionId).Result;
+    var currentCollection = collectionService!.GetCollectionById(Model.CollectionId);
 
     var commentService = ViewBag.commentService as ICommentService;
 }
@@ -71,7 +68,7 @@
     <h2 class="lng-ParentCollection">Collection:</h2>
     <ul>
         <li>
-            <a href="/Home/ViewCollection/@Model.CollectionId">@collectionData!.FindAsync(Model.CollectionId).Result!.Title</a>
+            <a href="/Home/ViewCollection/@Model.CollectionId">@collectionService!.GetCollectionById(Model.CollectionId).Title</a>
         </li>
     </ul>
 </div>

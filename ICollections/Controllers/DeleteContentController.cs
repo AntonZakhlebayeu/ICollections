@@ -7,13 +7,13 @@ public class DeleteContentController : Controller
 {
     private readonly IDeleteBlob _deleteBlob;
     private readonly ICollectionService _collectionService;
-    private readonly IItemManager _itemManager;
+    private readonly IItemService _itemService;
 
-    public DeleteContentController(IDeleteBlob deleteBlob, ICollectionService collectionService, IItemManager itemManager)
+    public DeleteContentController(IDeleteBlob deleteBlob, ICollectionService collectionService, IItemService itemService)
     {
         _deleteBlob = deleteBlob;
         _collectionService = collectionService;
-        _itemManager = itemManager;
+        _itemService = itemService;
     }
     
     [Route("/Home/ViewItem/{collectionId:int}/DeleteCollection")]
@@ -21,7 +21,7 @@ public class DeleteContentController : Controller
     {
         var objectToDelete = _collectionService.GetCollectionById(collectionId);
 
-        var itemsToDelete = _itemManager.GetItemsByCollectionId(collectionId);
+        var itemsToDelete = _itemService.GetItemsByCollectionId(collectionId);
 
         foreach (var item in itemsToDelete)
         {
@@ -30,7 +30,7 @@ public class DeleteContentController : Controller
                 _deleteBlob.DeleteBlob(item.FileName);
             }
             
-            _itemManager.DeleteItem(item);
+            _itemService.DeleteItem(item);
         }
 
         if (objectToDelete.FileName != "")
@@ -46,14 +46,14 @@ public class DeleteContentController : Controller
     [Route("/Home/ViewItem/{collectionId:int}/{itemId:int}/DeleteItem")]
     public async Task<IActionResult> DeleteItem(int itemId, int collectionId)
     {
-        var objectToDelete = _itemManager.GetItemById(itemId);
+        var objectToDelete = _itemService.GetItemById(itemId);
         
         if (objectToDelete.FileName != "")
         {
             _deleteBlob.DeleteBlob(objectToDelete.FileName);
         }
         
-        _itemManager.DeleteItem(objectToDelete);
+        _itemService.DeleteItem(objectToDelete);
 
         return await Task.Run(() => Redirect($"/Home/ViewCollection/{collectionId}"));
     }

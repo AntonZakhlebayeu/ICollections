@@ -49,4 +49,9 @@ public class CollectionService : ICollectionService
     {
         await _collectionRepository.CommitAsync();
     }
+
+    public List<Collection> GetAll()
+    {
+        return _collectionRepository.GetAll().ToList();
+    }
 }

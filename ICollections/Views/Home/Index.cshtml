@@ -1,12 +1,12 @@
 ﻿@model ICollections.Models.User
-@using ICollections.Data.Interfaces
+@using ICollections.Services.Interfaces
 @using System.Web
 
 @{
-    var userData = ViewBag.userData as IUserRepository;
-    var collectionData = ViewBag.collectionData as ICollectionRepository;
+    var userService = ViewBag.userService as IUserService;
+    var collectionService = ViewBag.collectionService as ICollectionService;
 
-    var userCollections = collectionData!.GetAll().ToList();
+    var userCollections = collectionService!.GetAll();
 }
 
 @functions
@@ -75,7 +75,7 @@
                         GetConvertedString(md,  context);
                     </script>
                     <p class="card-text">Author:</p>
-                    <p class="card-text">@userData!.FindAsync(collection!.AuthorId!).Result!.NickName</p>
+                    <p class="card-text">@userService!.GetUserById(collection.AuthorId!).Result!.NickName</p>
                     <p class="card-text text-muted">@collection.LastEditDate</p>
                 </div>
             </div>

@@ -1,12 +1,12 @@
 @model ICollections.ViewModels.EditCollectionViewModel
-@using ICollections.Data.Interfaces
+@using ICollections.Services.Interfaces
 
 @{
-    var data = ViewBag.collectionData as ICollectionRepository;
+    var data = ViewBag.collectionService as ICollectionService;
 
     var collectionId = ViewBag.collectionId;
 
-    var editingCollection = data!.FindAsync(collectionId is int id ? id : 0).Result;
+    var editingCollection = data!.GetCollectionById(collectionId);
 }
 
 <link rel="stylesheet" title="theme" href="#">

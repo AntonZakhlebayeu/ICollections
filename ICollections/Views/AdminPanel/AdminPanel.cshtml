@@ -1,12 +1,12 @@
 ﻿@model IEnumerable<ICollections.Models.User>
-@using ICollections.Data.Interfaces
+@using ICollections.Services.Interfaces
 
 <script src="~/js/AdminOptions.js"></script>
 
 @{
-    var data = ViewBag.userData as IUserRepository;
+    var userService = ViewBag.userService as IUserService;
     
-    var currentUser = data!.GetSingleAsync(u => u.Email == User.Identity!.Name).Result;
+    var currentUser = await userService!.GetUserByEmail(User!.Identity!.Name!);
 }
 
 <div class="container block2">

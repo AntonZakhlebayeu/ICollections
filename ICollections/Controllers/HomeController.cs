@@ -11,13 +11,13 @@ public class HomeController : Controller
     private readonly IUserService _userService;
     private readonly IUserValidation _userValidation;
     private readonly ICollectionService _collectionService;
-    private readonly IItemManager _itemManager;
+    private readonly IItemService _itemService;
     private readonly ILikeService _likeService;
     private readonly ICollectionValidation _collectionValidation;
     private readonly IItemValidation _itemValidation;
     private readonly ILikeValidation _likeValidation;
     
-    public HomeController(IUserValidation userValidation, ICollectionValidation collectionValidation, IItemValidation itemValidation, ILikeValidation likeValidation, IUserService userService, ICollectionService collectionService, IItemManager itemManager, ILikeService likeService)
+    public HomeController(IUserValidation userValidation, ICollectionValidation collectionValidation, IItemValidation itemValidation, ILikeValidation likeValidation, IUserService userService, ICollectionService collectionService, IItemService itemService, ILikeService likeService)
     {
         _userValidation = userValidation;
         _collectionValidation = collectionValidation;
@@ -25,7 +25,7 @@ public class HomeController : Controller
         _likeValidation = likeValidation;
         _userService = userService;
         _collectionService = collectionService;
-        _itemManager = itemManager;
+        _itemService = itemService;
         _likeService = likeService;
     }
     
@@ -57,7 +57,7 @@ public class HomeController : Controller
             return await Task.Run(() => RedirectToAction("Profile", "Home"));
         
         var userCollection = _collectionService.GetCollectionById(collectionId);
-        userCollection.CollectionItems = _itemManager.GetItemsByCollectionId(collectionId);
+        userCollection.CollectionItems = _itemService.GetItemsByCollectionId(collectionId);
 
         return await Task.Run(() => View(userCollection));
     }
@@ -69,7 +69,7 @@ public class HomeController : Controller
         if (_itemValidation.IsItemNull(itemId)) 
             return await Task.Run(() => RedirectToAction("Profile", "Home"));
 
-        var item = _itemManager.GetItemById(itemId);
+        var item = _itemService.GetItemById(itemId);
 
         item.Likes = _likeService.GetLikesByItemId(item.Id);
         
@@ -88,7 +88,7 @@ public class HomeController : Controller
         if (_likeValidation.IsUserOwner(User.Identity!.Name!, collectionId)) 
             return await Task.Run(() => BadRequest("You can't like your own item"));
 
-        var item = _itemManager.GetItemById(itemId);
+        var item = _itemService.GetItemById(itemId);
 
         var userId = _userService.GetUserByEmail(User.Identity.Name!).GetAwaiter().GetResult().Id;
         var existingLike = _likeService.IsLikeExists(userId, item.Id);
