@@ -2,17 +2,17 @@
 @using Microsoft.AspNetCore.Identity
 @inject SignInManager<User> SignInManager
 @inject UserManager<User> UserManager
-@using ICollections.Data.Interfaces
+@using ICollections.Services.Interfaces
 
 @{
-    var data = ViewBag.userData as IUserRepository;
+    var data = ViewBag.userService as IUserService;
 }
 
 @functions
 {
-    string GetUserFullName(IUserRepository? db)
+    string GetUserFullName(IUserService? db)
     {
-        var user = db!.GetSingleAsync(u => u.Email == User.Identity!.Name).Result;
+        var user = db!.GetUserByEmail(User!.Identity!.Name!).GetAwaiter().GetResult();
         return user!.FirstName + " " + user.LastName;
     }
 
