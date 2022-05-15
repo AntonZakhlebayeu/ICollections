@@ -10,6 +10,7 @@
 @inject IItemService ItemService;  
 @inject ICommentService CommentService
 @inject IRoleService RoleService
+@inject ITagService TagService;
 @{
     Layout = "_Layout";
     ViewBag.userService = UserService;
@@ -17,4 +18,5 @@
     ViewBag.commentService = CommentService;
     ViewBag.itemService = ItemService;
     ViewBag.roleService = RoleService;
+    ViewBag.tagService = TagService;
 }

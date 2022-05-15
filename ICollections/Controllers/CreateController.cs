@@ -12,13 +12,14 @@ public class CreateController : Controller
     private readonly ISaveFileAsync _saveFileAsync;
     private readonly ICollectionService _collectionService;
     private readonly IItemService _itemService;
-    
+    private readonly ITagService _tagService;
 
-    public CreateController(ISaveFileAsync saveFileAsync, IItemService itemService, ICollectionService collectionService)
+    public CreateController(ISaveFileAsync saveFileAsync, IItemService itemService, ICollectionService collectionService, ITagService tagService)
     {
         _saveFileAsync = saveFileAsync;
         _itemService = itemService;
         _collectionService = collectionService;
+        _tagService = tagService;
     }
     
     [Authorize]
@@ -89,14 +90,21 @@ public class CreateController : Controller
         {
             CollectionId = itemViewModel.CollectionId, Title = itemViewModel.Title,
             Description = itemViewModel.Description, LastEditDate = DateTime.UtcNow.AddHours(3).ToString("MM/dd/yyyy H:mm"),
-            Date = itemViewModel.Date, Brand = itemViewModel.Brand, FileName = resultingStrings,
+            Date = itemViewModel.Date, Brand = itemViewModel.Brand, FileName = resultingStrings, TagsCollection = itemViewModel.Tags!.Remove(itemViewModel.Tags.Length - 1)
         };
 
         var currentCollection = _collectionService.GetCollectionByItemId(newItem.CollectionId);
 
         currentCollection.CollectionItems!.Add(newItem);
+        
+        var tags = itemViewModel.Tags!.Remove(itemViewModel.Tags.Length - 1).Split(" ").ToList();
 
         await _itemService.AddItem(newItem);
+        
+        foreach (var tag in tags)
+        {
+            await _tagService.AddTag(tag);
+        }
 
         return await Task.Run(() => RedirectToAction("ViewCollection", "Home", currentCollection));
     }   

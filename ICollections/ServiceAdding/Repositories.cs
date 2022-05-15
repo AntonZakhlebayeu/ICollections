@@ -13,6 +13,7 @@ public static class Repositories
             .AddScoped<ILikeRepository, LikeRepository>()
             .AddScoped<IItemRepository, ItemRepository>()
             .AddScoped<ICommentRepository, CommentRepository>()
-            .AddScoped<IRoleRepository, RoleRepository>();
+            .AddScoped<IRoleRepository, RoleRepository>()
+            .AddScoped<ITagRepository, TagRepository>();
     }
 }

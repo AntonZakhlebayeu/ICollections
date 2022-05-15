@@ -1,5 +1,7 @@
 @model ICollections.ViewModels.ItemViewModel
 @using ICollections.Services.Interfaces
+@using System.Text.Json;
+@using System.Text.Json.Serialization;
 
 @{
     var data = ViewBag.collectionService as ICollectionService;
@@ -7,6 +9,8 @@
     var collectionId = ViewBag.collectionId is int ? (int)ViewBag.collectionId : 0;
 
     var collection = data!.GetCollectionById(collectionId);
+    
+    var tagService = ViewBag.tagService as ITagService;
 }
 
 <link rel="stylesheet" title="theme" href="#">
@@ -38,6 +42,64 @@
         <textarea type="text" class="form-control" name="Description" aria-label="Description" asp-for="Description"></textarea>
         <span asp-validation-for="Description"></span>
     </div>
+    
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text lng-Tags">Tags:</span>
+        </div>
+        <input type="text" class="form-control" id="tags">
+        <button type="button" id="addTag" class="btn btn-outline-primary lng-TagButton">Add Tag</button>
+        <span asp-validation-for="Tags"></span>
+    </div>
+    
+    <div id="tagsArea">
+        <input type="hidden" aria-label="Tags" asp-for="Tags" id="tagsTagsToAdd"/>
+    </div>
+
+
+    <link
+          href="https://code.jquery.com/ui/1.12.1/themes/ui-lightness/jquery-ui.css"
+          rel="stylesheet"
+    />
+    
+    <script
+          src="https://code.jquery.com/jquery-3.6.0.min.js"
+          integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+          crossorigin="anonymous"
+    ></script>
+    
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"
+        integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer"
+    ></script>
+    
+    <script>
+        var $ = jQuery.noConflict();
+        $(document).ready(function () {
+          $(function () {
+            let availableTags = @Html.Raw(JsonSerializer.Serialize(tagService!.GetAll()));
+                $('#tags').autocomplete({
+                      source: availableTags,
+                });
+            });     
+        });
+        
+        function addTags() {
+            let tag = document.getElementById("tags").value;
+            let li = document.createElement("li");
+            li.textContent = "#" + tag;
+            li.className = "theme-main-text";
+            let div = document.getElementById("tagsArea");
+            div.append(li)
+            document.getElementById("tags").value = "";
+            
+            document.getElementById("tagsTagsToAdd").value += tag + " ";
+        } 
+        
+        document.getElementById("addTag").addEventListener("click", addTags);
+    </script>
 
     <br/>
 

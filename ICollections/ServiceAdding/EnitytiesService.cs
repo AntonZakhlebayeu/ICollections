@@ -14,6 +14,7 @@ public static class EntitiesService
             .AddScoped<ILikeService, LikeService>()
             .AddScoped<ICommentService, CommentService>()
             .AddSingleton<IUserIdProvider, CustomUserIdProvider>()
-            .AddScoped<IRoleService, RoleService>();
+            .AddScoped<IRoleService, RoleService>()
+            .AddScoped<ITagService, TagService>();
     }
 }

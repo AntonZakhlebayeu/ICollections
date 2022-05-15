@@ -2,6 +2,7 @@
 @using Microsoft.AspNetCore.Mvc.TagHelpers
 @using System.Web
 @using ICollections.Services.Interfaces
+@using System.Text
 
 @functions 
 {
@@ -37,6 +38,13 @@
 
         return authorId!;
     }
+
+    string[] GetTags()
+    {
+        var tags = Model.TagsCollection!.Split(" ");
+
+        return tags;
+    }
 }
 
 @{
@@ -66,6 +74,13 @@
 <div class="theme-other-text" style="margin-bottom: 12px">
     <h3 class="lng-CollectionSmallDescription">Description:</h3>
     <div id="description"></div>
+</div>
+
+<div class="theme-other-text" style="margin-bottom: 12px">
+    <h3 class="lng-Tags">Tags:</h3>
+    <div>
+        @foreach (var tag in GetTags()){    <a href="/Home/Tags/@tag">#@tag</a>    }
+    </div>
 </div>
 
 <div class="theme-other-text" style="margin-bottom: 12px">

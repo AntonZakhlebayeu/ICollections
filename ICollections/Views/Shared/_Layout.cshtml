@@ -81,14 +81,10 @@
                     }
                 </ul>
 
-                <ul class="nav navbar-nav mx-auto">
-                    <li class="nav-item">
-                        <div class="input-group">
-                            <input type="search" class="form-control rounded" placeholder="Search" id="searchText" aria-label="Search" aria-describedby="search-addon" value=""/>
-                            <button class="btn btn-outline-success lng-FindButton" onclick="searchMechanism()">Find</button>
-                        </div>
-                    </li>
-                </ul>
+                <form class="form-inline" style="display: flex" id="search" onsubmit="searchMechanism()">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="searchText" aria-describedby="search-addon">
+                    <button class="btn btn-outline-success my-2 my-sm-0 lng-FindButton">Find</button>
+                </form>
 
                 <ul class="navbar-nav">
                     <select class="form-select nav-color" data-lng="en" id="lang-select">
@@ -125,13 +121,11 @@
 <script>
     function searchMechanism() {
         const searchString = document.getElementById("searchText").value;
-        console.log(searchString);
-        window.location.href = "/Home/Search/" + searchString;
-        console.log(searchString)
+        document.getElementById("search").action = "/Home/Search/" + searchString;
     }
 </script>
 
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 <script src="js/ChangeTheme.js"></script>

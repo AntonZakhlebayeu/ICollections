@@ -12,4 +12,5 @@ public interface IItemService
     ValueTask Save();
     List<Item> FullTextSearch(string searchString);
     List<Item> GetAll();
+    List<Item> GetItemsByTag(string tag);
 }

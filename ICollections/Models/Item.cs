@@ -24,10 +24,9 @@ public class Item
     public string? Brand { get; set; }
     
     public string? FileName { get; set; }
-
-    //TODO
-    //Add comments
     
+    public string? TagsCollection { get; set; }
+
     public int CollectionId { get; set; }
 
     public List<Like> Likes { get; set; }

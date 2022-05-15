@@ -18,4 +18,5 @@ public class ItemViewModel
 
     public string? Date { get; init; }
     public string? Brand { get; init; }
+    public string? Tags { get; init; }
 }

@@ -15,6 +15,8 @@ public class EditItemViewModel
          
     [Required]
     public string? Description { get; init; }
+    
+    public string? Tags { get; init; }
 
     public string? Date { get; init; }
     public string? Brand { get; init; }

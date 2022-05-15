@@ -12,13 +12,15 @@ public class EditController : Controller
     private readonly IDeleteBlob _deleteBlob;
     private readonly ICollectionService _collectionService;
     private readonly IItemService _itemService;
+    private readonly ITagService _tagService;
 
-    public EditController(ISaveFileAsync saveFileAsync, IDeleteBlob deleteBlob, ICollectionService collectionService, IItemService itemService)
+    public EditController(ISaveFileAsync saveFileAsync, IDeleteBlob deleteBlob, ICollectionService collectionService, IItemService itemService, ITagService tagService)
     {
         _saveFileAsync = saveFileAsync;
         _deleteBlob = deleteBlob;
         _collectionService = collectionService;
         _itemService = itemService;
+        _tagService = tagService;
     }
     
     [Authorize]
@@ -99,6 +101,13 @@ public class EditController : Controller
         editingItem.Description = editItemViewModel.Description;
         editingItem.Date = editItemViewModel.Date;
         editingItem.Brand = editItemViewModel.Brand;
+        editingItem.TagsCollection = editItemViewModel.Tags!.Remove(editItemViewModel.Tags.Length - 1);
+        
+        var tagsToAdd = editItemViewModel.Tags!.Remove(editItemViewModel.Tags.Length - 1).Split(" ").ToList();
+        foreach (var tag in tagsToAdd)
+        {
+            await _tagService.AddTag(tag);
+        }
 
         if (Request.Form.Files.Count != 0 && editingItem.FileName != "" || 
             Request.Form.Files.Count == 0 && editingItem.FileName != "" && editItemViewModel.DeleteImage == "true")

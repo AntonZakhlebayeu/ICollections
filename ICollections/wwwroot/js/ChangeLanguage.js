@@ -42,7 +42,7 @@ const langArr = {
         "en": "Register",
         "ru": "Зарегистрироваться",
     },
-    "LoginLayout": {
+    "Login": {
         "en": "Login",
         "ru": "Войти",
     },
@@ -54,7 +54,7 @@ const langArr = {
         "en": "Create Collection",
         "ru": "Создать коллекцию",
     },
-    "LogoutDropDown": {
+    "Logout": {
         "en": "Logout",
         "ru": "Выйти",
     },
@@ -126,12 +126,6 @@ const langArr = {
         "en": "Demote to user",
         "ru": "Понизить до пользователя",
     },
-    //TODO
-    //Fix repetitions
-    "Logout": {
-        "en": "Logout",
-        "ru": "Выйти",
-    },
     "CollectionTitle": {
         "en": "Title:",
         "ru": "Заголовок:",
@@ -163,12 +157,6 @@ const langArr = {
     "FilmsTheme": {
         "en": "Films",
         "ru": "Фильмы",
-    },
-    //TODO
-    //Fix repetitions
-    "CreateCollectionButton": {
-        "en": "Create",
-        "ru": "Создать",
     },
     "alcoholDate": {
         "en": "Add date of manufacture",
@@ -215,7 +203,7 @@ const langArr = {
         "ru": "Добавить Предмет",
     },
     "CollectionEmptyNotUser": {
-        "en": "This is collection is empty, author will expand id by adding new items.",
+        "en": "This is collection is empty, author will expand it by adding new items.",
         "ru": "Эта коллекция пуста, автор расширит ее добавив новые предметы.",
     },
     "Edit": {
@@ -278,6 +266,10 @@ const langArr = {
         "en": "Search Results: ",
         "ru": "Результаты поиска: ",
     },
+    "Author": {
+        "en": "Author: ",
+        "ru": "Автор: ",
+    }
 }
 
 select.addEventListener('change',changeURLLanguage);
@@ -299,9 +291,9 @@ function changeLanguage() {
     location.href = window.location.pathname + "#" + lang;
     select.value = lang;
     for (let key in langArr) {
-        let elem = document.querySelector(".lng-" + key);
+        let elem = document.querySelectorAll(".lng-" + key);
         if (elem) {
-            elem.innerHTML = langArr[key][lang];
+            elem.forEach(element => element.innerHTML = langArr[key][lang]);
         }
     }
 }

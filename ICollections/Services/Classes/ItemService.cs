@@ -71,4 +71,9 @@ public class ItemService : IItemService
     {
         return _itemRepository.GetAll().ToList();
     }
+
+    public List<Item> GetItemsByTag(string tag)
+    {
+        return _itemRepository.FindBy(t => t.TagsCollection!.Contains(tag)).ToList();
+    }
 }

@@ -72,8 +72,9 @@ public class HomeController : Controller
         var item = _itemService.GetItemById(itemId);
 
         item.Likes = _likeService.GetLikesByItemId(item.Id);
+
+        Console.WriteLine(item.TagsCollection!.Contains("test"));
         
-        Console.WriteLine("Count: " + item.Likes.Count);
 
         return await Task.Run(() => View(item));
     }

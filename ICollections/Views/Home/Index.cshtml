@@ -64,6 +64,7 @@
                 <div class="card-body">
                     <h5 class="card-title"><a class="link" href="/Home/ViewCollection/@collection.Id">@collection.Title</a></h5>
                     <p class="card-header">@collection.Theme</p>
+
                     @{
                         var collectionId = "description" + collection.Id;
                     }
@@ -74,8 +75,11 @@
                         
                         GetConvertedString(md,  context);
                     </script>
-                    <p class="card-text">Author:</p>
-                    <p class="card-text">@userService!.GetUserById(collection.AuthorId!).Result!.NickName</p>
+
+                    <div style="overflow: hidden;">
+                        <p class="card-text lng-Author" style="float: left;">Author:</p>
+                        <p class="card-text" style="float: right;">@userService!.GetUserById(collection.AuthorId!).Result!.NickName</p>
+                    </div>
                     <p class="card-text text-muted">@collection.LastEditDate</p>
                 </div>
             </div>
