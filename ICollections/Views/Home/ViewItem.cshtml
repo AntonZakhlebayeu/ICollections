@@ -158,21 +158,24 @@
     </div>
 }
 
-<h3 class="theme-main-text lng-CommentsTitle">Comments: </h3>
+@if (currentCollection.AddComments == "true")
+{
+    <h3 class="theme-main-text lng-CommentsTitle">Comments: </h3>
 
-<div class="card theme-main-text" id="newComment" style="width: 36rem;">
-    @foreach (var comment in commentService!.GetCommentsInItem(@Model.Id).OrderByDescending(n => n.Id))
-    {
-        <ul class="list-group list-group-flush" style="margin-bottom: 12px;">
-            <li class="list-group-item">@comment.UserNickName</li>
-            <li class="list-group-item">@comment.CommentText</li>
-            <li class="list-group-item">@comment.CommentWhen</li>
-        </ul>
-    }
-</div>
+    <div class="card theme-main-text" id="newComment" style="width: 36rem;">
+        @foreach (var comment in commentService!.GetCommentsInItem(@Model.Id).OrderByDescending(n => n.Id))
+        {
+            <ul class="list-group list-group-flush" style="margin-bottom: 12px;">
+                <li class="list-group-item">@comment.UserNickName</li>
+                <li class="list-group-item">@comment.CommentText</li>
+                <li class="list-group-item">@comment.CommentWhen</li>
+            </ul>
+        }
+    </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.0-preview.2.22153.2/signalr.min.js"></script>
-<script src="/js/comments.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.0-preview.2.22153.2/signalr.min.js"></script>
+    <script src="/js/comments.js"></script>
+}
 
 <script src="/js/ChangeLanguage.js"></script>
 <script src="/js/ChangeTheme.js"></script>

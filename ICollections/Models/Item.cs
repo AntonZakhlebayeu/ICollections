@@ -22,7 +22,7 @@ public class Item
     
     public string? Date { get; set; }
     public string? Brand { get; set; }
-    
+
     public string? FileName { get; set; }
     
     public string? TagsCollection { get; set; }
