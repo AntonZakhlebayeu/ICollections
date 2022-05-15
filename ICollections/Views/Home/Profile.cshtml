@@ -31,15 +31,9 @@
 
 }
 <script src="https://unpkg.com/showdown/dist/showdown.min.js"></script>
+<script src="/js/MarkdownConverter.js"></script>
 <script>
         var md, context; 
-        function GetConvertedString(md, context) {
-            let converter = new showdown.Converter();
-            let html = converter.makeHtml(md);
-            
-            document.getElementById(context).insertAdjacentHTML("afterend", html);
-        }                  
-    GetConvertedString();
 </script>
 
 <link rel="stylesheet" type="text/css" href="~/css/Collections/Collection.css"/>

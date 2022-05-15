@@ -48,15 +48,9 @@
 <link rel="stylesheet" type="text/css" href="~/css/Collections/Collection.css"/>
 
 <script src="https://unpkg.com/showdown/dist/showdown.min.js"></script>
+<script src="/js/MarkdownConverter.js"></script>
 <script>
-    var md, context;
-
-    function GetConvertedString(md, context) {
-        let converter = new showdown.Converter();
-        let html = converter.makeHtml(md);
-        
-        document.getElementById(context).insertAdjacentHTML("afterend", html);
-    }                  
+        var md, context; 
 </script>
 
 @if (Model.FileName != "")
@@ -166,16 +160,9 @@
     let pageTitle = (getCurrentLanguage() === 'en') ? 'View Collection - ICollections' : 'Просмотр коллекции - ICollections';
          
     document.querySelector('title').innerHTML = pageTitle;
-</script>
+    
+    md = "@Html.Raw(HttpUtility.JavaScriptStringEncode(@Model.Description))";
+    context = "description";
 
-<script>
-    function GetConvertedString() {
-        let converter = new showdown.Converter();
-        let md = "@Html.Raw(HttpUtility.JavaScriptStringEncode(@Model.Description))";
-        let html = converter.makeHtml(md);
-        
-        document.getElementById("description").insertAdjacentHTML("afterend", html);
-    }
-
-GetConvertedString();
+    GetConvertedString(md,  context);
 </script>

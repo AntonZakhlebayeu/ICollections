@@ -203,14 +203,10 @@ function GetAmountOfLikes() {
 </script>  
 
 <script src="https://unpkg.com/showdown/dist/showdown.min.js"></script>
+<script src="/js/MarkdownConverter.js"></script>
 <script>
-    function GetConvertedString() {
-        let converter = new showdown.Converter();
-        let md = "@Html.Raw(HttpUtility.JavaScriptStringEncode(@Model.Description))";
-        let html = converter.makeHtml(md);
-        
-        document.getElementById("description").insertAdjacentHTML("afterend", html);
-    }
+    let md = "@Html.Raw(HttpUtility.JavaScriptStringEncode(@Model.Description))";
+    let context = "description";
 
-GetConvertedString();
+    GetConvertedString(md,  context);
 </script>
