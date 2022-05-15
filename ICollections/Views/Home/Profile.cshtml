@@ -86,7 +86,7 @@
     <div id="collections">
         @foreach (var collection in userCollections.OrderByDescending(n => n.Id))
         {
-            <div class="card mb-3 collection @collection.Theme" data-event-date="@collection.LastEditDate" style="max-width: 1400px;">
+            <div class="card mb-3 collection @collection.Theme theme-main-text" data-event-date="@collection.LastEditDate" style="max-width: 1400px;">
                 <div class="row g-0">
                     @if (collection.FileName != "")
                     {
