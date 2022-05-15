@@ -15,8 +15,7 @@ public sealed class CollectionDbContext : IdentityDbContext<User>
         : base(options)
     {
         _configuration = configuration;
-
-        Database.EnsureCreated();
+        AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
