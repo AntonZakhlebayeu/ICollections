@@ -76,17 +76,17 @@ function blockCheckedContacts() {
 }
 
 function unblockCheckedContacts() {
-    var objectsToUnblock = document.getElementsByClassName("user-checkbox")
-    var contactIds = [];
-    for (var i = 0; i < objectsToUnblock.length; i++) {
-        var objectToDelete = objectsToUnblock[i];
+    let objectsToUnblock = document.getElementsByClassName("user-checkbox")
+    let contactIds = [];
+    for (let i = 0; i < objectsToUnblock.length; i++) {
+        let objectToDelete = objectsToUnblock[i];
         if (objectToDelete.checked)
             contactIds.push(objectsToUnblock[i].getAttribute("name"));
     }
 
     if (contactIds.length > 0) {
-        var requestString = "";
-        for (var i = 0; i < contactIds.length - 1; i++) {
+        let requestString = "";
+        for (let i = 0; i < contactIds.length - 1; i++) {
             requestString += "Ids[" + i + "]=" + contactIds[i] + "&"
         }
         requestString += "Ids[" + (contactIds.length - 1) + "]=" + contactIds[contactIds.length - 1] + "";

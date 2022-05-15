@@ -50,44 +50,63 @@
         </div>
 }
 
-@foreach (var collection in userCollections.OrderByDescending(n => n.Id))
-{
-    <div class="card mb-3" style="max-width: 1400px;">
-        <div class="row g-0">
-            @if (collection.FileName != "")
-            {
-                <div class="col-md-4">
-                    <img src="https://nikminerstorage.blob.core.windows.net/images/@(collection.FileName)" class="img-fluid rounded-start" alt="Collection photo">
-                </div>
-            }
-            <div class="col-md-8">
-                <div class="card-body">
-                    <h5 class="card-title"><a class="link" href="/Home/ViewCollection/@collection.Id">@collection.Title</a></h5>
-                    <p class="card-header">@collection.Theme</p>
+<select id="filter" style="margin-bottom: 12px">
+    <option class="lng-All" value="collection">All</option>
+    <option class="lng-BooksTheme" value="books">books</option>
+    <option class="lng-FilmsTheme" value="films">films</option>
+    <option class="lng-AlcoholTheme" value="alcohol">alcohol</option>
+</select>
 
-                    @{
-                        var collectionId = "description" + collection.Id;
-                    }
-                    <div id=@collectionId></div>
-                    <script>
-                        md = "@Html.Raw(HttpUtility.JavaScriptStringEncode(GetContentPart(collection.Description!)))";
-                        context = "@Html.Raw(HttpUtility.JavaScriptStringEncode(GetContentPart(collectionId)))";
-                        
-                        GetConvertedString(md,  context);
-                    </script>
+<select id="sort" style="margin-bottom: 12px">
+    <option class="lng-Descending" value="descending" selected>Order by descending</option>
+    <option class="lng-Ascending" value="ascending">Order by ascending</option>
+</select>
 
-                    <div style="overflow: hidden;">
-                        <p class="card-text lng-Author" style="float: left;">Author:</p>
-                        <p class="card-text" style="float: right;">@userService!.GetUserById(collection.AuthorId!).Result!.NickName</p>
+<div id="collections">
+    @foreach (var collection in userCollections.OrderByDescending(n => n.Id))
+    {
+        <div class="card mb-3 collection @collection.Theme" data-event-date="@collection.LastEditDate" style="max-width: 1400px;">
+            <div class="row g-0">
+                @if (collection.FileName != "")
+                {
+                    <div class="col-md-4">
+                        <img src="https://nikminerstorage.blob.core.windows.net/images/@(collection.FileName)" class="img-fluid rounded-start" alt="Collection photo">
                     </div>
-                    <p class="card-text text-muted">@collection.LastEditDate</p>
+                }
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title"><a class="link" href="/Home/ViewCollection/@collection.Id">@collection.Title</a></h5>
+                        <p class="card-header">@collection.Theme</p>
+
+                        @{
+                            var collectionId = "description" + collection.Id;
+                        }
+                        <div class="collection-description" id=@collectionId></div>
+                        <script>
+                            md = "@Html.Raw(HttpUtility.JavaScriptStringEncode(GetContentPart(collection.Description!)))";
+                            context = "@Html.Raw(HttpUtility.JavaScriptStringEncode(GetContentPart(collectionId)))";
+                            
+                            if(document.getElementById(context) != null) {
+                                GetConvertedString(md,  context);
+                            }
+                        </script>
+
+                        <div style="overflow: hidden;">
+                            <p class="card-text lng-Author" style="float: left;">Author:</p>
+                            <p class="card-text" style="float: right;">@userService!.GetUserById(collection.AuthorId!).Result!.NickName</p>
+                        </div>
+                        <p class="card-text text-muted">@collection.LastEditDate</p>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-}
+    }
+</div>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script src="/js/ChangeLanguage.js"></script>
+<script src="/js/ProfileFilter.js"></script>
+<script src="/js/SortingCollections.js"></script>
 
 <script>
     let pageTitle = (getCurrentLanguage() === 'en') ? 'Home Page - ICollections' : 'Домашняя страница - ICollections';

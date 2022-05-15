@@ -2,7 +2,6 @@ using ICollections.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 
-
 namespace ICollections.Controllers;
 
 public class AdminPanelController : Controller

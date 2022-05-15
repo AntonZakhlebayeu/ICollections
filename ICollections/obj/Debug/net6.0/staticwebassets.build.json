@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "5SJv+V3B9rdv8jFpyx87uMlubmBtwdFDAv24DjPJZso=",
+  "Hash": "PWhHTpRc91h/XGTtAVU0A9kJCitBEhPVHZWfasyAR9Y=",
   "Source": "ICollections",
   "BasePath": "_content/ICollections",
   "Mode": "Default",
@@ -1309,12 +1309,12 @@
       "OriginalItemSpec": "wwwroot/js/DropZone.js"
     },
     {
-      "Identity": "/Users/antonzakhlebayeu/ITransition Internship/ICollections/ICollections/wwwroot/js/MarkdownConverter.js",
+      "Identity": "/Users/antonzakhlebayeu/ITransition Internship/ICollections/ICollections/wwwroot/js/ProfileFilter.js",
       "SourceId": "ICollections",
       "SourceType": "Discovered",
       "ContentRoot": "/Users/antonzakhlebayeu/ITransition Internship/ICollections/ICollections/wwwroot/",
       "BasePath": "_content/ICollections",
-      "RelativePath": "js/MarkdownConverter.js",
+      "RelativePath": "js/ProfileFilter.js",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1323,7 +1323,24 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/js/MarkdownConverter.js"
+      "OriginalItemSpec": "wwwroot/js/ProfileFilter.js"
+    },
+    {
+      "Identity": "/Users/antonzakhlebayeu/ITransition Internship/ICollections/ICollections/wwwroot/js/SortingCollections.js",
+      "SourceId": "ICollections",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/antonzakhlebayeu/ITransition Internship/ICollections/ICollections/wwwroot/",
+      "BasePath": "_content/ICollections",
+      "RelativePath": "js/SortingCollections.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/js/SortingCollections.js"
     },
     {
       "Identity": "/Users/antonzakhlebayeu/ITransition Internship/ICollections/ICollections/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.css",

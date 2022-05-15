@@ -366,7 +366,6 @@ C:/Users/hanny/RiderProjects/ICollections/ICollections/obj/Debug/net6.0/ref/ICol
 /Users/antonzakhlebayeu/ITransition Internship/ICollections/ICollections/obj/Debug/net6.0/ICollections.pdb
 /Users/antonzakhlebayeu/ITransition Internship/ICollections/ICollections/obj/Debug/net6.0/ICollections.genruntimeconfig.cache
 /Users/antonzakhlebayeu/ITransition Internship/ICollections/ICollections/obj/Debug/net6.0/ref/ICollections.dll
-/Users/antonzakhlebayeu/ITransition Internship/ICollections/ICollections/bin/Debug/net6.0/Dropbox.Api.dll
 /Users/antonzakhlebayeu/ITransition Internship/ICollections/ICollections/bin/Debug/net6.0/Newtonsoft.Json.dll
 /Users/antonzakhlebayeu/ITransition Internship/ICollections/ICollections/bin/Debug/net6.0/Azure.Core.dll
 /Users/antonzakhlebayeu/ITransition Internship/ICollections/ICollections/bin/Debug/net6.0/Azure.Storage.Blobs.dll
@@ -380,5 +379,5 @@ C:/Users/hanny/RiderProjects/ICollections/ICollections/obj/Debug/net6.0/ref/ICol
 /Users/antonzakhlebayeu/ITransition Internship/ICollections/ICollections/bin/Debug/net6.0/EasyData.Core.dll
 /Users/antonzakhlebayeu/ITransition Internship/ICollections/ICollections/bin/Debug/net6.0/Korzh.EasyQuery.dll
 /Users/antonzakhlebayeu/ITransition Internship/ICollections/ICollections/bin/Debug/net6.0/Korzh.EasyQuery.Linq.dll
-/Users/antonzakhlebayeu/ITransition Internship/ICollections/ICollections/bin/Debug/net6.0/MySqlConnector.dll
-/Users/antonzakhlebayeu/ITransition Internship/ICollections/ICollections/bin/Debug/net6.0/Pomelo.EntityFrameworkCore.MySql.dll
+/Users/antonzakhlebayeu/ITransition Internship/ICollections/ICollections/bin/Debug/net6.0/Npgsql.dll
+/Users/antonzakhlebayeu/ITransition Internship/ICollections/ICollections/bin/Debug/net6.0/Npgsql.EntityFrameworkCore.PostgreSQL.dll

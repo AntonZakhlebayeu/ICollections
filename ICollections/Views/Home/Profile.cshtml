@@ -70,33 +70,50 @@
 <div class="CollectionsArea">
     
     <h4 class = "lng-YourCollections theme-main-text">Your collections:</h4>
-    <br/>
-
-    <div class="row row-cols-1 row-cols-md-3 g-4 theme-main-text">
+    
+    <select id="filter" style="margin-bottom: 12px">
+        <option class="lng-All" value="collection">All</option>
+        <option class="lng-BooksTheme" value="books">books</option>
+        <option class="lng-FilmsTheme" value="films">films</option>
+        <option class="lng-AlcoholTheme" value="alcohol">alcohol</option>
+    </select>
+    
+    <select id="sort" style="margin-bottom: 12px">
+        <option class="lng-Descending" value="descending" selected>Order by descending</option>
+        <option class="lng-Ascending" value="ascending">Order by ascending</option>
+    </select>
+    
+    <div id="collections">
         @foreach (var collection in userCollections.OrderByDescending(n => n.Id))
         {
-            <div class="col">
-                <div class="card h-100">
+            <div class="card mb-3 collection @collection.Theme" data-event-date="@collection.LastEditDate" style="max-width: 1400px;">
+                <div class="row g-0">
                     @if (collection.FileName != "")
                     {
-                        <img style="display: block; margin: 0 auto" src="https://nikminerstorage.blob.core.windows.net/images/@(collection.FileName)" class="rounded-start" alt="Collection photo" width="140px" height="80px">
+                        <div class="col-md-4">
+                            <img src="https://nikminerstorage.blob.core.windows.net/images/@(collection.FileName)" class="img-fluid rounded-start" alt="Collection photo">
+                        </div>
                     }
-                    <div class="card-body">
-                        <h5 class="card-title"><a class="link" href="/Home/ViewCollection/@collection.Id">@collection.Title</a></h5>
-                        <p class="card-header">@collection.Theme</p>
-                        @{
-                            var collectionId = "description" + collection.Id;
-                        }
-                        <div id=@collectionId></div>
-                        <script>
-                            md = "@Html.Raw(HttpUtility.JavaScriptStringEncode(GetContentPart(collection.Description!)))";
-                            context = "@Html.Raw(HttpUtility.JavaScriptStringEncode(GetContentPart(collectionId)))";
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title"><a class="link" href="/Home/ViewCollection/@collection.Id">@collection.Title</a></h5>
+                            <p class="card-header">@collection.Theme</p>
+    
+                            @{
+                                var collectionId = "description" + collection.Id;
+                            }
+                            <div class="collection-description" id=@collectionId></div>
+                            <script>
+                                md = "@Html.Raw(HttpUtility.JavaScriptStringEncode(GetContentPart(collection.Description!)))";
+                                context = "@Html.Raw(HttpUtility.JavaScriptStringEncode(GetContentPart(collectionId)))";
+                                
+                                if(document.getElementById(context) != null) {
+                                    GetConvertedString(md,  context);
+                                }
+                            </script>
                             
-                            GetConvertedString(md,  context);
-                        </script>
-                    </div>
-                    <div class="card-footer">
-                         <p class="card-text"><small class="text-muted">@collection.LastEditDate</small></p>
+                            <p class="card-text text-muted">@collection.LastEditDate</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -105,9 +122,11 @@
 </div>
 
 
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script src="/js/ChangeLanguage.js"></script>
 <script src="/js/ChangeTheme.js"></script>
+<script src="/js/ProfileFilter.js"></script>
+<script src="/js/SortingCollections.js"></script>
 
 <script>   
     let pageTitle = (getCurrentLanguage() === 'en') ? 'Profile Page - ICollections' : 'Профиль - ICollections';

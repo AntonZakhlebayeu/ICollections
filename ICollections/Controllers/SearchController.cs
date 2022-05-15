@@ -1,10 +1,7 @@
-using HigLabo.Core;
-using ICollections.Data.Interfaces;
 using ICollections.Models;
 using ICollections.Services.Interfaces;
 using ICollections.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using SQLitePCL;
 
 namespace ICollections.Controllers;
 

@@ -269,7 +269,27 @@ const langArr = {
     "Author": {
         "en": "Author: ",
         "ru": "Автор: ",
-    }
+    },
+    "Descending": {
+        "en": "Order by descending",
+        "ru": "Сортировать по убыванию",
+    },
+    "Ascending": {
+        "en": "Order by ascending",
+        "ru": "Сортировать по возрастанию",
+    },
+    "Tags": {
+        "en": "Tags: ",
+        "ru": "Тэги: ",
+    },
+    "TagButton": {
+        "en": "Add tag",
+        "ru": "Добавить тэг",
+    },
+    "All": {
+        "en": "All",
+        "ru": "Все",
+    },
 }
 
 select.addEventListener('change',changeURLLanguage);

@@ -1,8 +1,8 @@
 ﻿@model ICollections.ViewModels.LoginViewModel
 
 <h2 class="lng-LogIn theme-main-text">Log in!</h2>
-<h4 class="theme-main-text"><i>You don't have an account?</i></h4>
-<a class = "text-black-50 lng-RegisterLoginPage theme-main-text" asp-controller="Account" asp-action="Register">Register!</a>
+<h4 class="lng-notacc theme-main-text"><i>You don't have an account?</i></h4>
+<a class = "text-black-50 lng-RegisterLayout theme-main-text" asp-controller="Account" asp-action="Register">Register!</a>
 <form asp-action="Login" asp-controller="Account" asp-anti-forgery="true">
     <div class="validation" asp-validation-summary="ModelOnly"></div>
     <div>

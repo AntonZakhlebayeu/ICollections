@@ -17,9 +17,9 @@ public class CommentsHub : Microsoft.AspNetCore.SignalR.Hub
     }
 
     [Authorize]
-    public async Task SendComment(string comment, string _itemId)
+    public async Task SendComment(string comment, string itemId)
     {
-        var itemId = _itemId.ToInt();
+        var id = itemId.ToInt();
         
         using var scope = _serviceProvider.CreateScope();
         
@@ -30,13 +30,10 @@ public class CommentsHub : Microsoft.AspNetCore.SignalR.Hub
 
         var commentTime = DateTime.UtcNow.AddHours(3).ToString("MM/dd/yyyy H:mm");
         
-        var newComment = new Comment{ CommentText = comment, CommentWhen = commentTime, UserNickName = user.NickName, ItemId = itemId};
+        var newComment = new Comment{ CommentText = comment, CommentWhen = commentTime, UserNickName = user.NickName, ItemId = id};
         
-            
         await commentService.AddComment(newComment);
 
-        var id = commentService.GetCommentIdByText(newComment);
-            
         await Clients.All.SendAsync("ReceiveComment", user.NickName,comment, commentTime);
     }
 }

@@ -36,8 +36,6 @@ connection.start().then(function () {
 document.getElementById("sendButton").addEventListener("click", function (event) {
     let comment = document.getElementById("commentToSend").value;
     let itemId = document.getElementById("itemId").value;
-    console.log(comment);
-    console.log(itemId);
     connection.invoke("SendComment", comment, itemId).catch(function (err) {
         return console.error(err.toString());
     });

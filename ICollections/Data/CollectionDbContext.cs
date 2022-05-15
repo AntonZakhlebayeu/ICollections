@@ -1,5 +1,4 @@
 ﻿using ICollections.Models;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -22,8 +21,7 @@ public sealed class CollectionDbContext : IdentityDbContext<User>
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseMySql(_configuration.GetConnectionString("MySqlConnectionString"),
-           new MySqlServerVersion(new Version(8, 0, 27)));
+        optionsBuilder.UseNpgsql(_configuration.GetConnectionString("MyPostgreSqlConnectionString"));
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

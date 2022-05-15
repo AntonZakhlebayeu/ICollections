@@ -8,7 +8,6 @@ changeThemeButtons.forEach(button => {
 });
 
 function applyTheme(themeName) {
-    console.log(themeName);
     let theme = `/css/Shared/theme-${themeName}.css`;
     document.querySelector('[title="theme"]').setAttribute('href', theme);
     changeThemeButtons.forEach(button => {
