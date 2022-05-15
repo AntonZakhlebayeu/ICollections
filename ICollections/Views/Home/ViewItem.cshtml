@@ -143,23 +143,23 @@
     </form>
 }
 
-@if (User.Identity.IsAuthenticated)
-{
-    <div class="text-center theme-main-text">
-        <h3 class="display-4 lng-CommentsLogo">Leave the comment!</h3><br/>
-        <div class="input-group flex-nowrap">
-            <span class="input-group-text text-black lng-CommentLabel">Comment:</span>
-            <textarea type="text" class="form-control" id="commentToSend" aria-label="Username" aria-describedby="addon-wrapping" 
-             style = "resize: none; overflow: hidden;min-height: 50px;max-height: 100px;"></textarea>
-            <input type="hidden" id="itemId" value="@Model.Id"/>
-        </div><br/>
-
-        <button type="button" class="btn btn-primary lng-Leave" id="sendButton"><b>Leave a comment!</b></button>
-    </div>
-}
-
 @if (currentCollection.AddComments == "true")
 {
+    @if (User.Identity.IsAuthenticated)
+    {
+        <div class="text-center theme-main-text">
+            <h3 class="display-4 lng-CommentsLogo">Leave the comment!</h3><br/>
+            <div class="input-group flex-nowrap">
+                <span class="input-group-text text-black lng-CommentLabel">Comment:</span>
+                <textarea type="text" class="form-control" id="commentToSend" aria-label="Username" aria-describedby="addon-wrapping" 
+                 style = "resize: none; overflow: hidden;min-height: 50px;max-height: 100px;"></textarea>
+                <input type="hidden" id="itemId" value="@Model.Id"/>
+            </div><br/>
+
+            <button type="button" class="btn btn-primary lng-Leave" id="sendButton"><b>Leave a comment!</b></button>
+        </div>
+    }
+
     <h3 class="theme-main-text lng-CommentsTitle">Comments: </h3>
 
     <div class="card theme-main-text" id="newComment" style="width: 36rem;">
